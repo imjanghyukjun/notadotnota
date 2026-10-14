@@ -64,7 +64,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
             key={project.slug}
             type="button"
             onClick={() => onSelect(project.slug)}
-            className="flex flex-col justify-end text-left w-full"
+            className="group flex flex-col justify-end text-left w-full cursor-pointer"
           >
             {/* 잘림 없이 가로 폭을 채우고 원본 높이를 자동으로 유지 */}
             <div className="relative w-full overflow-hidden">
@@ -75,7 +75,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
                   width={800}
                   height={1000}
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                  className="h-auto w-full object-contain"
+                  className="h-auto w-full object-contain grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0"
                 />
               )}
             </div>
