@@ -71,7 +71,7 @@ export function Site() {
                 e.stopPropagation()
                 setPanel('index')
               }}
-              className="hover:opacity-50 inline font-medium underline underline-offset-2"
+              className="hover:opacity-50 inline font-normal"
             >
               <span lang="ko">찾아보기</span> Index
             </button>{' '}
