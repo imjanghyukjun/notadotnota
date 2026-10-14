@@ -67,7 +67,7 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
         />
       </div>
 
-      {/* 2. PC(데스크톱)용: 절대적 상하 중앙 정렬 유지 + 대칭 여백 설정 */}
+      {/* 2. PC(데스크톱)용: 화면 세로 절대 중앙 + 하단선 All Rights Reserved 바닥선에 정확히 밀착 */}
       <div className="pointer-events-none relative hidden h-screen w-full overflow-hidden md:block" aria-hidden>
         <div
           className={`w-full h-full ${paused ? '[animation-play-state:paused]' : ''} animate-vertical-scroll`}
@@ -75,7 +75,7 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
           {seamlessSlides.map((project, i) => (
             <figure
               key={`pc-scroll-${project.slug}-${i}`}
-              className="relative h-screen w-full shrink-0 flex items-center justify-center p-3 py-[1.8rem]"
+              className="relative h-screen w-full shrink-0 flex items-center justify-center py-[1.05rem] px-3"
             >
               <div className="relative h-full w-full">
                 <Image
