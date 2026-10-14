@@ -9,7 +9,7 @@ type Project = {
   titleKo: string
   title: string
   year: string
-  aspectRatio?: number
+  aspectRatio?: string | number
   image?: string
   alt?: string
 }
