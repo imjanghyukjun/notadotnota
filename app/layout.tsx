@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   title: 'janghyukjun',
   description:
     'Graphic Design, Photography.',
-  generator: 'v0.app',
   icons: {
     icon: [
       { url: '/s.svg', type: 'image/svg+xml', sizes: '64x64' },
