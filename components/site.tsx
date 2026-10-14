@@ -50,8 +50,9 @@ export function Site() {
           </a>
         </div>
 
-        {/* 모바일/좁은 화면 레이아웃 */}
+        {/* 모바일/좁은 화면 레이아웃 (Photography 뒤에서 줄바꿈) */}
         <div className="pointer-events-auto flex flex-col items-center gap-1.5 text-[12px] leading-none md:hidden">
+          {/* 1줄: 장혁준 Jang Hyukjun ( 찾아보기 Index ( 사진 Photography */}
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             <button
               type="button"
@@ -75,12 +76,13 @@ export function Site() {
               <span lang="ko">찾아보기</span> Index
             </button>{' '}
             ({' '}
-            <span lang="ko">사진</span> Photography ({' '}
-            <span lang="ko">그래픽 디자인</span> Graphic Design
+            <span lang="ko">사진</span> Photography
           </div>
 
+          {/* 2줄: ( 그래픽 디자인 Graphic Design ( 메일 ( 인스타그램 ) */}
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             ({' '}
+            <span lang="ko">그래픽 디자인</span> Graphic Design ({' '}
             <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
               {EMAIL}
             </a>{' '}
