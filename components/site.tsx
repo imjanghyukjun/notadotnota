@@ -73,15 +73,17 @@ export function Site() {
           </a>
         </div>
 
-        <div className="pointer-events-auto flex flex-col items-center gap-2.5 text-[12px] md:hidden">
-          <div className="bg-background px-0.5 whitespace-nowrap">
+        {/* 모바일/좁은 화면 레이아웃 */}
+        <div className="pointer-events-auto flex flex-col items-center gap-1.5 text-[12px] leading-none md:hidden">
+          {/* 윗줄: leading-none과 inline-block으로 배경 박스 높이를 글자 높이에 딱 맞춤 */}
+          <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation()
                 setPanel('about')
               }}
-              className="py-2 hover:opacity-50"
+              className="hover:opacity-50 inline"
             >
               <span lang="ko">장혁준</span> Jang Hyukjun
             </button>{' '}
@@ -89,7 +91,9 @@ export function Site() {
             <span lang="ko">사진</span> Photography ({' '}
             <span lang="ko">그래픽 디자인</span> Graphic Design
           </div>
-          <div className="bg-background px-0.5 whitespace-nowrap">
+
+          {/* 아랫줄: 배경 박스 높이 동일하게 맞춤 */}
+          <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             ({' '}
             <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
               {EMAIL}
