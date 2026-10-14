@@ -17,17 +17,12 @@ const notoSansKr = Noto_Sans_KR({
 })
 
 export const metadata: Metadata = {
-  title: '장혁준 Jang Hyukjun — 그래픽 디자인 Graphic Design, 사진 Photography',
+  title: 'janghyukjun',
   description:
-    'Jang Hyukjun (장혁준) is a graphic designer and photographer in Seoul working across identity, editorial design, and photography.',
+    'Graphic Design, Photography.',
   generator: 'v0.app',
   icons: {
-    icon: [
-      { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
-      { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
-    ],
-    apple: '/apple-icon.png',
+    icon: 'icon.svg',
   },
 }
 
