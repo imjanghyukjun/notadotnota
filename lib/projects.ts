@@ -15,6 +15,7 @@ export type Project = {
   description: string
   descriptionKo: string
   image: string
+  series?: string[] // 시리즈 이미지 목록 지원
   alt: string
   maxWidth: number
   aspectRatio: string
@@ -27,8 +28,8 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
   { maxWidth: 1180, aspectRatio: '16 / 10' },
 ]
 
-// vadsc.jpg를 메인(01번)으로 설정하고 나머지는 무작위 순서로 조합
-const rawImageList: { filename: string; category: Category }[] = [
+// vadsc.jpg를 메인(01번)으로 설정
+const rawImageList: { filename?: string; series?: string[]; category: Category }[] = [
   { filename: 'vadsc.jpg', category: 'photography' }, // 01 (메인)
   { filename: '666.jpg', category: 'design' },        // 02
   { filename: '3f.jpg', category: 'photography' },    // 03
@@ -38,7 +39,7 @@ const rawImageList: { filename: string; category: Category }[] = [
   { filename: '4.jpg', category: 'photography' },     // 07
   { filename: '_5.jpg', category: 'photography' },    // 08
   { filename: 'gd.jpg', category: 'design' },         // 09
-  { filename: 'vscd.jpg', category: 'photography' },   // 10 (파일명 수정: vsdc -> vscd)
+  { filename: 'vscd.jpg', category: 'photography' },   // 10
   { filename: '3.jpg', category: 'photography' },     // 11
   { filename: 'cvdccc.jpg', category: 'design' },     // 12
   { filename: '2.jpg', category: 'photography' },     // 13
@@ -47,12 +48,16 @@ const rawImageList: { filename: string; category: Category }[] = [
   { filename: '6.jpg', category: 'photography' },     // 16
   { filename: 'dds.jpg', category: 'design' },        // 17
   { filename: 'vddd.jpg', category: 'photography' },  // 18
-  { filename: 'vdsdcsa.jpg', category: 'photography' },// 19 (파일명 수정: vsdcsa -> vdsdcsa)
-  { filename: 'fdsv.jpg', category: 'design' },       // 20
+  // 19번: 시리즈 작업 (첫 사진: 기존 20번 fdsv.jpg, 두번째: 기존 19번 vdsdcsa.jpg)
+  { series: ['fdsv.jpg', 'vdsdcsa.jpg'], category: 'design' }, // 19
 ]
 
 const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.map((item, idx) => {
   const numStr = String(idx + 1).padStart(2, '0')
+  const isSeries = Boolean(item.series && item.series.length > 0)
+  const mainImage = isSeries ? `/projects/img/${item.series![0]}` : `/projects/img/${item.filename}`
+  const seriesImages = isSeries ? item.series!.map((f) => `/projects/img/${f}`) : undefined
+
   return {
     slug: `project-${numStr}`,
     title: numStr,
@@ -62,7 +67,8 @@ const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.ma
     year: '2026',
     description: '',
     descriptionKo: '',
-    image: `/projects/img/${item.filename}`,
+    image: mainImage,
+    series: seriesImages,
     alt: `Project ${numStr}`,
   }
 })

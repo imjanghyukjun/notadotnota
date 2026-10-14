@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { useOverlay } from '@/lib/use-overlay'
 
@@ -11,6 +11,7 @@ type Project = {
   year: string
   aspectRatio?: string | number
   image?: string
+  series?: string[]
   alt?: string
 }
 
@@ -18,12 +19,26 @@ type IndexOverlayProps = {
   open: boolean
   projects: Project[]
   onClose: () => void
-  onSelect: (slug: string) => void
+  onSelect?: (slug: string) => void
 }
 
-export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlayProps) {
+export function IndexOverlay({ open, projects, onClose }: IndexOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   useOverlay(open, onClose)
+
+  // 각 프로젝트별 시리즈 이미지 슬라이드 인덱스 상태 관리
+  const [seriesIndices, setSeriesIndices] = useState<Record<string, number>>({})
+
+  const handleImageClick = (project: Project) => {
+    // 시리즈 이미지가 등록되어 있는 경우에만 클릭 시 다음 사진으로 교체
+    if (project.series && project.series.length > 1) {
+      setSeriesIndices((prev) => {
+        const currentIndex = prev[project.slug] || 0
+        const nextIndex = (currentIndex + 1) % project.series!.length
+        return { ...prev, [project.slug]: nextIndex }
+      })
+    }
+  }
 
   return (
     <div
@@ -44,11 +59,11 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
       }`}
     >
       <header className="flex items-center justify-between py-3">
-        {/* 좌측 상단: 장혁준 Jang Hyukjun ( 찾아보기 Index (연한 색상 클래스 제거) */}
+        {/* 좌측 상단 헤더 타이틀 */}
         <h2 id="index-title" className="text-[15px] font-normal tracking-tight">
           장혁준 Jang Hyukjun ( <span lang="ko">찾아보기</span> Index
         </h2>
-        {/* PC와 모바일 모두 우측 상단에 노출되는 (Close) 버튼 */}
+        {/* 우측 상단 (Close) 닫기 버튼 */}
         <button
           type="button"
           onClick={onClose}
@@ -58,34 +73,41 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         </button>
       </header>
 
-      {/* 썸네일 그리드: 가로 폭 100% 채움, 원본 비율 그대로 자동 높이 조절 및 하단 정렬 */}
+      {/* 썸네일 그리드 */}
       <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
-        {projects.map((project, i) => (
-          <button
-            key={project.slug}
-            type="button"
-            onClick={() => onSelect(project.slug)}
-            className="group flex flex-col justify-end text-left w-full cursor-pointer"
-          >
-            {/* 잘림 없이 가로 폭을 채우고 원본 높이를 자동으로 유지 */}
-            <div className="relative w-full overflow-hidden">
-              {project.image && (
-                <Image
-                  src={project.image}
-                  alt={project.alt || project.title}
-                  width={800}
-                  height={1000}
-                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                  className="h-auto w-full object-contain grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0"
-                />
-              )}
+        {projects.map((project, i) => {
+          const hasSeries = Boolean(project.series && project.series.length > 1)
+          const currentSeriesIndex = seriesIndices[project.slug] || 0
+          const displayImage = hasSeries ? project.series![currentSeriesIndex] : project.image
+
+          return (
+            <div
+              key={project.slug}
+              onClick={() => handleImageClick(project)}
+              className={`group flex flex-col justify-end text-left w-full ${
+                hasSeries ? 'cursor-pointer' : 'cursor-default'
+              }`}
+            >
+              {/* 이미지 영역 */}
+              <div className="relative w-full overflow-hidden">
+                {displayImage && (
+                  <Image
+                    src={displayImage}
+                    alt={project.alt || project.title}
+                    width={800}
+                    height={1000}
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
+                    className="h-auto w-full object-contain grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0"
+                  />
+                )}
+              </div>
+              {/* 하단 번호 */}
+              <div className="mt-1 text-xs text-left">
+                <span>{String(i + 1).padStart(2, '0')}</span>
+              </div>
             </div>
-            {/* 하단 텍스트: 번호만 표시 및 좌측 정렬 */}
-            <div className="mt-1 text-xs text-left">
-              <span>{String(i + 1).padStart(2, '0')}</span>
-            </div>
-          </button>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
