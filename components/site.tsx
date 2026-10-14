@@ -22,22 +22,21 @@ export function Site() {
 
   return (
     <>
-      <main
-        onClick={(e) => {
-          if ((e.target as HTMLElement).closest('figure')) return
-          setPanel('index')
-        }}
-        className="h-svh w-full overflow-hidden md:h-screen"
-      >
+      {/* main 배경 클릭 이벤트 제거 완료 */}
+      <main className="h-svh w-full overflow-hidden md:h-screen">
         <h1 className="sr-only">장혁준 Jang Hyukjun</h1>
-        {/* PC와 모바일 모두 HomeCarousel 하나로 전체 화면 처리 */}
         <HomeCarousel paused={panel !== 'none'} />
       </main>
 
       <div className="pointer-events-none fixed inset-x-0 top-1/2 z-30 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
+        {/* 데스크톱(PC) 레이아웃 */}
         <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block font-normal">
           <button type="button" onClick={() => setPanel('about')} className="hover:opacity-50">
             <span lang="ko">장혁준</span> Jang Hyukjun
+          </button>{' '}
+          ({' '}
+          <button type="button" onClick={() => setPanel('index')} className="hover:opacity-50 font-medium underline underline-offset-2">
+            <span lang="ko">찾아보기</span> Index
           </button>{' '}
           ({' '}
           <span lang="ko">사진</span> Photography ({' '}
@@ -63,6 +62,17 @@ export function Site() {
               className="hover:opacity-50 inline"
             >
               <span lang="ko">장혁준</span> Jang Hyukjun
+            </button>{' '}
+            ({' '}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setPanel('index')
+              }}
+              className="hover:opacity-50 inline font-medium underline underline-offset-2"
+            >
+              <span lang="ko">찾아보기</span> Index
             </button>{' '}
             ({' '}
             <span lang="ko">사진</span> Photography ({' '}
