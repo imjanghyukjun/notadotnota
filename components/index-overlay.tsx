@@ -58,23 +58,27 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         </button>
       </header>
 
-      {/* 원래의 썸네일 그리드 레이아웃 구조 복원 */}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-6 md:gap-y-16 pt-8">
+      {/* 좌우 여백 0(gap-x-0), 상하 여백만 유지 */}
+      <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8">
         {projects.map((project, i) => (
           <button
             key={project.slug}
             type="button"
             onClick={() => onSelect(project.slug)}
-            className="group flex flex-col gap-2 text-left hover:opacity-50 transition-opacity"
+            className="flex flex-col gap-2 text-left"
           >
-            <div className="relative aspect-[3/4] w-full bg-muted overflow-hidden">
+            {/* 원본 비율 유지(object-contain) & 호버 효과 제거 */}
+            <div
+              className="relative w-full overflow-hidden"
+              style={{ aspectRatio: project.aspectRatio || '3/4' }}
+            >
               {project.image && (
                 <Image
                   src={project.image}
                   alt={project.alt || project.title}
                   fill
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-contain"
                 />
               )}
             </div>
