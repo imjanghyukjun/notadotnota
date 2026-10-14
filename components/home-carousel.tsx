@@ -1,6 +1,5 @@
 'use client'
 
-import { useRef } from 'react'
 import Image from 'next/image'
 import { homeSlides } from '@/lib/projects'
 
@@ -9,64 +8,28 @@ type HomeCarouselProps = {
 }
 
 export function HomeCarousel({ paused = false }: HomeCarouselProps) {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
   // 무한 롤링용 데스크톱 슬라이드 데이터
   const seamlessSlides = [...homeSlides, ...homeSlides]
 
-  // 모바일에서 우측/좌측 클릭 시 이동 (화면 전체 너비 1장 기준으로 스무스 이동)
-  const handleNext = () => {
-    if (!scrollRef.current) return
-    const width = scrollRef.current.clientWidth
-    scrollRef.current.scrollBy({ left: width, behavior: 'smooth' })
-  }
-
-  const handlePrev = () => {
-    if (!scrollRef.current) return
-    const width = scrollRef.current.clientWidth
-    scrollRef.current.scrollBy({ left: -width, behavior: 'smooth' })
-  }
+  // 모바일 메인 고정용 첫 번째 이미지
+  const mainProject = homeSlides[0]
 
   return (
     <>
-      {/* 1. 모바일용 가로 스크롤 캐러셀 (md:hidden) */}
-      <div className="relative h-svh w-full overflow-hidden md:hidden">
-        <div
-          ref={scrollRef}
-          className="flex h-full w-full items-center overflow-x-auto snap-x snap-mandatory scroll-smooth gap-0 no-scrollbar"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {homeSlides.map((project, i) => (
-            <figure
-              key={`mobile-${project.slug}-${i}`}
-              /* w-full 및 px-2 적용: 화면 1장 전체에 차면서 좌우에 살짝의 여백 지정 */
-              className="relative h-[55svh] w-full shrink-0 snap-center flex-none px-2"
-            >
-              <Image
-                src={project.image || '/placeholder.svg'}
-                alt=""
-                fill
-                priority={i < 2}
-                sizes="100vw"
-                className="object-contain"
-              />
-            </figure>
-          ))}
-        </div>
-
-        {/* 터치/클릭 영역: 좌측 1/4 클릭 시 이전, 우측 3/4 클릭 시 다음 */}
-        <button
-          type="button"
-          onClick={handlePrev}
-          aria-label="Previous slide"
-          className="absolute left-0 top-0 z-20 h-full w-1/4 cursor-pointer opacity-0"
-        />
-        <button
-          type="button"
-          onClick={handleNext}
-          aria-label="Next slide"
-          className="absolute right-0 top-0 z-20 h-full w-3/4 cursor-pointer opacity-0"
-        />
+      {/* 1. 모바일용: 슬라이드 스크롤 없이 기본 이미지 1장만 고정 (md:hidden) */}
+      <div className="relative flex h-svh w-full items-center justify-center px-2 md:hidden">
+        {mainProject && (
+          <figure className="relative h-[55svh] w-full">
+            <Image
+              src={mainProject.image || '/placeholder.svg'}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-contain"
+            />
+          </figure>
+        )}
       </div>
 
       {/* 2. PC(데스크톱)용: 화면 세로 절대 중앙 + 하단선 All Rights Reserved 바닥선에 정확히 밀착 */}
