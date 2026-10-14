@@ -67,7 +67,7 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
         />
       </div>
 
-      {/* 2. PC(데스크톱)용: 화면 전체 높이에 꽉 차도록 키운 세로 무한 루프 슬라이더 */}
+      {/* 2. PC(데스크톱)용: 하단 테두리가 좌측 푸터 텍스트 밑선과 딱 떨어지도록 정렬 */}
       <div className="pointer-events-none relative hidden h-screen w-full overflow-hidden md:block" aria-hidden>
         <div
           className={`w-full h-full ${paused ? '[animation-play-state:paused]' : ''} animate-vertical-scroll`}
@@ -75,7 +75,7 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
           {seamlessSlides.map((project, i) => (
             <figure
               key={`pc-scroll-${project.slug}-${i}`}
-              className="relative h-screen w-full shrink-0 flex items-center justify-center"
+              className="relative h-screen w-full shrink-0 flex items-center justify-center p-3 pb-[1.8rem]"
             >
               <div className="relative h-full w-full">
                 <Image
@@ -84,7 +84,7 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
                   fill
                   priority={i === 0}
                   sizes="100vw"
-                  className="object-contain object-center"
+                  className="object-contain object-bottom"
                 />
               </div>
             </figure>
