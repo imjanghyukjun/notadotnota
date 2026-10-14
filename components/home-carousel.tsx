@@ -14,16 +14,16 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
   // 무한 롤링용 데스크톱 슬라이드 데이터
   const seamlessSlides = [...homeSlides, ...homeSlides]
 
-  // 모바일에서 우측/좌측 클릭 시 이동
+  // 모바일에서 우측/좌측 클릭 시 이동 (화면 전체 너비 1장 기준으로 스무스 이동)
   const handleNext = () => {
     if (!scrollRef.current) return
-    const width = scrollRef.current.clientWidth * 0.82
+    const width = scrollRef.current.clientWidth
     scrollRef.current.scrollBy({ left: width, behavior: 'smooth' })
   }
 
   const handlePrev = () => {
     if (!scrollRef.current) return
-    const width = scrollRef.current.clientWidth * 0.82
+    const width = scrollRef.current.clientWidth
     scrollRef.current.scrollBy({ left: -width, behavior: 'smooth' })
   }
 
@@ -39,20 +39,22 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
           {homeSlides.map((project, i) => (
             <figure
               key={`mobile-${project.slug}-${i}`}
-              className="relative h-[55svh] w-[82vw] shrink-0 snap-start flex-none"
+              /* w-full 및 px-2 적용: 화면 1장 전체에 차면서 좌우에 살짝의 여백 지정 */
+              className="relative h-[55svh] w-full shrink-0 snap-center flex-none px-2"
             >
               <Image
                 src={project.image || '/placeholder.svg'}
                 alt=""
                 fill
                 priority={i < 2}
-                sizes="82vw"
+                sizes="100vw"
                 className="object-contain"
               />
             </figure>
           ))}
         </div>
 
+        {/* 터치/클릭 영역: 좌측 1/4 클릭 시 이전, 우측 3/4 클릭 시 다음 */}
         <button
           type="button"
           onClick={handlePrev}
