@@ -16,10 +16,10 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
 
   return (
     <>
-      {/* 1. 모바일용: 슬라이드 스크롤 없이 기본 이미지 1장만 고정 (md:hidden) */}
-      <div className="relative flex h-svh w-full items-center justify-center px-2 md:hidden">
+      {/* 1. 모바일용: 좌우 여백을 거의 없애고(px-0.5) 이미지가 화면에 꽉 차도록 고정 (md:hidden) */}
+      <div className="relative flex h-svh w-full items-center justify-center px-0.5 md:hidden">
         {mainProject && (
-          <figure className="relative h-[55svh] w-full">
+          <figure className="relative h-[65svh] w-full">
             <Image
               src={mainProject.image || '/placeholder.svg'}
               alt=""
