@@ -49,7 +49,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         </h2>
       </header>
 
-      {/* 썸네일 그리드: 가로 폭 동일 통일, 아래쪽 끝맞춤 정렬 */}
+      {/* 썸네일 그리드: 가로 폭 100% 채움, 원본 비율 그대로 자동 높이 조절 및 하단 정렬 */}
       <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => (
           <button
@@ -58,18 +58,16 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
             onClick={() => onSelect(project.slug)}
             className="flex flex-col justify-end text-left w-full"
           >
-            {/* 가로 폭 100% 채움, 원본 비율에 따라 높이가 결정됨 */}
-            <div
-              className="relative w-full overflow-hidden"
-              style={{ aspectRatio: project.aspectRatio || '3/4' }}
-            >
+            {/* 잘림 없이 가로 폭을 채우고 원본 높이를 자동으로 유지 */}
+            <div className="relative w-full overflow-hidden">
               {project.image && (
                 <Image
                   src={project.image}
                   alt={project.alt || project.title}
-                  fill
+                  width={800}
+                  height={1000}
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                  className="object-cover"
+                  className="h-auto w-full object-contain"
                 />
               )}
             </div>
