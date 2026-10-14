@@ -88,7 +88,8 @@ export function Site() {
             ({' '}
             <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50">
               instagram@{INSTAGRAM_HANDLE}
-            </a>
+            </a>{' '}
+            )
           </div>
         </div>
       </div>
