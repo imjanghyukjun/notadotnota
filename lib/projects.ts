@@ -29,26 +29,26 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
 
 // vadsc.jpg를 메인(01번)으로 설정하고 나머지는 무작위 순서로 조합
 const rawImageList: { filename: string; category: Category }[] = [
-  { filename: 'vadsc.jpg', category: 'photography' }, // 메인
-  { filename: '666.jpg', category: 'design' },
-  { filename: '3f.jpg', category: 'photography' },
-  { filename: 'vdvs.jpg', category: 'design' },
-  { filename: '1.jpg', category: 'photography' },
-  { filename: 'ccc.jpg', category: 'design' },
-  { filename: '4.jpg', category: 'photography' },
-  { filename: '_5.jpg', category: 'photography' },
-  { filename: 'gd.jpg', category: 'design' },
-  { filename: 'vsdc.jpg', category: 'photography' },
-  { filename: '3.jpg', category: 'photography' },
-  { filename: 'cvdccc.jpg', category: 'design' },
-  { filename: '2.jpg', category: 'photography' },
-  { filename: 'f.jpg', category: 'design' },
-  { filename: 'v.jpg', category: 'photography' },
-  { filename: '6.jpg', category: 'photography' },
-  { filename: 'dds.jpg', category: 'design' },
-  { filename: 'vddd.jpg', category: 'photography' },
-  { filename: 'vsdcsa.jpg', category: 'photography' },
-  { filename: 'fdsv.jpg', category: 'design' },
+  { filename: 'vadsc.jpg', category: 'photography' }, // 01 (메인)
+  { filename: '666.jpg', category: 'design' },        // 02
+  { filename: '3f.jpg', category: 'photography' },    // 03
+  { filename: 'vdvs.jpg', category: 'design' },       // 04
+  { filename: '1.jpg', category: 'photography' },     // 05
+  { filename: 'ccc.jpg', category: 'design' },        // 06
+  { filename: '4.jpg', category: 'photography' },     // 07
+  { filename: '_5.jpg', category: 'photography' },    // 08
+  { filename: 'gd.jpg', category: 'design' },         // 09
+  { filename: 'vscd.jpg', category: 'photography' },   // 10 (파일명 수정: vsdc -> vscd)
+  { filename: '3.jpg', category: 'photography' },     // 11
+  { filename: 'cvdccc.jpg', category: 'design' },     // 12
+  { filename: '2.jpg', category: 'photography' },     // 13
+  { filename: 'f.jpg', category: 'design' },          // 14
+  { filename: 'v.jpg', category: 'photography' },     // 15
+  { filename: '6.jpg', category: 'photography' },     // 16
+  { filename: 'dds.jpg', category: 'design' },        // 17
+  { filename: 'vddd.jpg', category: 'photography' },  // 18
+  { filename: 'vdsdcsa.jpg', category: 'photography' },// 19 (파일명 수정: vsdcsa -> vdsdcsa)
+  { filename: 'fdsv.jpg', category: 'design' },       // 20
 ]
 
 const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.map((item, idx) => {
