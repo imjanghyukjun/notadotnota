@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     'Graphic Design, Photography.',
   icons: {
     icon: [
-      { url: '/s.svg', type: 'image/svg+xml', sizes: '64x64' },
+      { url: '/icon.svg', type: 'image/svg+xml', sizes: '64x64' },
     ],
   },
 }
