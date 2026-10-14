@@ -54,7 +54,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-300"
                 />
                 {/* 이미지 좌측 하단 번호(01, 02...) 표기 */}
-                <span className="absolute bottom-2 left-2 text-xs font-serif tracking-widest text-white drop-shadow-md">
+                <span className="absolute bottom-2 left-2 text-xs tracking-widest text-white drop-shadow-md">
                   {String(i + 1).padStart(2, '0')}
                 </span>
               </span>
