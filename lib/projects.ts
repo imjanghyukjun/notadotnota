@@ -27,56 +27,45 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
   { maxWidth: 1180, aspectRatio: '16 / 10' },
 ]
 
-const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = [
-  {
-    slug: 'project-01',
-    title: '01',
-    titleKo: '01',
-    number: '01',
-    category: 'design',
-    year: '2026',
-    description: '',
-    descriptionKo: '',
-    image: '/projects/6-3613.jpg',
-    alt: 'Project 01',
-  },
-  {
-    slug: 'project-02',
-    title: '02',
-    titleKo: '02',
-    number: '02',
-    category: 'photography',
-    year: '2026',
-    description: '',
-    descriptionKo: '',
-    image: '/projects/A7400401.jpg',
-    alt: 'Project 02',
-  },
-  {
-    slug: 'project-03',
-    title: '03',
-    titleKo: '03',
-    number: '03',
-    category: 'photography',
-    year: '2026',
-    description: '',
-    descriptionKo: '',
-    image: '/projects/A7403978.jpg',
-    alt: 'Project 03',
-  },
-  {
-    slug: 'project-04',
-    title: '04',
-    titleKo: '04',
-    number: '04',
-    category: 'design',
-    year: '2026',
-    description: '',
-    descriptionKo: '',
-    image: '/projects/On-428.jpg',
-    alt: 'Project 04',
-  },
+// vadsc.jpg를 메인(01번)으로 설정하고 나머지는 무작위 순서로 조합
+const rawImageList: { filename: string; category: Category }[] = [
+  { filename: 'vadsc.jpg', category: 'photography' }, // 메인
+  { filename: '666.jpg', category: 'design' },
+  { filename: '3f.jpg', category: 'photography' },
+  { filename: 'vdvs.jpg', category: 'design' },
+  { filename: '1.jpg', category: 'photography' },
+  { filename: 'ccc.jpg', category: 'design' },
+  { filename: '4.jpg', category: 'photography' },
+  { filename: '_5.jpg', category: 'photography' },
+  { filename: 'gd.jpg', category: 'design' },
+  { filename: 'vsdc.jpg', category: 'photography' },
+  { filename: '3.jpg', category: 'photography' },
+  { filename: 'cvdccc.jpg', category: 'design' },
+  { filename: '2.jpg', category: 'photography' },
+  { filename: 'f.jpg', category: 'design' },
+  { filename: 'v.jpg', category: 'photography' },
+  { filename: '6.jpg', category: 'photography' },
+  { filename: 'dds.jpg', category: 'design' },
+  { filename: 'vddd.jpg', category: 'photography' },
+  { filename: 'vsdcsa.jpg', category: 'photography' },
+  { filename: 'fdsv.jpg', category: 'design' },
 ]
+
+const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.map((item, idx) => {
+  const numStr = String(idx + 1).padStart(2, '0')
+  return {
+    slug: `project-${numStr}`,
+    title: numStr,
+    titleKo: numStr,
+    number: numStr,
+    category: item.category,
+    year: '2026',
+    description: '',
+    descriptionKo: '',
+    image: `/projects/img/${item.filename}`,
+    alt: `Project ${numStr}`,
+  }
+})
 
 export const projects: Project[] = projectData.map((project, i) => ({
   ...project,
