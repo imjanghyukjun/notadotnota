@@ -17,7 +17,7 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
   return (
     <>
       {/* 1. 모바일용: 좌우 여백을 거의 없애고(px-0.5) 이미지가 화면에 꽉 차도록 고정 (md:hidden) */}
-      <div className="relative flex h-svh w-full items-center justify-center px-0 md:hidden">
+      <div className="relative flex h-svh w-full items-center justify-center px-0.5 md:hidden">
         {mainProject && (
           <figure className="relative h-full w-full">
             <Image
