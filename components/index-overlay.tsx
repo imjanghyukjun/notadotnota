@@ -1,9 +1,13 @@
 'use client'
 
-import Image from 'next/image'
-import { useRef } from 'react'
-import type { Project } from '@/lib/projects'
-import { useOverlay } from '@/lib/use-overlay'
+import { useEffect, useRef } from 'react'
+
+type Project = {
+  slug: string
+  titleKo: string
+  title: string
+  year: string
+}
 
 type IndexOverlayProps = {
   open: boolean
@@ -13,56 +17,56 @@ type IndexOverlayProps = {
 }
 
 export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlayProps) {
-  const closeRef = useRef<HTMLButtonElement>(null)
-  useOverlay(open, onClose, closeRef)
+  const overlayRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [open, onClose])
+
+  if (!open) return null
 
   return (
     <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="index-title"
-      inert={!open}
-      aria-hidden={!open}
-      className={`fixed inset-0 z-40 overflow-y-auto bg-white/90 px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
-        open ? 'opacity-100' : 'pointer-events-none opacity-0'
-      }`}
+      ref={overlayRef}
+      onClick={(e) => {
+        // 배경(바깥쪽 여백)을 클릭했을 때만 닫히도록 설정
+        if (e.target === overlayRef.current) {
+          onClose()
+        }
+      }}
+      className="fixed inset-0 z-50 flex flex-col bg-white/90 px-6 py-8 md:px-12 md:py-12 overflow-y-auto"
     >
-      <header className="sticky top-0 z-10 flex items-baseline justify-between bg-white/90 py-4">
-        <h2 id="index-title" className="text-sm">
-          Index ({projects.length} Projects)
-        </h2>
-        <button ref={closeRef} type="button" onClick={onClose} className="hover:opacity-50 text-sm">
-          (Close)
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-sm font-medium">Index</h2>
+        <button
+          type="button"
+          onClick={onClose}
+          className="text-sm hover:opacity-50 transition-opacity"
+        >
+          (close)
         </button>
-      </header>
+      </div>
 
-      {/* gap-x-0으로 이미지 밀착, 열 개수를 줄여 크기를 2배 이상 확대 */}
-      <ul className="grid grid-cols-2 items-end gap-x-0 gap-y-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <nav className="flex flex-col gap-3 max-w-xl">
         {projects.map((project, i) => (
-          <li key={project.slug}>
-            <button
-              type="button"
-              onClick={() => onSelect(project.slug)}
-              className="group block w-full text-left"
-            >
-              {/* 이미지 컨테이너 */}
-              <span className="relative block w-full" style={{ aspectRatio: project.aspectRatio }}>
-                <Image
-                  src={project.image || '/placeholder.svg'}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 50vw"
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-300"
-                />
-              </span>
-              {/* 이미지 바로 아래 좌측 하단 번호 표기 */}
-              <div className="mt-2 text-xs font-normal tracking-tight text-black">
-                {String(i + 1).padStart(2, '0')}
-              </div>
-            </button>
-          </li>
+          <button
+            key={project.slug}
+            type="button"
+            onClick={() => onSelect(project.slug)}
+            className="text-left text-lg md:text-xl hover:opacity-50 transition-opacity flex items-baseline justify-between group"
+          >
+            <span className="font-normal">
+              {String(i + 1).padStart(2, '0')}. {project.titleKo} <span className="text-muted-foreground">{project.title}</span>
+            </span>
+            <span className="text-sm text-muted-foreground">{project.year}</span>
+          </button>
         ))}
-      </ul>
+      </nav>
     </div>
   )
 }

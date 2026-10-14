@@ -11,10 +11,18 @@ type AboutOverlayProps = {
 
 export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
+  const overlayRef = useRef<HTMLDivElement>(null)
   useOverlay(open, onClose, closeRef)
 
   return (
     <div
+      ref={overlayRef}
+      onClick={(e) => {
+        // 배경(바깥쪽 여백)을 클릭했을 때만 닫히도록 설정
+        if (e.target === overlayRef.current) {
+          onClose()
+        }
+      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="about-title"
