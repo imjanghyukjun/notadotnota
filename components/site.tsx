@@ -50,7 +50,7 @@ export function Site() {
           </a>
         </div>
 
-        {/* 모바일/좁은 화면 레이아웃 (이전 2줄 구조로 복구) */}
+        {/* 모바일/좁은 화면 레이아웃 */}
         <div className="pointer-events-auto flex flex-col items-center gap-1.5 text-[12px] leading-none md:hidden">
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             <button
@@ -92,7 +92,8 @@ export function Site() {
         </div>
       </div>
 
-      <footer className="fixed bottom-3 left-4 z-50 text-xs leading-tight">
+      {/* 모바일에서는 숨기고 PC 화면에서만 좌측 하단에 표시 */}
+      <footer className="fixed bottom-3 left-4 z-50 hidden text-xs leading-tight md:block">
         <p>
           <span lang="ko">장혁준</span> Jang Hyukjun
         </p>
