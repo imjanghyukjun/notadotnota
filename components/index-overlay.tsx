@@ -58,7 +58,7 @@ export function IndexOverlay({ open, projects, onClose }: IndexOverlayProps) {
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      {/* 상단 고정(Sticky) 및 완전 투명 배경 (아래로 이미지가 비침) */}
+      {/* 상단 고정(Sticky) 및 완전 투명 배경 */}
       <header className="sticky top-0 z-30 flex items-center justify-between py-3 bg-transparent">
         {/* 좌측 상단 헤더 타이틀 */}
         <h2 id="index-title" className="text-[15px] font-normal tracking-tight">
@@ -74,8 +74,8 @@ export function IndexOverlay({ open, projects, onClose }: IndexOverlayProps) {
         </button>
       </header>
 
-      {/* 썸네일 그리드: 모바일 3칸(grid-cols-3) */}
-      <div className="grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
+      {/* 썸네일 그리드: 모바일 3칸(grid-cols-3), 좌우 여백 0(gap-x-0)으로 딱 붙게 설정 */}
+      <div className="grid grid-cols-3 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => {
           const hasSeries = Boolean(project.series && project.series.length > 1)
           const currentSeriesIndex = seriesIndices[project.slug] || 0
