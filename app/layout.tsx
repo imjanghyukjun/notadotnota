@@ -22,7 +22,9 @@ export const metadata: Metadata = {
     'Graphic Design, Photography.',
   generator: 'v0.app',
   icons: {
-    icon: 'hj.svg',
+    icon: [
+      { url: '/s.svg', type: 'image/svg+xml', sizes: '64x64' },
+    ],
   },
 }
 
