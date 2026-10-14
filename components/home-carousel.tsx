@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef } from 'react'
 import Image from 'next/image'
 import { homeSlides } from '@/lib/projects'
 
@@ -8,19 +9,38 @@ type HomeCarouselProps = {
 }
 
 export function HomeCarousel({ paused = false }: HomeCarouselProps) {
-  // 끊김 없는 무한 롤링을 위해 슬라이드 리스트를 2번 연속으로 복제
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  // 무한 롤링용 데스크톱 슬라이드 데이터
   const seamlessSlides = [...homeSlides, ...homeSlides]
+
+  // 모바일에서 우측/좌측 클릭 시 스무스하게 이동하는 함수
+  const handleNext = () => {
+    if (!scrollRef.current) return
+    const width = scrollRef.current.clientWidth * 0.82
+    scrollRef.current.scrollBy({ left: width, behavior: 'smooth' })
+  }
+
+  const handlePrev = () => {
+    if (!scrollRef.current) return
+    const width = scrollRef.current.clientWidth * 0.82
+    scrollRef.current.scrollBy({ left: -width, behavior: 'smooth' })
+  }
 
   return (
     <>
       {/* 1. 모바일용 가로 스크롤 캐러셀 (md:hidden) */}
-      <div className="pointer-events-none relative h-svh overflow-hidden md:hidden" aria-hidden>
-        <div className="flex h-full items-center gap-[1.5vw]">
+      <div className="relative h-svh w-full overflow-hidden md:hidden">
+        {/* 가로 스크롤 컨테이너: gap-0으로 여백 없이 딱 붙음, snap-x로 사진마다 멈춤 */}
+        <div
+          ref={scrollRef}
+          className="flex h-full w-full items-center overflow-x-auto snap-x snap-mandatory scroll-smooth gap-0 no-scrollbar"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {homeSlides.map((project, i) => (
             <figure
               key={`mobile-${project.slug}-${i}`}
-              className="relative h-[50svh] shrink-0"
-              style={{ width: '82vw' }}
+              className="relative h-[55svh] w-[82vw] shrink-0 snap-start flex-none"
             >
               <Image
                 src={project.image || '/placeholder.svg'}
@@ -33,6 +53,20 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
             </figure>
           ))}
         </div>
+
+        {/* 좌/우 터치 및 클릭 조작 영역 */}
+        <button
+          type="button"
+          onClick={handlePrev}
+          aria-label="Previous slide"
+          className="absolute left-0 top-0 z-20 h-full w-1/4 cursor-pointer opacity-0"
+        />
+        <button
+          type="button"
+          onClick={handleNext}
+          aria-label="Next slide"
+          className="absolute right-0 top-0 z-20 h-full w-3/4 cursor-pointer opacity-0"
+        />
       </div>
 
       {/* 2. PC(데스크톱)용: 천천히 연속해서 쭉~ 올라가는 세로 무한 루프 슬라이더 */}
