@@ -58,7 +58,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         </button>
       </header>
 
-      {/* 썸네일 그리드: 좌우 여백 0, 아래쪽 끝맞춤 */}
+      {/* 썸네일 그리드: 가로 폭 동일 유지, 아래쪽 정렬 */}
       <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => (
           <button
@@ -67,7 +67,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
             onClick={() => onSelect(project.slug)}
             className="flex flex-col justify-end text-left w-full"
           >
-            {/* 원본 비율 유지 (object-contain) */}
+            {/* 가로 폭 100% 채움, 원본 비율에 따라 높이가 결정됨 */}
             <div
               className="relative w-full overflow-hidden"
               style={{ aspectRatio: project.aspectRatio || '3/4' }}
@@ -78,7 +78,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
                   alt={project.alt || project.title}
                   fill
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                  className="object-contain object-bottom"
+                  className="object-cover"
                 />
               )}
             </div>
