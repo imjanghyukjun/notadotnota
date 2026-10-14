@@ -56,7 +56,8 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
               @{INSTAGRAM_HANDLE}
             </a>
           </p>
-          <p className="mt-6">
+          {/* 좌측의 mt-4 간격과 정확히 일치시켜 수평 라인을 맞춤 */}
+          <p className="mt-4">
             <a href="tel:+821033152384" className="hover:opacity-50">
               (+82) 10-3315-2384
             </a>
