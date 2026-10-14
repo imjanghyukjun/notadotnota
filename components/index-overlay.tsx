@@ -43,10 +43,18 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      <header className="flex items-baseline justify-between py-3 md:block">
+      <header className="flex items-center justify-between py-3 md:block">
         <h2 id="index-title" className="sr-only">
           <span lang="ko">찾아보기</span> Index
         </h2>
+        {/* 모바일 화면에서만 우측 상단에 보이는 (Close) 버튼 */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="hover:opacity-50 md:hidden ml-auto"
+        >
+          (Close)
+        </button>
       </header>
 
       {/* 썸네일 그리드: 가로 폭 100% 채움, 원본 비율 그대로 자동 높이 조절 및 하단 정렬 */}

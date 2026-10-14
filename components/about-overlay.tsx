@@ -1,15 +1,27 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import { useOverlay } from '@/lib/use-overlay'
-import { EMAIL, INSTAGRAM_HANDLE, INSTAGRAM_URL } from '@/lib/contact'
 
-type AboutOverlayProps = {
-  open: boolean
-  onClose: () => void
+type Project = {
+  slug: string
+  titleKo: string
+  title: string
+  year: string
+  aspectRatio?: string | number
+  image?: string
+  alt?: string
 }
 
-export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
+type IndexOverlayProps = {
+  open: boolean
+  projects: Project[]
+  onClose: () => void
+  onSelect: (slug: string) => void
+}
+
+export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   useOverlay(open, onClose)
 
@@ -17,56 +29,54 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
     <div
       ref={overlayRef}
       onClick={(e) => {
-        // 배경(바깥쪽 여백)을 클릭했을 때만 닫히도록 설정
+        // 창 바깥쪽 배경 클릭 시 닫기
         if (e.target === overlayRef.current) {
           onClose()
         }
       }}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="about-title"
+      aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 overflow-y-auto bg-white/75 px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-40 overflow-y-auto bg-white/90 px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
       <header className="flex items-baseline justify-between py-3 md:block">
-        <h2 id="about-title" className="sr-only">
-          <span lang="ko">장혁준</span> Jang Hyukjun
+        <h2 id="index-title" className="sr-only">
+          <span lang="ko">찾아보기</span> Index
         </h2>
       </header>
 
-      <div className="flex flex-col md:mt-0 md:grid md:grid-cols-4 md:gap-5">
-        <div>
-          <h2 className="hidden md:block">
-            <span lang="ko">장혁준</span> Jang Hyukjun
-          </h2>
-          <p lang="ko">프리랜서 그래픽 디자이너, 사진가.</p>
-        </div>
-
-        <address className="not-italic">
-          <p lang="ko">
-            서울 종로구 종로 54길 29-4
-            <br />
-            503, 504
-          </p>
-          <p className="mt-6">
-            <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
-              {EMAIL}
-            </a>
-            <br />
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50">
-              @{INSTAGRAM_HANDLE}
-            </a>
-            <br />
-            <a href="tel:+821033152384" className="hover:opacity-50">
-              (+82) 10-3315-2384
-            </a>
-            <br />
-            <span className="tabular-nums">309-54-77132</span>
-          </p>
-        </address>
+      {/* 썸네일 그리드: 가로 폭 100% 채움, 원본 비율 그대로 자동 높이 조절 및 하단 정렬 */}
+      <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
+        {projects.map((project, i) => (
+          <button
+            key={project.slug}
+            type="button"
+            onClick={() => onSelect(project.slug)}
+            className="flex flex-col justify-end text-left w-full"
+          >
+            {/* 잘림 없이 가로 폭을 채우고 원본 높이를 자동으로 유지 */}
+            <div className="relative w-full overflow-hidden">
+              {project.image && (
+                <Image
+                  src={project.image}
+                  alt={project.alt || project.title}
+                  width={800}
+                  height={1000}
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
+                  className="h-auto w-full object-contain"
+                />
+              )}
+            </div>
+            {/* 하단 텍스트: 번호만 표시 및 좌측 정렬 */}
+            <div className="mt-1 text-xs text-left">
+              <span>{String(i + 1).padStart(2, '0')}</span>
+            </div>
+          </button>
+        ))}
       </div>
     </div>
   )
