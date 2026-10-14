@@ -30,7 +30,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
     <div
       ref={overlayRef}
       onClick={(e) => {
-        // 배경(바깥쪽 여백) 클릭 시 닫기
+        // 창 바깥쪽 배경 클릭 시 닫기
         if (e.target === overlayRef.current) {
           onClose()
         }
@@ -58,18 +58,18 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         </button>
       </header>
 
-      {/* 좌우 여백 0(gap-x-0), 상하 여백만 유지 */}
+      {/* 썸네일 그리드: 좌우 여백 0, 이미지 아래 정렬 */}
       <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8">
         {projects.map((project, i) => (
           <button
             key={project.slug}
             type="button"
             onClick={() => onSelect(project.slug)}
-            className="flex flex-col gap-2 text-left"
+            className="flex flex-col justify-end text-left"
           >
-            {/* 원본 비율 유지(object-contain) & 호버 효과 제거 */}
+            {/* 원본 비율 유지 (object-contain) & 아래쪽 끝맞춤 */}
             <div
-              className="relative w-full overflow-hidden"
+              className="relative w-full overflow-hidden flex items-end"
               style={{ aspectRatio: project.aspectRatio || '3/4' }}
             >
               {project.image && (
@@ -78,17 +78,13 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
                   alt={project.alt || project.title}
                   fill
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                  className="object-contain"
+                  className="object-contain object-bottom"
                 />
               )}
             </div>
-            <div className="flex items-baseline justify-between text-xs">
-              <span>
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <span className="truncate max-w-[70%] text-muted-foreground">
-                <span lang="ko">{project.titleKo}</span> {project.title}
-              </span>
+            {/* 하단 텍스트: 이미지 좌측 아래 끝맞춤, 번호만 표시 */}
+            <div className="mt-1 text-xs text-left">
+              <span>{String(i + 1).padStart(2, '0')}</span>
             </div>
           </button>
         ))}
