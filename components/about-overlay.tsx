@@ -52,12 +52,7 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
         </div>
 
         <address className="not-italic mt-6 md:mt-0">
-          <p lang="ko">
-            서울 종로구 종로 54길 29-4
-            <br />
-            503, 504
-          </p>
-          <p className="mt-6">
+          <p>
             <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
               {EMAIL}
             </a>
@@ -65,12 +60,19 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
             <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50">
               @{INSTAGRAM_HANDLE}
             </a>
-            <br />
+          </p>
+          <p className="mt-6">
             <a href="tel:+821033152384" className="hover:opacity-50">
               (+82) 10-3315-2384
             </a>
             <br />
             <span className="tabular-nums">309-54-77132</span>
+            <br />
+            <span lang="ko">
+              서울 종로구 종로 54길 29-4
+              <br />
+              503, 504
+            </span>
           </p>
         </address>
       </div>
