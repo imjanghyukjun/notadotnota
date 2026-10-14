@@ -9,6 +9,7 @@ export type Project = {
   slug: string
   title: string
   titleKo: string
+  number: string
   category: Category
   year: string
   description: string
@@ -29,47 +30,51 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
 const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = [
   {
     slug: 'project-01',
-    title: 'Project 01',
-    titleKo: '작업물 01',
+    title: '01',
+    titleKo: '01',
+    number: '01',
     category: 'design',
     year: '2026',
-    description: 'Graphic design and visual identity work.',
-    descriptionKo: '그래픽 디자인 및 시각 아이덴티티 작업.',
+    description: '',
+    descriptionKo: '',
     image: '/projects/6-3613.jpg',
-    alt: 'Project 01 image',
+    alt: 'Project 01',
   },
   {
     slug: 'project-02',
-    title: 'Project 02',
-    titleKo: '작업물 02',
+    title: '02',
+    titleKo: '02',
+    number: '02',
     category: 'photography',
     year: '2026',
-    description: 'Photography archive.',
-    descriptionKo: '사진 아카이브 작업.',
+    description: '',
+    descriptionKo: '',
     image: '/projects/A7400401.jpg',
-    alt: 'Project 02 image',
+    alt: 'Project 02',
   },
   {
     slug: 'project-03',
-    title: 'Project 03',
-    titleKo: '작업물 03',
+    title: '03',
+    titleKo: '03',
+    number: '03',
     category: 'photography',
     year: '2026',
-    description: 'Photography archive.',
-    descriptionKo: '사진 아카이브 작업.',
+    description: '',
+    descriptionKo: '',
     image: '/projects/A7403978.jpg',
-    alt: 'Project 03 image',
+    alt: 'Project 03',
   },
   {
     slug: 'project-04',
-    title: 'Project 04',
-    titleKo: '작업물 04',
+    title: '04',
+    titleKo: '04',
+    number: '04',
     category: 'design',
     year: '2026',
-    description: 'Editorial and graphic design work.',
-    descriptionKo: '편집 및 그래픽 디자인 작업.',
+    description: '',
+    descriptionKo: '',
     image: '/projects/On-428.jpg',
-    alt: 'Project 04 image',
+    alt: 'Project 04',
   },
 ]
 
