@@ -35,7 +35,7 @@ export function Site() {
             <span lang="ko">장혁준</span> Jang Hyukjun
           </button>{' '}
           ({' '}
-          <button type="button" onClick={() => setPanel('index')} className="hover:opacity-50 font-medium underline underline-offset-2">
+          <button type="button" onClick={() => setPanel('index')} className="hover:opacity-50">
             <span lang="ko">찾아보기</span> Index
           </button>{' '}
           ({' '}
