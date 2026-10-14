@@ -23,21 +23,21 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 overflow-y-auto bg-gradient-to-b from-white/80 to-white/55 px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-40 overflow-y-auto bg-white px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      <header className="sticky top-0 z-10 flex items-baseline justify-between bg-transparent py-3">
-        <h2 id="index-title">
-          Index ({projects.length} Projects, {projects.length} Images total.)
+      <header className="sticky top-0 z-10 flex items-baseline justify-between bg-white py-4">
+        <h2 id="index-title" className="text-sm">
+          Index ({projects.length} Projects)
         </h2>
-        <button ref={closeRef} type="button" onClick={onClose} className="hover:opacity-50">
+        <button ref={closeRef} type="button" onClick={onClose} className="hover:opacity-50 text-sm">
           (Close)
         </button>
       </header>
 
-      {/* items-end 속성으로 모든 이미지가 바닥(하단) 라인에 맞춰 정렬됩니다 */}
-      <ul className="grid grid-cols-2 items-end gap-x-5 gap-y-8 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-10">
+      {/* gap-x-0으로 이미지 밀착, 열 개수를 줄여 크기를 2배 이상 확대 */}
+      <ul className="grid grid-cols-2 items-end gap-x-0 gap-y-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {projects.map((project, i) => (
           <li key={project.slug}>
             <button
@@ -45,19 +45,20 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
               onClick={() => onSelect(project.slug)}
               className="group block w-full text-left"
             >
-              <span className="relative block w-full overflow-hidden" style={{ aspectRatio: project.aspectRatio }}>
+              {/* 이미지 컨테이너 */}
+              <span className="relative block w-full" style={{ aspectRatio: project.aspectRatio }}>
                 <Image
                   src={project.image || '/placeholder.svg'}
                   alt=""
                   fill
-                  sizes="(min-width: 1280px) 10vw, (min-width: 640px) 25vw, 50vw"
+                  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 50vw"
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-300"
                 />
-                {/* 이미지 좌측 하단 번호(01, 02...) 표기 */}
-                <span className="absolute bottom-2 left-2 text-xs tracking-widest text-white drop-shadow-md">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
               </span>
+              {/* 이미지 바로 아래 좌측 하단 번호 표기 */}
+              <div className="mt-2 text-xs font-normal tracking-tight text-black">
+                {String(i + 1).padStart(2, '0')}
+              </div>
             </button>
           </li>
         ))}
