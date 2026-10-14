@@ -10,9 +10,8 @@ type AboutOverlayProps = {
 }
 
 export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
-  const closeRef = useRef<HTMLButtonElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
-  useOverlay(open, onClose, closeRef)
+  useOverlay(open, onClose)
 
   return (
     <div
@@ -33,17 +32,9 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
       }`}
     >
       <header className="flex items-baseline justify-between py-3 md:block">
-        <h2 id="about-title" className="md:sr-only">
+        <h2 id="about-title" className="sr-only">
           <span lang="ko">장혁준</span> Jang Hyukjun
         </h2>
-        <button
-          ref={closeRef}
-          type="button"
-          onClick={onClose}
-          className="hover:opacity-50 md:absolute md:right-4 md:top-3"
-        >
-          (Close)
-        </button>
       </header>
 
       <div className="flex flex-col md:mt-0 md:grid md:grid-cols-4 md:gap-5">
