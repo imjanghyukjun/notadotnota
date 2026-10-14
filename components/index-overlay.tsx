@@ -44,8 +44,9 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
       }`}
     >
       <header className="flex items-center justify-between py-3">
-        <h2 id="index-title" className="sr-only">
-          <span lang="ko">찾아보기</span> Index
+        {/* 좌측 상단: 정보창과 동일한 타이틀 스타일 적용 */}
+        <h2 id="index-title" className="text-[15px] font-normal tracking-tight">
+          장혁준 Jang Hyukjun <span className="text-neutral-400">/</span> <span lang="ko">찾아보기</span> Index
         </h2>
         {/* PC와 모바일 모두 우측 상단에 노출되는 (Close) 버튼 */}
         <button
