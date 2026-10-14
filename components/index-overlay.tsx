@@ -58,10 +58,11 @@ export function IndexOverlay({ open, projects, onClose }: IndexOverlayProps) {
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      <header className="flex items-center justify-between py-3">
+      {/* 상단 고정(Sticky) 및 완전 투명 배경 (아래로 이미지가 비침) */}
+      <header className="sticky top-0 z-30 flex items-center justify-between py-3 bg-transparent">
         {/* 좌측 상단 헤더 타이틀 */}
         <h2 id="index-title" className="text-[15px] font-normal tracking-tight">
-          장혁준 Jang Hyukjun ( <span lang="ko">찾아보기</span> Index
+          <span lang="ko">찾아보기</span> Index
         </h2>
         {/* 우측 상단 (Close) 닫기 버튼 */}
         <button
@@ -73,8 +74,8 @@ export function IndexOverlay({ open, projects, onClose }: IndexOverlayProps) {
         </button>
       </header>
 
-      {/* 썸네일 그리드 */}
-      <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
+      {/* 썸네일 그리드: 모바일 3칸(grid-cols-3) */}
+      <div className="grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => {
           const hasSeries = Boolean(project.series && project.series.length > 1)
           const currentSeriesIndex = seriesIndices[project.slug] || 0
@@ -96,7 +97,7 @@ export function IndexOverlay({ open, projects, onClose }: IndexOverlayProps) {
                     alt={project.alt || project.title}
                     width={800}
                     height={1000}
-                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
+                    sizes="(max-width: 768px) 33vw, (max-width: 1200px) 25vw, 15vw"
                     className="h-auto w-full object-contain grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0"
                   />
                 )}
