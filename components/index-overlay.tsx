@@ -69,7 +69,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
                   alt={project.alt || project.title}
                   fill
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                  className="object-cover"
+                  className="object-contain object-left-bottom"
                 />
               )}
             </div>
