@@ -50,8 +50,9 @@ export function Site() {
           </a>
         </div>
 
-        {/* 모바일/좁은 화면 레이아웃 */}
-        <div className="pointer-events-auto flex flex-col items-center gap-1.5 text-[12px] leading-none md:hidden">
+        {/* 모바일/좁은 화면 레이아웃 (3줄 분리하여 줄바꿈 적용) */}
+        <div className="pointer-events-auto flex flex-col items-center gap-1 text-[12px] leading-none md:hidden">
+          {/* 1줄: 이름 단독 배치 */}
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             <button
               type="button"
@@ -62,7 +63,11 @@ export function Site() {
               className="hover:opacity-50 inline"
             >
               <span lang="ko">장혁준</span> Jang Hyukjun
-            </button>{' '}
+            </button>
+          </div>
+
+          {/* 2줄: 찾아보기 / 사진 / 그래픽 디자인 */}
+          <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             ({' '}
             <button
               type="button"
@@ -79,6 +84,7 @@ export function Site() {
             <span lang="ko">그래픽 디자인</span> Graphic Design
           </div>
 
+          {/* 3줄: 이메일 / 인스타그램 */}
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             ({' '}
             <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
