@@ -18,6 +18,8 @@ type HomeCarouselProps = {
 export function HomeCarousel({ paused = false }: HomeCarouselProps) {
   const [index, setIndex] = useState(0)
   const [animate, setAnimate] = useState(true)
+
+  // 무한 루프 처리를 위해 마지막 위치에 첫 번째 슬라이드 추가
   const loopSlides = [...homeSlides, homeSlides[0]]
 
   // 3초 간격 자동 슬라이드
@@ -29,7 +31,7 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
     return () => window.clearInterval(id)
   }, [paused])
 
-  // 무한 루프 리셋 (마지막 슬라이드 도달 시 자연스럽게 처음으로 복귀)
+  // 무한 루프 리셋 (마지막 슬라이드 도달 시 애니메이션 없이 순간적으로 0번째로 이동)
   useEffect(() => {
     if (index !== homeSlides.length) return
     const timeout = window.setTimeout(() => {
@@ -72,17 +74,18 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
         </div>
       </div>
 
-      {/* 2. PC(데스크톱)용 화면 가득 차는 3초 슬라이더 (hidden md:block) */}
+      {/* 2. PC(데스크톱)용 세로(아래에서 위로) 무한 자동 슬라이더 (hidden md:block) */}
       <div className="pointer-events-none relative hidden h-screen w-full overflow-hidden md:block" aria-hidden>
-        {homeSlides.map((project, i) => {
-          // 모바일 슬라이더와 동일한 인덱스를 바라보고 3초마다 100vh 가득 차게 페이드 전환
-          const isActive = index % homeSlides.length === i
-          return (
+        <div
+          className={`w-full ${animate ? 'transition-transform duration-700 ease-in-out' : ''}`}
+          style={{
+            transform: `translate3d(0, -${index * 100}vh, 0)`,
+          }}
+        >
+          {loopSlides.map((project, i) => (
             <figure
               key={`pc-${project.slug}-${i}`}
-              className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ease-in-out ${
-                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
-              }`}
+              className="relative h-screen w-full shrink-0"
             >
               <Image
                 src={project.image || '/placeholder.svg'}
@@ -93,8 +96,8 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
                 className="object-cover object-center"
               />
             </figure>
-          )
-        })}
+          ))}
+        </div>
       </div>
     </>
   )
