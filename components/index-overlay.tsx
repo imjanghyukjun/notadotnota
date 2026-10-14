@@ -49,7 +49,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         </h2>
       </header>
 
-      {/* 썸네일 그리드: 가로 폭 동일 유지, 아래쪽 정렬 */}
+      {/* 썸네일 그리드: 가로 폭 동일 통일, 아래쪽 끝맞춤 정렬 */}
       <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => (
           <button
@@ -69,7 +69,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
                   alt={project.alt || project.title}
                   fill
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                  className="object-contain object-left-bottom"
+                  className="object-cover"
                 />
               )}
             </div>
