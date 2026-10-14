@@ -32,7 +32,7 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
       }`}
     >
       <header className="flex items-baseline justify-between py-3">
-        {/* 모바일 및 PC 모두에서 좌상단에 노출되는 이름 */}
+        {/* 모바일 및 PC 통틀어 좌상단에 단 1개만 노출 */}
         <h2 id="about-title" className="text-[15px] font-normal">
           <span lang="ko">장혁준</span> Jang Hyukjun
         </h2>
@@ -40,7 +40,7 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
         <button
           type="button"
           onClick={onClose}
-          className="hover:opacity-50 md:hidden"
+          className="hover:opacity-50 md:hidden ml-auto"
         >
           (Close)
         </button>
@@ -48,10 +48,6 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
 
       <div className="flex flex-col md:mt-0 md:grid md:grid-cols-4 md:gap-5 pt-4 md:pt-0">
         <div>
-          {/* PC 화면용 (모바일에서는 위쪽 header에 이름이 있으므로 숨김) */}
-          <h2 className="hidden md:block">
-            <span lang="ko">장혁준</span> Jang Hyukjun
-          </h2>
           <p lang="ko">프리랜서 그래픽 디자이너, 사진가.</p>
         </div>
 
