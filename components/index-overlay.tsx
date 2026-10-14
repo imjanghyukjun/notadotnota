@@ -58,18 +58,18 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         </button>
       </header>
 
-      {/* 썸네일 그리드: 좌우 여백 0, 이미지 아래 정렬 */}
-      <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8">
+      {/* 썸네일 그리드: 좌우 여백 0, 아래쪽 끝맞춤 */}
+      <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => (
           <button
             key={project.slug}
             type="button"
             onClick={() => onSelect(project.slug)}
-            className="flex flex-col justify-end text-left"
+            className="flex flex-col justify-end text-left w-full"
           >
-            {/* 원본 비율 유지 (object-contain) & 아래쪽 끝맞춤 */}
+            {/* 원본 비율 유지 (object-contain) */}
             <div
-              className="relative w-full overflow-hidden flex items-end"
+              className="relative w-full overflow-hidden"
               style={{ aspectRatio: project.aspectRatio || '3/4' }}
             >
               {project.image && (
@@ -82,7 +82,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
                 />
               )}
             </div>
-            {/* 하단 텍스트: 이미지 좌측 아래 끝맞춤, 번호만 표시 */}
+            {/* 하단 텍스트: 번호만 표시 및 좌측 정렬 */}
             <div className="mt-1 text-xs text-left">
               <span>{String(i + 1).padStart(2, '0')}</span>
             </div>
