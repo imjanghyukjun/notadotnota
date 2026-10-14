@@ -10,18 +10,11 @@ type AboutOverlayProps = {
 }
 
 export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
-  const overlayRef = useRef<HTMLDivElement>(null)
-  useOverlay(open, onClose)
+  const closeRef = useRef<HTMLButtonElement>(null)
+  useOverlay(open, onClose, closeRef)
 
   return (
     <div
-      ref={overlayRef}
-      onClick={(e) => {
-        // 배경(바깥쪽 여백)을 클릭했을 때만 닫히도록 설정
-        if (e.target === overlayRef.current) {
-          onClose()
-        }
-      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="about-title"
@@ -31,28 +24,34 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      <header className="flex items-baseline justify-between py-3">
-        {/* 모바일 및 PC 통틀어 좌상단에 단 1개만 노출 */}
-        <h2 id="about-title" className="text-[15px] font-normal">
-          <span lang="ko">장혁준</span> Jang Hyukjun
-        </h2>
-        {/* 모바일 화면에서만 우측 상단에 보이는 (Close) 버튼 */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="hover:opacity-50 md:hidden ml-auto"
-        >
-          (Close)
-        </button>
-      </header>
+      <button
+        ref={closeRef}
+        type="button"
+        onClick={onClose}
+        className="absolute right-4 top-3 hover:opacity-50"
+      >
+        (Close)
+      </button>
 
-      <div className="flex flex-col md:mt-0 md:grid md:grid-cols-4 md:gap-5 pt-4 md:pt-0">
+      <div className="mt-3 flex flex-col gap-8 pr-16 md:grid md:grid-cols-4 md:gap-5">
         <div>
-          <p lang="ko">프리랜서 그래픽 디자이너, 사진가.</p>
+          <h2 id="about-title">
+            <span lang="ko">장혁준</span> Jang Hyukjun
+          </h2>
+          <p lang="ko">
+            프리랜서, 그래픽 디자이너, 사진가
+            <br />
+            촬영 업무를 포함하여 각종 디자인 프로젝트 및 협업 기회를 찾고 있습니다. 
+          </p>
         </div>
 
-        <address className="not-italic mt-6 md:mt-0">
-          <p>
+        <address className="not-italic">
+          <p lang="ko">
+            서울 종로구 종로 54길 29-4
+            <br />
+            503, 504
+          </p>
+          <p className="mt-6">
             <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
               {EMAIL}
             </a>
@@ -60,19 +59,12 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
             <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50">
               @{INSTAGRAM_HANDLE}
             </a>
-          </p>
-          <p className="mt-6">
+            <br />
             <a href="tel:+821033152384" className="hover:opacity-50">
               (+82) 10-3315-2384
             </a>
             <br />
             <span className="tabular-nums">309-54-77132</span>
-            <br />
-            <span lang="ko">
-              서울 종로구 종로 54길 29-4
-              <br />
-              503, 504
-            </span>
           </p>
         </address>
       </div>
