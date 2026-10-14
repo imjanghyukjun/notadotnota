@@ -43,15 +43,15 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      <header className="flex items-center justify-between py-3 md:block">
+      <header className="flex items-center justify-between py-3">
         <h2 id="index-title" className="sr-only">
           <span lang="ko">찾아보기</span> Index
         </h2>
-        {/* 모바일 화면에서만 우측 상단에 보이는 (Close) 버튼 */}
+        {/* PC와 모바일 모두 우측 상단에 노출되는 (Close) 버튼 */}
         <button
           type="button"
           onClick={onClose}
-          className="hover:opacity-50 md:hidden ml-auto"
+          className="hover:opacity-50 ml-auto cursor-pointer"
         >
           (Close)
         </button>
