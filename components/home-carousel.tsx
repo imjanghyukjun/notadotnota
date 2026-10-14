@@ -67,7 +67,7 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
                 fill
                 priority={i < 2}
                 sizes="82vw"
-                className="object-cover"
+                className="object-contain"
               />
             </figure>
           ))}
@@ -87,13 +87,14 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
               key={`pc-${project.slug}-${i}`}
               className="relative h-screen w-full shrink-0"
             >
+              {/* object-contain 적용: 원본 비율 손실 없이 전체 이미지 표시 */}
               <Image
                 src={project.image || '/placeholder.svg'}
                 alt=""
                 fill
                 priority={i === 0}
                 sizes="100vw"
-                className="object-cover object-center"
+                className="object-contain object-center"
               />
             </figure>
           ))}
