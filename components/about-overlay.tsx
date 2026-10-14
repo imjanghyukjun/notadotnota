@@ -39,6 +39,7 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
             <span lang="ko">장혁준</span> Jang Hyukjun
           </h2>
           <p lang="ko">
+            <br />
             프리랜서, 그래픽 디자이너, 사진가
             <br />
             촬영 업무를 포함하여 각종 디자인 프로젝트 및 협업 기회를 찾고 있습니다. 
