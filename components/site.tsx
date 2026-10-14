@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useCallback, useState } from 'react'
 import { projects } from '@/lib/projects'
 import { EMAIL, INSTAGRAM_HANDLE, INSTAGRAM_URL } from '@/lib/contact'
@@ -28,36 +27,15 @@ export function Site() {
           if ((e.target as HTMLElement).closest('figure')) return
           setPanel('index')
         }}
-        className="h-svh overflow-hidden md:h-auto md:min-h-svh md:overflow-visible md:pb-24"
+        className="h-svh w-full overflow-hidden md:h-screen"
       >
         <h1 className="sr-only">장혁준 Jang Hyukjun</h1>
-        <div className="mx-auto hidden w-[25vw] flex-col gap-3 md:flex">
-          {projects.map((project, i) => (
-            <figure
-              key={project.slug}
-              id={project.slug}
-              className="relative w-full"
-              style={{ aspectRatio: project.aspectRatio }}
-            >
-              <Image
-                src={project.image || '/placeholder.svg'}
-                alt={project.alt}
-                fill
-                priority={i === 0}
-                sizes="25vw"
-                className="object-cover"
-              />
-              <figcaption className="sr-only">
-                {project.titleKo} {project.title}, {project.year}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        {/* PC와 모바일 모두 HomeCarousel 하나로 전체 화면 처리 */}
         <HomeCarousel paused={panel !== 'none'} />
       </main>
 
       <div className="pointer-events-none fixed inset-x-0 top-1/2 z-30 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
-        <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block">
+        <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block font-normal">
           <button type="button" onClick={() => setPanel('about')} className="hover:opacity-50">
             <span lang="ko">장혁준</span> Jang Hyukjun
           </button>{' '}
@@ -75,7 +53,6 @@ export function Site() {
 
         {/* 모바일/좁은 화면 레이아웃 */}
         <div className="pointer-events-auto flex flex-col items-center gap-1.5 text-[12px] leading-none md:hidden">
-          {/* 윗줄: leading-none과 inline-block으로 배경 박스 높이를 글자 높이에 딱 맞춤 */}
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             <button
               type="button"
@@ -92,7 +69,6 @@ export function Site() {
             <span lang="ko">그래픽 디자인</span> Graphic Design
           </div>
 
-          {/* 아랫줄: 배경 박스 높이 동일하게 맞춤 */}
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             ({' '}
             <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
