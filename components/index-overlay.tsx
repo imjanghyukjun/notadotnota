@@ -23,11 +23,11 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 overflow-y-auto bg-white/90 backdrop-blur-sm px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-40 overflow-y-auto bg-white/90 px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      <header className="sticky top-0 z-10 flex items-baseline justify-between bg-white/80 backdrop-blur-sm py-4">
+      <header className="sticky top-0 z-10 flex items-baseline justify-between bg-white/90 py-4">
         <h2 id="index-title" className="text-sm">
           Index ({projects.length} Projects)
         </h2>
