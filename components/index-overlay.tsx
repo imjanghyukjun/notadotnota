@@ -22,9 +22,8 @@ type IndexOverlayProps = {
 }
 
 export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlayProps) {
-  const closeRef = useRef<HTMLButtonElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
-  useOverlay(open, onClose, closeRef)
+  useOverlay(open, onClose)
 
   return (
     <div
@@ -45,17 +44,9 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
       }`}
     >
       <header className="flex items-baseline justify-between py-3 md:block">
-        <h2 id="index-title" className="md:sr-only">
+        <h2 id="index-title" className="sr-only">
           <span lang="ko">찾아보기</span> Index
         </h2>
-        <button
-          ref={closeRef}
-          type="button"
-          onClick={onClose}
-          className="hover:opacity-50 md:absolute md:right-4 md:top-3"
-        >
-          (Close)
-        </button>
       </header>
 
       {/* 썸네일 그리드: 가로 폭 동일 유지, 아래쪽 정렬 */}
