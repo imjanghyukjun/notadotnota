@@ -14,18 +14,15 @@ export function Site() {
   const [panel, setPanel] = useState<Panel>('none')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  // 모든 오버레이 및 상세 뷰 완전 닫기 (메인 홈으로 복귀)
   const closeAll = useCallback(() => {
     setPanel('none')
     setSelectedProject(null)
   }, [])
 
-  // 디테일 패널만 닫고 직전 인덱스 창(사진/그래픽 디자인)으로 돌아가기
   const closeDetail = useCallback(() => {
     setSelectedProject(null)
   }, [])
 
-  // 인덱스 오버레이에서 프로젝트 선택 시
   const selectProject = useCallback((slug: string) => {
     const found = projects.find((p) => p.slug === slug)
     if (found) {
@@ -47,7 +44,6 @@ export function Site() {
 
   const isDetailView = selectedProject !== null
 
-  // 상세 뷰 헤더 카테고리
   const detailCategoryLabel =
     selectedProject?.category === 'photography' || panel === 'photography'
       ? { ko: '사진', en: 'Photography' }
@@ -57,17 +53,16 @@ export function Site() {
     <>
       <main className="h-svh w-full overflow-hidden md:h-screen relative">
         <h1 className="sr-only">장혁준 Jang Hyukjun</h1>
-        {/* 기본 메인 홈 캐러셀 */}
         <HomeCarousel paused={panel !== 'none' || isDetailView} />
 
         {/* 1. 홈 화면 좌상단 고정 헤더 (PC 전용: hidden md:flex) */}
         {!isDetailView && panel === 'none' && (
           <header className="fixed inset-x-0 top-0 z-30 hidden md:flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-            <h2 className="text-[15px] font-normal tracking-tight pointer-events-auto pr-2">
+            <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
               <button
                 type="button"
                 onClick={() => setPanel('about')}
-                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
               >
                 <span lang="ko">장혁준</span> Jang Hyukjun
               </button>
@@ -75,7 +70,7 @@ export function Site() {
               <button
                 type="button"
                 onClick={() => setPanel('photography')}
-                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
               >
                 <span lang="ko">사진</span> Photography
               </button>
@@ -83,23 +78,23 @@ export function Site() {
               <button
                 type="button"
                 onClick={() => setPanel('design')}
-                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
               >
                 <span lang="ko">그래픽 디자인</span> Graphic Design
               </button>
               {' ( '}
-              <a href={`mailto:${EMAIL}`} className="hover:opacity-50 transition-opacity text-white">
+              <a href={`mailto:${EMAIL}`} className="hover:opacity-50 transition-opacity text-white font-normal">
                 {EMAIL}
               </a>
               {' ( '}
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity text-white">
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity text-white font-normal">
                 instagram@{INSTAGRAM_HANDLE}
               </a>
             </h2>
           </header>
         )}
 
-        {/* 2. 배경에 항상 유지되는 사진/그래픽 디자인 인덱스 오버레이 */}
+        {/* 2. 사진/그래픽 디자인 인덱스 오버레이 */}
         <IndexOverlay
           open={panel === 'photography' || panel === 'design'}
           projects={filteredProjects}
@@ -111,13 +106,12 @@ export function Site() {
         {/* 3. 50:50 분할 디테일 오버레이 패널 */}
         {isDetailView && (
           <div className="fixed inset-0 z-50">
-            {/* 상단 클릭 가능 고정 헤더 */}
             <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-              <h2 className="text-[15px] font-normal tracking-tight pointer-events-auto pr-2">
+              <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
                 <button 
                   type="button" 
                   onClick={closeAll}
-                  className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+                  className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
                 >
                   <span lang="ko">장혁준</span> Jang Hyukjun
                 </button>
@@ -129,7 +123,7 @@ export function Site() {
                     setSelectedProject(null)
                     setPanel(targetCategory)
                   }}
-                  className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+                  className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
                 >
                   <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en}
                 </button>
@@ -145,7 +139,6 @@ export function Site() {
               </button>
             </header>
 
-            {/* 50:50 격리 레이아웃 */}
             <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
               <div 
                 className="hidden md:block w-full h-full bg-white/97 cursor-pointer"
@@ -167,7 +160,7 @@ export function Site() {
         )}
       </main>
 
-      {/* 4. 홈 화면 중앙 메인 메뉴 바 (PC 및 모바일 모두 중앙 배치) */}
+      {/* 4. 홈 화면 중앙 메인 메뉴 바 */}
       {!isDetailView && panel === 'none' && (
         <div className="pointer-events-none fixed inset-x-0 top-1/2 z-30 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
           {/* 데스크톱(PC) 레이아웃 */}
@@ -193,7 +186,7 @@ export function Site() {
             </a>
           </div>
 
-          {/* 모바일 레이아웃 (모바일 홈 화면에서는 중앙 바만 전용으로 존재) */}
+          {/* 모바일 레이아웃 */}
           <div className="pointer-events-auto flex items-center justify-center text-[12px] leading-none md:hidden">
             <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
               <button
@@ -235,14 +228,6 @@ export function Site() {
           </div>
         </div>
       )}
-
-      {/* 푸터 */}
-      <footer className="fixed bottom-3 left-4 z-50 hidden text-xs leading-tight md:block">
-        <p>
-          <span lang="ko">장혁준</span> Jang Hyukjun
-        </p>
-        <p className="text-muted-foreground">All Rights Reserved {'©'} 2026</p>
-      </footer>
 
       {/* 어바웃 오버레이 */}
       <AboutOverlay open={panel === 'about'} onClose={closeAll} />
