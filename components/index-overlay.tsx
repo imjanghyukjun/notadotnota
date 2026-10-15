@@ -32,7 +32,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
     <div
       ref={overlayRef}
       onClick={(e) => {
-        // 창 바깥쪽 배경 클릭 시 닫기
         if (e.target === overlayRef.current) {
           onClose()
         }
@@ -42,12 +41,10 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      /* 슬라이드 없이 순수 opacity(페이드)만 적용 */
       className={`fixed inset-0 z-40 bg-white/97 text-[15px] leading-snug transition-opacity duration-150 ease-out ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* 1. 홈 화면 스타일과 완벽하게 동일한 폰트/자간/상단 정렬 헤더 */}
       <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent text-black leading-snug pointer-events-none">
         <h2 id="index-title" className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
           <button 
@@ -61,7 +58,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
           <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
         </h2>
 
-        {/* 우측 (Close) 버튼 */}
         <button
           type="button"
           onClick={onClose}
@@ -71,8 +67,8 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 2. 스크롤 영역 */}
-      <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-14 pb-16">
+      {/* 디테일 창과 동일한 상단 여백 pt-7 지정 */}
+      <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-7 pb-16">
         <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-4 items-end">
           {projects.map((project, i) => {
             const displayImage = project.image || (project.series && project.series[0])
@@ -87,7 +83,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
                 }}
                 className="group flex flex-col justify-end text-left w-full cursor-pointer"
               >
-                {/* 이미지 영역 */}
                 <div className="relative w-full overflow-hidden flex items-center justify-center">
                   {displayImage && (
                     <Image
@@ -101,7 +96,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
                   )}
                 </div>
 
-                {/* 하단 번호 */}
                 <div className="mt-1 text-xs text-left text-black font-normal">
                   <span>{String(i + 1).padStart(2, '0')}</span>
                 </div>

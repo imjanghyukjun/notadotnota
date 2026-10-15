@@ -22,8 +22,8 @@ export default function ProjectDetailPanel({
 }: ProjectDetailProps) {
   return (
     <div className="w-full min-h-screen bg-white text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
-      {/* 1. 인덱스 창의 상단 라인(pt-14)에 맞춘 메인 수직 스크롤 이미지 영역 */}
-      <div className="flex-1 flex flex-col gap-3 p-0 pt-14">
+      {/* 1. 상단 여백을 기존의 반(pt-7)으로 줄이고 좌우 여백(px-2 md:px-4) 추가 */}
+      <div className="flex-1 flex flex-col gap-3 px-2 md:px-4 pt-7">
         {images.map((imgSrc, idx) => (
           <div key={idx} className="w-full relative overflow-hidden">
             <img
