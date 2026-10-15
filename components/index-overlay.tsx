@@ -72,6 +72,9 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto">
           {projects.map((project, i) => {
             const displayImage = project.image || (project.series && project.series[0])
+            // 사진은 p.01, 디자인은 d.01 형태로 접두사 부여
+            const prefix = project.category === 'photography' ? 'p' : 'd'
+            const formattedIndex = `${prefix}.${String(i + 1).padStart(2, '0')}`
 
             return (
               <div
@@ -97,7 +100,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
                 </div>
 
                 <div className="mt-1 text-xs text-left text-black font-normal">
-                  <span>{String(i + 1).padStart(2, '0')}</span>
+                  <span>{formattedIndex}</span>
                 </div>
               </div>
             )

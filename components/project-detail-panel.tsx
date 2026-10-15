@@ -43,7 +43,6 @@ export default function ProjectDetailPanel({
             <div>
               {title && <p className="font-medium text-black">{title}</p>}
             </div>
-            
             <div className="text-gray-600 space-y-0.5">
               {year && <p>{year}</p>}
               {spec && <p>{spec}</p>}
