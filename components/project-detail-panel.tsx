@@ -9,6 +9,7 @@ export interface ProjectDetailProps {
   client?: string
   description?: string
   images?: string[]
+  category?: 'photography' | 'design'
   onClose?: () => void
 }
 
@@ -19,13 +20,22 @@ export default function ProjectDetailPanel({
   client = "Client Name / Publisher",
   description = "2026년 교토 마라톤. 달리며 응원을 모았다. 간바레-콜렉션이다. 군산북페어, 서울퍼블리셔스테이블에서 판매한다.",
   images = [],
+  category = 'design',
   onClose,
 }: ProjectDetailProps) {
+  // 카테고리명 동적 라벨 설정
+  const categoryLabel =
+    category === 'photography'
+      ? { ko: '사진', en: 'Photography' }
+      : { ko: '그래픽 디자인', en: 'Graphic Design' }
+
   return (
     <div className="w-full min-h-screen bg-white/90 text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
-      {/* 1. 상단 Sticky Header: mix-blend-difference(반전) 적용 고정 헤더 */}
-      <div className="sticky top-0 z-20 bg-transparent px-4 py-3 flex justify-between items-center text-[15px] mix-blend-difference text-white pointer-events-none">
-        <span className="font-normal pointer-events-auto">{title}</span>
+      {/* 1. 상단 Sticky Header: IndexOverlay와 동일 위치/폰트 규격 및 반전(mix-blend-difference) 적용 */}
+      <div className="sticky top-0 z-20 bg-transparent px-4 py-3 flex justify-between items-center text-[15px] font-normal tracking-tight mix-blend-difference text-white pointer-events-none">
+        <h2 className="font-normal pointer-events-auto">
+          <span lang="ko">장혁준</span> Jang Hyukjun ( <span lang="ko">{categoryLabel.ko}</span> {categoryLabel.en} ( {title}
+        </h2>
         {onClose && (
           <button 
             type="button"
@@ -51,7 +61,7 @@ export default function ProjectDetailPanel({
         ))}
       </div>
 
-      {/* 3. 하단 2컬럼 정보 영역 (Return to Projects 삭제 적용) */}
+      {/* 3. 하단 2컬럼 정보 영역 */}
       <div className="p-4 pt-10 pb-16 flex flex-col justify-between text-[15px] leading-relaxed gap-10 bg-white">
         <div className="grid grid-cols-2 gap-6">
           {/* 좌측 컬럼: Details */}
