@@ -22,14 +22,14 @@ export default function ProjectDetailPanel({
 }: ProjectDetailProps) {
   return (
     <div className="w-full min-h-screen bg-white text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
-      {/* 이미지 영역: 홈 화면 좌우 여백과 일치 (px-2 md:px-4) */}
+      {/* 이미지 영역: 홈 화면 좌우 여백과 일치 (px-2 md:px-4) 및 내부 이미지 중앙정렬 보장 */}
       <div className="flex-1 flex flex-col gap-3 px-2 md:px-4 pt-24 md:pt-20">
         {images.map((imgSrc, idx) => (
-          <div key={idx} className="w-full relative overflow-hidden">
+          <div key={idx} className="w-full relative overflow-hidden flex items-center justify-center">
             <img
               src={imgSrc}
               alt={`${title} image ${idx + 1}`}
-              className="w-full h-auto block object-cover"
+              className="w-full h-auto block object-cover mx-auto"
               loading="lazy"
             />
           </div>
