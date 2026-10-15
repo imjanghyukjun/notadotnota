@@ -82,6 +82,7 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
           const hasSeries = Boolean(project.series && project.series.length > 1)
           const currentSeriesIndex = seriesIndices[project.slug] || 0
           const displayImage = hasSeries ? project.series![currentSeriesIndex] : project.image
+          const isDesign = project.category === 'design'
 
           return (
             <div
@@ -91,7 +92,7 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
                 hasSeries ? 'cursor-pointer' : 'cursor-default'
               }`}
             >
-              {/* 이미지 영역 (회전 클래스 제거됨) */}
+              {/* 이미지 영역: 디자인 카테고리는 흑백 해제(컬러 원본), 사진 카테고리는 기존 호버 흑백 유지 */}
               <div className="relative w-full overflow-hidden flex items-center justify-center">
                 {displayImage && (
                   <Image
@@ -100,7 +101,9 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
                     width={800}
                     height={1000}
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                    className="h-auto w-full object-contain grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0"
+                    className={`h-auto w-full object-contain transition-all duration-500 ease-in-out ${
+                      isDesign ? '' : 'grayscale group-hover:grayscale-0'
+                    }`}
                   />
                 )}
               </div>
