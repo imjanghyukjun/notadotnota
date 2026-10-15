@@ -32,6 +32,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
     <div
       ref={overlayRef}
       onClick={(e) => {
+        // 여백(배경 영역)을 클릭했을 때만 닫기(뒤로가기) 실행
         if (e.target === overlayRef.current) {
           onClose()
         }
@@ -41,7 +42,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      /* 슬라이드 없이 순수 투명도(opacity) 페이드 효과만 적용 */
       className={`fixed inset-0 z-40 bg-white/97 text-[15px] leading-snug transition-opacity duration-300 ease-out ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
@@ -68,8 +68,11 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 내부 슬라이드 이동 효과(translate)를 완전히 제거하고 순수 스크롤 영역만 유지 */}
-      <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-28 md:pt-24 pb-16">
+      {/* 내부 스크롤 영역에서 이벤트 버블링을 막아 썸네일 클릭 시에는 닫히지 않고 프로젝트 상세로 정상 진입 */}
+      <div 
+        className="w-full h-full overflow-y-auto px-2 md:px-4 pt-28 md:pt-24 pb-16 pointer-events-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end">
           {projects.map((project, i) => {
             const displayImage = project.image || (project.series && project.series[0])
