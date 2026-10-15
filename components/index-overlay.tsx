@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import Image from 'next/image'
 import { useOverlay } from '@/lib/use-overlay'
 
@@ -28,29 +28,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
   const overlayRef = useRef<HTMLDivElement>(null)
   useOverlay(open, onClose)
 
-  // 각 프로젝트별 시리즈 이미지 슬라이드 인덱스 상태 관리
-  const [seriesIndices, setSeriesIndices] = useState<Record<string, number>>({})
-
-  // 마우스 오버 시 다음 시리즈 이미지로 전환 (호버)
-  const handleMouseEnter = (project: Project) => {
-    if (project.series && project.series.length > 1) {
-      setSeriesIndices((prev) => ({
-        ...prev,
-        [project.slug]: 1, // 마우스를 올리면 2번째(다음) 이미지 보여주기
-      }))
-    }
-  }
-
-  // 마우스 떠날 시 원래 첫 번째 이미지로 복원
-  const handleMouseLeave = (project: Project) => {
-    if (project.series && project.series.length > 1) {
-      setSeriesIndices((prev) => ({
-        ...prev,
-        [project.slug]: 0, // 첫 번째 원본 이미지로 복원
-      }))
-    }
-  }
-
   return (
     <div
       ref={overlayRef}
@@ -69,13 +46,14 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-
+      {/* 상단 고정(Sticky) 헤더 */}
       <header className="sticky top-0 z-30 flex items-center justify-between py-3 bg-transparent">
-
+        {/* 좌측 상단 헤더 타이틀: 장혁준 Jang Hyukjun ( 카테고리 형태 */}
         <h2 id="index-title" className="text-[15px] font-normal tracking-tight">
-          <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
+          <span lang="ko">장혁준</span> Jang Hyukjun ( <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
         </h2>
 
+        {/* 우측 상단 (Close) 닫기 버튼 */}
         <button
           type="button"
           onClick={onClose}
@@ -85,19 +63,15 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-
+      {/* 썸네일 그리드 */}
       <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => {
-          const hasSeries = Boolean(project.series && project.series.length > 1)
-          const currentSeriesIndex = seriesIndices[project.slug] || 0
-          const displayImage = hasSeries ? project.series![currentSeriesIndex] : project.image
-          const isDesign = project.category === 'design'
+          // 연계 이미지 전환 기능 제거, 대표 이미지만 단일 사용
+          const displayImage = project.image || (project.series && project.series[0])
 
           return (
             <div
               key={project.slug}
-              onMouseEnter={() => handleMouseEnter(project)}
-              onMouseLeave={() => handleMouseLeave(project)}
               onClick={() => {
                 if (onSelect) {
                   onSelect(project.slug)
@@ -105,6 +79,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
               }}
               className="group flex flex-col justify-end text-left w-full cursor-pointer"
             >
+              {/* 이미지 영역: 기본 흑백(grayscale), 호버 시 컬러(group-hover:grayscale-0) */}
               <div className="relative w-full overflow-hidden flex items-center justify-center">
                 {displayImage && (
                   <Image
@@ -113,13 +88,12 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
                     width={800}
                     height={1000}
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                    className={`h-auto w-full object-contain transition-all duration-500 ease-in-out ${
-                      isDesign ? '' : 'grayscale group-hover:grayscale-0'
-                    }`}
+                    className="h-auto w-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 ease-in-out"
                   />
                 )}
               </div>
 
+              {/* 하단 번호 */}
               <div className="mt-1 text-xs text-left">
                 <span>{String(i + 1).padStart(2, '0')}</span>
               </div>
