@@ -22,13 +22,13 @@ export default function ProjectDetailPanel({
 }: ProjectDetailProps) {
   return (
     <div className="w-full min-h-screen bg-white text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
-      {/* 1. 메인 수직 스크롤 이미지 세트 */}
-      <div className="flex-1 flex flex-col gap-3 p-0">
+      {/* 1. 인덱스 창의 상단 라인(pt-14)에 맞춘 메인 수직 스크롤 이미지 영역 */}
+      <div className="flex-1 flex flex-col gap-3 p-0 pt-14">
         {images.map((imgSrc, idx) => (
           <div key={idx} className="w-full relative overflow-hidden">
             <img
               src={imgSrc}
-              alt={`${title} - image ${idx + 1}`}
+              alt={`${title} image ${idx + 1}`}
               className="w-full h-auto block object-cover"
               loading="lazy"
             />
