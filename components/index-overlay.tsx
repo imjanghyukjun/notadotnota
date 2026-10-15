@@ -42,6 +42,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
+      /* 슬라이드 없이 순수 opacity(페이드)만 적용 */
       className={`fixed inset-0 z-40 bg-white/97 text-[15px] leading-snug transition-opacity duration-150 ease-out ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
