@@ -42,23 +42,30 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      /* ⚠️ 기존 duration-500을 duration-150으로 대폭 줄여서 닫힐 때 잔상과 버벅임(번쩍임)을 없앰 */
       className={`fixed inset-0 z-40 overflow-y-auto bg-white/95 px-2 md:px-4 pb-16 text-[15px] leading-snug transition-opacity duration-150 ease-out ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      {/* 상단 고정(Sticky) 헤더 */}
-      <header className="sticky top-0 z-30 flex items-center justify-between py-3 bg-transparent">
-        {/* 좌측 상단 헤더 타이틀: 장혁준 Jang Hyukjun ( 카테고리 형태 */}
-        <h2 id="index-title" className="text-[15px] font-normal tracking-tight">
-          <span lang="ko">장혁준</span> Jang Hyukjun ( <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
+      {/* 상단 고정(Sticky) 헤더: mix-blend-difference 반전 및 클릭 인터랙션 적용 */}
+      <header className="sticky top-0 z-30 flex items-center justify-between py-3 bg-transparent mix-blend-difference text-white pointer-events-none">
+        <h2 id="index-title" className="text-[15px] font-normal tracking-tight pointer-events-auto">
+          {/* 장혁준 클릭 시 홈 화면으로 (onClose 실행) */}
+          <button 
+            type="button" 
+            onClick={onClose}
+            className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+          >
+            <span lang="ko">장혁준</span> Jang Hyukjun
+          </button>
+          {' ( '}
+          <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
         </h2>
 
-        {/* 우측 상단 (Close) 닫기 버튼 */}
+        {/* 우측 (Close) 버튼 */}
         <button
           type="button"
           onClick={onClose}
-          className="hover:opacity-50 ml-auto cursor-pointer"
+          className="hover:opacity-50 ml-auto cursor-pointer text-white pointer-events-auto"
         >
           (Close)
         </button>
@@ -67,7 +74,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       {/* 썸네일 그리드 */}
       <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => {
-          // 연계 이미지 전환 기능 제거, 대표 이미지만 단일 사용
           const displayImage = project.image || (project.series && project.series[0])
 
           return (
