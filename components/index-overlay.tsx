@@ -32,7 +32,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
     <div
       ref={overlayRef}
       onClick={(e) => {
-        // 창 바깥쪽 배경 클릭 시 닫기
         if (e.target === overlayRef.current) {
           onClose()
         }
@@ -42,14 +41,14 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 overflow-y-auto bg-white/95 px-2 md:px-4 pb-16 text-[15px] leading-snug transition-opacity duration-150 ease-out ${
+      /* 97% 불투명도 흰색 배경 적용 (bg-white/97) */
+      className={`fixed inset-0 z-40 overflow-y-auto bg-white/97 px-2 md:px-4 pb-16 text-[15px] leading-snug transition-opacity duration-150 ease-out ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      {/* 상단 고정(Sticky) 헤더: text-black 적용으로 흰 배경에서 또렷하게 표시 */}
+      {/* 상단 고정 헤더 */}
       <header className="sticky top-0 z-30 flex items-center justify-between py-3 bg-transparent text-black pointer-events-none">
         <h2 id="index-title" className="text-[15px] font-normal tracking-tight pointer-events-auto">
-          {/* 장혁준 클릭 시 메인 홈으로 복귀 */}
           <button 
             type="button" 
             onClick={onClose}
@@ -61,7 +60,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
           <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
         </h2>
 
-        {/* 우측 (Close) 닫기 버튼 */}
         <button
           type="button"
           onClick={onClose}
@@ -86,7 +84,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
               }}
               className="group flex flex-col justify-end text-left w-full cursor-pointer"
             >
-              {/* 이미지 영역: 기본 흑백(grayscale), 호버 시 컬러(group-hover:grayscale-0) */}
               <div className="relative w-full overflow-hidden flex items-center justify-center">
                 {displayImage && (
                   <Image
@@ -100,7 +97,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
                 )}
               </div>
 
-              {/* 하단 번호 */}
               <div className="mt-1 text-xs text-left text-black">
                 <span>{String(i + 1).padStart(2, '0')}</span>
               </div>

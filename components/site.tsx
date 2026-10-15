@@ -63,10 +63,9 @@ export function Site() {
         {/* 50:50 분할 디테일 오버레이 패널 */}
         {isDetailView && (
           <div className="fixed inset-0 z-50">
-            {/* 상단 클릭 가능 고정 헤더 (mix-blend-difference 반전 적용) */}
+            {/* 상단 클릭 가능 고정 헤더 (mix-blend-difference 적용) */}
             <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
               <h2 className="text-[15px] font-normal tracking-tight pointer-events-auto">
-                {/* 1. 이름 클릭 시 메인 홈 복귀 */}
                 <button 
                   type="button" 
                   onClick={closeAll}
@@ -75,7 +74,6 @@ export function Site() {
                   <span lang="ko">장혁준</span> Jang Hyukjun
                 </button>
                 {' ( '}
-                {/* 2. 카테고리 클릭 시 해당 인덱스 오버레이 창으로 이동 */}
                 <button
                   type="button"
                   onClick={() => {
@@ -99,16 +97,16 @@ export function Site() {
               </button>
             </header>
 
-            {/* 50:50 격리 레이아웃 */}
+            {/* 50:50 격리 레이아웃 (좌우 패널 모두 97% 불투명도 적용 bg-white/97) */}
             <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-              {/* 좌측 50%: 완전한 불투명 흰색 배경 (클릭 시 직전 인덱스 창으로 돌아감) */}
+              {/* 좌측 50%: 97% 불투명 흰색 배경 */}
               <div 
-                className="hidden md:block w-full h-full bg-white cursor-pointer"
+                className="hidden md:block w-full h-full bg-white/97 cursor-pointer"
                 onClick={closeDetail}
               />
 
-              {/* 우측 50%: 상세 정보 패널 */}
-              <div className="w-full h-full overflow-y-auto bg-white border-l border-gray-100 pt-0">
+              {/* 우측 50%: 상세 정보 패널 (97% 불투명 흰색 배경) */}
+              <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50 pt-0">
                 <ProjectDetailPanel
                   title={selectedProject.titleKo || selectedProject.title}
                   year={selectedProject.year || "2026"}
