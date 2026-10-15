@@ -41,7 +41,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      /* 어바웃 창과 똑같이 배경은 페이드, 내부 컨테이너는 아래서 위로 올라오는 슬라이드 모션 적용 */
+      /* 슬라이드 없이 순수 투명도(opacity) 페이드 효과만 적용 */
       className={`fixed inset-0 z-40 bg-white/97 text-[15px] leading-snug transition-opacity duration-300 ease-out ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
@@ -68,12 +68,8 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 어바웃 창과 정확히 일치하는 아래 -> 위 슬라이드 트랜지션 적용 */}
-      <div 
-        className={`w-full h-full overflow-y-auto px-2 md:px-4 pt-28 md:pt-24 pb-16 transition-transform duration-300 ease-out ${
-          open ? 'translate-y-0' : 'translate-y-full'
-        }`}
-      >
+      {/* 내부 슬라이드 이동 효과(translate)를 완전히 제거하고 순수 스크롤 영역만 유지 */}
+      <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-28 md:pt-24 pb-16">
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end">
           {projects.map((project, i) => {
             const displayImage = project.image || (project.series && project.series[0])
