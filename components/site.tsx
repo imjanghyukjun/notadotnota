@@ -14,7 +14,7 @@ export function Site() {
   const [panel, setPanel] = useState<Panel>('none')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  // 순차적 깜빡임 상태 (0: 이름 깜빡임, 1: 사진 깜빡임, 2: 그래픽디자인 깜빡임, 3: 2초 휴식)
+  // 0: 이름, 1: 사진, 2: 그래픽디자인, 3: 4초 휴식 중
   const [step, setStep] = useState<number>(0)
   const [isGreen, setIsGreen] = useState<boolean>(false)
 
@@ -23,20 +23,28 @@ export function Site() {
 
     if (panel === 'none' && !selectedProject) {
       if (step === 0 || step === 1 || step === 2) {
-        // 각 항목별로 검 ➔ 녹 (0.25초) ➔ 검 (0.25초) 총 0.5초 깜빡임 실행
+        // 1. 스르륵 녹색으로 전환
         setIsGreen(true)
+        
+        // 녹색 유지 및 스르륵 검정으로 돌아오기 (총 1.6초 소요: 스르륵 녹 0.8초 + 스르륵 검 0.8초)
         timer = setTimeout(() => {
           setIsGreen(false)
+          
           timer = setTimeout(() => {
-            // 다음 항목(이름 ➔ 사진 ➔ 그래픽)으로 즉시 이동
-            setStep(prev => prev + 1)
-          }, 250)
-        }, 250)
+            if (step < 2) {
+              // 2. 다음 항목으로 넘어가기 전 0.5초 휴식
+              setStep(prev => prev + 1)
+            } else {
+              // 3. 그래픽까지 끝나면 4초 동안 전체 휴식 후 처음(이름)으로 루프
+              setStep(3)
+            }
+          }, 800) // 검정으로 완전히 돌아오는 시간 대기
+        }, 800) // 녹색 유지 시간
       } else if (step === 3) {
-        // 세 개 다 깜빡인 후 2초 휴식 후 다시 이름부터 반복
+        // 사이클 종료 후 4초 대기
         timer = setTimeout(() => {
           setStep(0)
-        }, 2000)
+        }, 4000)
       }
     }
 
@@ -78,12 +86,12 @@ export function Site() {
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
-  // 해당 순번일 때만 녹색으로 변경
+  // 스르륵 페이드 전환을 위해 transition을 0.8초로 넉넉하게 부여
   const getBlinkStyle = (itemIdx: number) => {
     const active = (panel === 'none' && !selectedProject && step === itemIdx && isGreen)
     return {
       color: active ? 'rgb(0, 255, 0)' : 'inherit',
-      transition: 'color 0.15s ease',
+      transition: 'color 0.8s ease-in-out',
     }
   }
 
