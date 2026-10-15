@@ -32,7 +32,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
     <div
       ref={overlayRef}
       onClick={(e) => {
-        // 배경 여백을 클릭했을 때 확실하게 닫히도록 처리
         if (e.target === overlayRef.current) {
           onClose()
         }
@@ -68,8 +67,8 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 디테일 창과 완벽히 일치하는 상단 여백(pt-28 md:pt-24) 및 좌우 여백(px-2 md:px-4) 적용 */}
-      <div className="w-full min-h-full px-2 md:px-4 pt-28 md:pt-24 pb-16 pointer-events-none">
+      {/* 모바일 상단 여백을 홈 배경 라인에 맞게 바짝 끌어올림 (pt-16 md:pt-28) */}
+      <div className="w-full min-h-full px-2 md:px-4 pt-16 md:pt-28 pb-16 pointer-events-none">
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto">
           {projects.map((project, i) => {
             const displayImage = project.image || (project.series && project.series[0])

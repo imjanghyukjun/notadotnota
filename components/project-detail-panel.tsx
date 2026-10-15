@@ -22,8 +22,8 @@ export default function ProjectDetailPanel({
 }: ProjectDetailProps) {
   return (
     <div className="w-full min-h-screen bg-white text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
-      {/* 인덱스 창과 완벽하게 동일한 상단 여백(pt-28 md:pt-24) 및 좌우 여백(px-2 md:px-4) 적용 */}
-      <div className="flex-1 flex flex-col gap-3 px-2 md:px-4 pt-28 md:pt-24">
+      {/* 모바일에서는 상단을 바짝 올리고(pt-16), PC에서는 기존 라인 유지(md:pt-28) */}
+      <div className="flex-1 flex flex-col gap-3 px-2 md:px-4 pt-16 md:pt-28">
         {images.map((imgSrc, idx) => (
           <div key={idx} className="w-full relative overflow-hidden flex items-center justify-center">
             <img
