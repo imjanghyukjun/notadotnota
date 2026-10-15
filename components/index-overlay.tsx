@@ -46,14 +46,14 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      {/* 상단 고정(Sticky) 헤더: mix-blend-difference 반전 및 클릭 인터랙션 적용 */}
-      <header className="sticky top-0 z-30 flex items-center justify-between py-3 bg-transparent mix-blend-difference text-white pointer-events-none">
+      {/* 상단 고정(Sticky) 헤더: text-black 적용으로 흰 배경에서 또렷하게 표시 */}
+      <header className="sticky top-0 z-30 flex items-center justify-between py-3 bg-transparent text-black pointer-events-none">
         <h2 id="index-title" className="text-[15px] font-normal tracking-tight pointer-events-auto">
-          {/* 장혁준 클릭 시 홈 화면으로 (onClose 실행) */}
+          {/* 장혁준 클릭 시 메인 홈으로 복귀 */}
           <button 
             type="button" 
             onClick={onClose}
-            className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+            className="hover:opacity-50 transition-opacity cursor-pointer inline text-black"
           >
             <span lang="ko">장혁준</span> Jang Hyukjun
           </button>
@@ -61,11 +61,11 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
           <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
         </h2>
 
-        {/* 우측 (Close) 버튼 */}
+        {/* 우측 (Close) 닫기 버튼 */}
         <button
           type="button"
           onClick={onClose}
-          className="hover:opacity-50 ml-auto cursor-pointer text-white pointer-events-auto"
+          className="hover:opacity-50 ml-auto cursor-pointer text-black pointer-events-auto"
         >
           (Close)
         </button>
@@ -101,7 +101,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
               </div>
 
               {/* 하단 번호 */}
-              <div className="mt-1 text-xs text-left">
+              <div className="mt-1 text-xs text-left text-black">
                 <span>{String(i + 1).padStart(2, '0')}</span>
               </div>
             </div>
