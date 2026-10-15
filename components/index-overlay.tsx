@@ -69,13 +69,13 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
-      {/* 상단 고정(Sticky) 및 완전 투명 배경 */}
+
       <header className="sticky top-0 z-30 flex items-center justify-between py-3 bg-transparent">
-        {/* 좌측 상단 헤더 타이틀 (동적 적용) */}
+
         <h2 id="index-title" className="text-[15px] font-normal tracking-tight">
           <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
         </h2>
-        {/* 우측 상단 (Close) 닫기 버튼 */}
+
         <button
           type="button"
           onClick={onClose}
@@ -85,7 +85,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 썸네일 그리드: 모바일 2칸(grid-cols-2), 이미지 간 좌우 여백 0(gap-x-0)으로 두 줄 밀착 */}
+
       <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => {
           const hasSeries = Boolean(project.series && project.series.length > 1)
@@ -105,7 +105,6 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
               }}
               className="group flex flex-col justify-end text-left w-full cursor-pointer"
             >
-              {/* 이미지 영역: 디자인 카테고리는 흑백 해제(컬러 원본), 사진 카테고리는 기존 호버 흑백 유지 */}
               <div className="relative w-full overflow-hidden flex items-center justify-center">
                 {displayImage && (
                   <Image
@@ -120,7 +119,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
                   />
                 )}
               </div>
-              {/* 하단 번호 */}
+
               <div className="mt-1 text-xs text-left">
                 <span>{String(i + 1).padStart(2, '0')}</span>
               </div>
