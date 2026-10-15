@@ -15,7 +15,7 @@ export type Project = {
   description: string
   descriptionKo: string
   image: string
-  series?: string[] // 시리즈 이미지 목록 지원
+  series?: string[]
   alt: string
   maxWidth: number
   aspectRatio: string
@@ -28,14 +28,9 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
   { maxWidth: 1180, aspectRatio: '16 / 10' },
 ]
 
-// 1번: d0.jpg, 2번: vadsc.jpg, 이후는 규칙 없이 자연스럽고 무작위로 섞은 배치
 const rawImageList: { filename?: string; series?: string[]; category: Category }[] = [
-  // 01번: 디자인 메인 d0.jpg
   { filename: 'd0.jpg', category: 'design' },
-  // 02번: 홈페이지 메인 배경 이미지 vadsc.jpg
   { filename: 'vadsc.jpg', category: 'photography' },
-
-  // --- 3번 이후 무작위/자연스러운 배치 ---
   { filename: '3f.jpg', category: 'photography' },
   { filename: 'd2.jpg', category: 'design' },
   { filename: '1.jpg', category: 'photography' },
