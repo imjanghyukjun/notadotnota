@@ -82,7 +82,6 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
           const hasSeries = Boolean(project.series && project.series.length > 1)
           const currentSeriesIndex = seriesIndices[project.slug] || 0
           const displayImage = hasSeries ? project.series![currentSeriesIndex] : project.image
-          const isDesign = project.category === 'design'
 
           return (
             <div
@@ -92,7 +91,7 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
                 hasSeries ? 'cursor-pointer' : 'cursor-default'
               }`}
             >
-              {/* 이미지 영역 */}
+              {/* 이미지 영역 (회전 클래스 제거됨) */}
               <div className="relative w-full overflow-hidden flex items-center justify-center">
                 {displayImage && (
                   <Image
@@ -101,9 +100,7 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
                     width={800}
                     height={1000}
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                    className={`h-auto w-full object-contain grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0 ${
-                      isDesign ? '-rotate-90' : ''
-                    }`}
+                    className="h-auto w-full object-contain grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0"
                   />
                 )}
               </div>
