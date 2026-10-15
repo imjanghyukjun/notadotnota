@@ -7,7 +7,7 @@ import { IndexOverlay } from '@/components/index-overlay'
 import { AboutOverlay } from '@/components/about-overlay'
 import { HomeCarousel } from '@/components/home-carousel'
 
-type Panel = 'none' | 'index' | 'about'
+type Panel = 'none' | 'index' | 'photography' | 'design' | 'about'
 
 export function Site() {
   const [panel, setPanel] = useState<Panel>('none')
@@ -20,9 +20,24 @@ export function Site() {
     })
   }, [])
 
+  // 패널 상태에 따른 프로젝트 필터링
+  const filteredProjects =
+    panel === 'photography'
+      ? projects.filter((p) => p.category === 'photography')
+      : panel === 'design'
+      ? projects.filter((p) => p.category === 'design')
+      : projects
+
+  // 패널 상태에 따른 오버레이 타이틀
+  const overlayTitle =
+    panel === 'photography'
+      ? { ko: '사진', en: 'Photography' }
+      : panel === 'design'
+      ? { ko: '그래픽 디자인', en: 'Graphic Design' }
+      : { ko: '찾아보기', en: 'Index' }
+
   return (
     <>
-      {/* main 배경 클릭 이벤트 제거 완료 */}
       <main className="h-svh w-full overflow-hidden md:h-screen">
         <h1 className="sr-only">장혁준 Jang Hyukjun</h1>
         <HomeCarousel paused={panel !== 'none'} />
@@ -39,8 +54,14 @@ export function Site() {
             <span lang="ko">찾아보기</span> Index
           </button>{' '}
           ({' '}
-          <span lang="ko">사진</span> Photography ({' '}
-          <span lang="ko">그래픽 디자인</span> Graphic Design ({' '}
+          <button type="button" onClick={() => setPanel('photography')} className="hover:opacity-50">
+            <span lang="ko">사진</span> Photography
+          </button>{' '}
+          ({' '}
+          <button type="button" onClick={() => setPanel('design')} className="hover:opacity-50">
+            <span lang="ko">그래픽 디자인</span> Graphic Design
+          </button>{' '}
+          ({' '}
           <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
             {EMAIL}
           </a>{' '}
@@ -50,7 +71,7 @@ export function Site() {
           </a>
         </div>
 
-        {/* 모바일/좁은 화면 레이아웃 (Photography 뒤에서 줄바꿈) */}
+        {/* 모바일/좁은 화면 레이아웃 */}
         <div className="pointer-events-auto flex flex-col items-center gap-1.5 text-[12px] leading-none md:hidden">
           {/* 1줄: 장혁준 Jang Hyukjun ( 찾아보기 Index ( 사진 Photography */}
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
@@ -76,13 +97,32 @@ export function Site() {
               <span lang="ko">찾아보기</span> Index
             </button>{' '}
             ({' '}
-            <span lang="ko">사진</span> Photography
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setPanel('photography')
+              }}
+              className="hover:opacity-50 inline"
+            >
+              <span lang="ko">사진</span> Photography
+            </button>
           </div>
 
           {/* 2줄: ( 그래픽 디자인 Graphic Design ( 메일 ( 인스타그램 ) */}
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             ({' '}
-            <span lang="ko">그래픽 디자인</span> Graphic Design ({' '}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setPanel('design')
+              }}
+              className="hover:opacity-50 inline"
+            >
+              <span lang="ko">그래픽 디자인</span> Graphic Design
+            </button>{' '}
+            ({' '}
             <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
               {EMAIL}
             </a>{' '}
@@ -94,7 +134,6 @@ export function Site() {
         </div>
       </div>
 
-      {/* 모바일에서는 숨기고 PC 화면에서만 좌측 하단에 표시 */}
       <footer className="fixed bottom-3 left-4 z-50 hidden text-xs leading-tight md:block">
         <p>
           <span lang="ko">장혁준</span> Jang Hyukjun
@@ -103,8 +142,9 @@ export function Site() {
       </footer>
 
       <IndexOverlay
-        open={panel === 'index'}
-        projects={projects}
+        open={panel === 'index' || panel === 'photography' || panel === 'design'}
+        projects={filteredProjects}
+        title={overlayTitle}
         onClose={closePanel}
         onSelect={selectProject}
       />
