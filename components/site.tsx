@@ -14,41 +14,53 @@ export function Site() {
   const [panel, setPanel] = useState<Panel>('none')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  // 순차적 깜빡임 애니메이션 상태 (0: 이름, 1: 사진, 2: 그래픽디자인, 3: 5초 휴식 중)
+  // 순차적 깜빡임 애니메이션 상태 (0: 이름, 1: 사진, 2: 그래픽디자인, 3: 전체 5초 휴식 중)
   const [activeItemIndex, setActiveItemIndex] = useState<number>(0)
   const [blinkCount, setBlinkCount] = useState<number>(0)
   const [isBlinking, setIsBlinking] = useState<boolean>(true)
+  const [isWaitingBetweenItems, setIsWaitingBetweenItems] = useState<boolean>(false)
 
   useEffect(() => {
     let timer: NodeJS.Timeout
 
     if (panel === 'none' && !selectedProject) {
       if (isBlinking) {
-        timer = setTimeout(() => {
-          // 각 항목별로 정확히 3번 깜빡이도록 수정 (0, 1, 2 총 3회)
-          if (blinkCount < 2) {
-            setBlinkCount(prev => prev + 1)
-          } else {
-            setBlinkCount(0)
-            if (activeItemIndex < 2) {
-              setActiveItemIndex(prev => prev + 1)
+        if (isWaitingBetweenItems) {
+          // 항목과 항목 사이의 2초 휴식
+          timer = setTimeout(() => {
+            setIsWaitingBetweenItems(false)
+          }, 2000)
+        } else {
+          timer = setTimeout(() => {
+            // 각 항목별로 정확히 4번 깜빡이도록 설정 (0, 1, 2, 3 총 4회)
+            if (blinkCount < 3) {
+              setBlinkCount(prev => prev + 1)
             } else {
-              setIsBlinking(false)
+              setBlinkCount(0)
+              if (activeItemIndex < 2) {
+                // 다음 항목으로 넘어가기 전 2초간 대기 상태로 진입
+                setActiveItemIndex(prev => prev + 1)
+                setIsWaitingBetweenItems(true)
+              } else {
+                // 모든 항목(이름, 사진, 그래픽디자인)이 끝났으면 5초 휴식 모드로 진입
+                setIsBlinking(false)
+              }
             }
-          }
-        }, 800)
+          }, 700)
+        }
       } else {
-        // 5초 휴식 후 다시 처음(이름)부터 순차 깜빡임 재시작
+        // 모든 세트 종료 후 5초 휴식 후 처음(이름)부터 다시 재시작
         timer = setTimeout(() => {
           setActiveItemIndex(0)
           setBlinkCount(0)
+          setIsWaitingBetweenItems(false)
           setIsBlinking(true)
         }, 5000)
       }
     }
 
     return () => clearTimeout(timer)
-  }, [activeItemIndex, blinkCount, isBlinking, panel, selectedProject])
+  }, [activeItemIndex, blinkCount, isBlinking, isWaitingBetweenItems, panel, selectedProject])
 
   const closeAll = useCallback(() => {
     setPanel('none')
@@ -85,9 +97,9 @@ export function Site() {
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
-  // 투명도를 25% 수준(opacity-25)까지 낮추어 확실히 눈에 띄게 조정
+  // 투명도 25% 수준(opacity-25)으로 뚜렷한 깜빡임 및 버튼 가인성 부여
   const getBlinkClass = (itemIdx: number) => {
-    const isCurrentActive = isBlinking && activeItemIndex === itemIdx
+    const isCurrentActive = isBlinking && !isWaitingBetweenItems && activeItemIndex === itemIdx
     const blinkState = isCurrentActive 
       ? (blinkCount % 2 === 0 ? 'opacity-25' : 'opacity-100') 
       : 'opacity-100'
