@@ -78,8 +78,8 @@ export default function ProjectDetailPanel({
           </div>
         </div>
 
-        {/* 4. 하단 풋터 링크 & 날짜 */}
-        <div className="flex justify-between items-center pt-4 border-t border-gray-100 text-[13px] text-gray-500">
+        {/* 4. 하단 풋터 링크 (날짜 제거 완료) */}
+        <div className="flex justify-start items-center pt-4 border-t border-gray-100 text-[13px] text-gray-500">
           <button 
             type="button"
             onClick={onClose}
@@ -87,7 +87,6 @@ export default function ProjectDetailPanel({
           >
             (Return to Projects)
           </button>
-          <span>Jan 01 '46</span>
         </div>
       </div>
     </div>
