@@ -79,6 +79,19 @@ export function Site() {
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
+  // 현재 필터링된 카테고리 내에서 선택된 프로젝트의 정확한 1부터 시작하는 순번 계산
+  const currentCategoryProjects = selectedProject
+    ? projects.filter(p => p.category === selectedProject.category)
+    : []
+  const selectedProjectIndex = selectedProject
+    ? currentCategoryProjects.findIndex(p => p.slug === selectedProject.slug)
+    : -1
+  
+  const projectPrefix = selectedProject?.category === 'photography' ? 'p' : 'd'
+  const formattedProjectNumber = selectedProjectIndex !== -1 
+    ? `${projectPrefix}.${String(selectedProjectIndex + 1).padStart(2, '0')}` 
+    : ''
+
   const getBlinkStyle = (itemIdx: number) => {
     const active = (panel === 'none' && !selectedProject && step === itemIdx && isGreen)
     return {
@@ -133,7 +146,7 @@ export function Site() {
                     <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en}
                   </button>
                   {' ( '}
-                  <span>{selectedProject.titleKo || selectedProject.title}</span>
+                  <span>{formattedTokenOrNum(formattedProjectNumber)}</span>
                 </h2>
                 <button 
                   type="button"
@@ -153,9 +166,9 @@ export function Site() {
                   <ProjectDetailPanel
                     title={selectedProject.titleKo || selectedProject.title}
                     year={selectedProject.year || "2026"}
-                    spec="120×155mm, 148p, 무선제본"
-                    client="Client Name / Publisher"
-                    description={selectedProject.descriptionKo || selectedProject.description || "2026년 프로젝트 상세 설명 및 더미 텍스트입니다. 달리며 응원을 모았다."}
+                    spec=""
+                    client=""
+                    description=""
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
                     onClose={closeDetail}
                   />
@@ -257,4 +270,8 @@ export function Site() {
       <AboutOverlay open={panel === 'about'} onClose={closeAll} />
     </>
   )
+}
+
+function formattedTokenOrNum(val: string) {
+  return val
 }
