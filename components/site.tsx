@@ -60,7 +60,46 @@ export function Site() {
         {/* 기본 메인 홈 캐러셀 */}
         <HomeCarousel paused={panel !== 'none' || isDetailView} />
 
-        {/* 1. 배경에 항상 유지되는 사진/그래픽 디자인 인덱스 오버레이 */}
+        {/* 1. PC 데스크톱 전용 좌상단 헤더 (hidden md:flex) */}
+        {!isDetailView && panel === 'none' && (
+          <header className="fixed inset-x-0 top-0 z-30 hidden md:flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
+            <h2 className="text-[15px] font-normal tracking-tight pointer-events-auto pr-2">
+              <button
+                type="button"
+                onClick={() => setPanel('about')}
+                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+              >
+                <span lang="ko">장혁준</span> Jang Hyukjun
+              </button>
+              {' ( '}
+              <button
+                type="button"
+                onClick={() => setPanel('photography')}
+                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+              >
+                <span lang="ko">사진</span> Photography
+              </button>
+              {' ( '}
+              <button
+                type="button"
+                onClick={() => setPanel('design')}
+                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white"
+              >
+                <span lang="ko">그래픽 디자인</span> Graphic Design
+              </button>
+              {' ( '}
+              <a href={`mailto:${EMAIL}`} className="hover:opacity-50 transition-opacity text-white">
+                {EMAIL}
+              </a>
+              {' ( '}
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity text-white">
+                instagram@{INSTAGRAM_HANDLE}
+              </a>
+            </h2>
+          </header>
+        )}
+
+        {/* 2. 배경에 항상 유지되는 사진/그래픽 디자인 인덱스 오버레이 */}
         <IndexOverlay
           open={panel === 'photography' || panel === 'design'}
           projects={filteredProjects}
@@ -69,10 +108,10 @@ export function Site() {
           onSelect={selectProject}
         />
 
-        {/* 2. 50:50 분할 디테일 오버레이 패널 (인덱스 창 위에 얹혀짐) */}
+        {/* 3. 50:50 분할 디테일 오버레이 패널 */}
         {isDetailView && (
           <div className="fixed inset-0 z-50">
-            {/* 상단 클릭 가능 고정 헤더 (mix-blend-difference 적용) */}
+            {/* 상단 클릭 가능 고정 헤더 */}
             <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
               <h2 className="text-[15px] font-normal tracking-tight pointer-events-auto pr-2">
                 <button 
@@ -108,13 +147,10 @@ export function Site() {
 
             {/* 50:50 격리 레이아웃 */}
             <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-              {/* 좌측 50%: 97% 불투명 흰색 배경 (뒤쪽의 인덱스 목록이 은은하게 비쳐 보임) */}
               <div 
                 className="hidden md:block w-full h-full bg-white/97 cursor-pointer"
                 onClick={closeDetail}
               />
-
-              {/* 우측 50%: 상세 정보 패널 (97% 불투명 흰색 배경) */}
               <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50 pt-0">
                 <ProjectDetailPanel
                   title={selectedProject.titleKo || selectedProject.title}
@@ -131,71 +167,45 @@ export function Site() {
         )}
       </main>
 
-      {/* 중앙 메인 메뉴 바: 디테일뷰가 아닐 때만 표시 */}
-      {!isDetailView && (
-        <div className="pointer-events-none fixed inset-x-0 top-1/2 z-30 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
-          {/* 데스크톱(PC) 레이아웃 */}
-          <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block font-normal">
-            <button type="button" onClick={() => { setSelectedProject(null); setPanel('about'); }} className="hover:opacity-50">
+      {/* 4. 모바일 전용 중앙 메인 메뉴 바 (md:hidden) */}
+      {!isDetailView && panel === 'none' && (
+        <div className="pointer-events-none fixed inset-x-0 top-1/2 z-30 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[12px] leading-none md:hidden">
+          <div className="pointer-events-auto inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelectedProject(null)
+                setPanel('about')
+              }}
+              className="hover:opacity-50 inline"
+            >
               <span lang="ko">장혁준</span> Jang Hyukjun
             </button>{' '}
             ({' '}
-            <button type="button" onClick={() => { setSelectedProject(null); setPanel('photography'); }} className="hover:opacity-50">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelectedProject(null)
+                setPanel('photography')
+              }}
+              className="hover:opacity-50 inline"
+            >
               <span lang="ko">사진</span> Photography
             </button>{' '}
             ({' '}
-            <button type="button" onClick={() => { setSelectedProject(null); setPanel('design'); }} className="hover:opacity-50">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelectedProject(null)
+                setPanel('design')
+              }}
+              className="hover:opacity-50 inline"
+            >
               <span lang="ko">그래픽 디자인</span> Graphic Design
-            </button>{' '}
-            ({' '}
-            <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
-              {EMAIL}
-            </a>{' '}
-            ({' '}
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50">
-              instagram@{INSTAGRAM_HANDLE}
-            </a>
-          </div>
-
-          {/* 모바일 레이아웃 */}
-          <div className="pointer-events-auto flex items-center justify-center text-[12px] leading-none md:hidden">
-            <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setSelectedProject(null)
-                  setPanel('about')
-                }}
-                className="hover:opacity-50 inline"
-              >
-                <span lang="ko">장혁준</span> Jang Hyukjun
-              </button>{' '}
-              ({' '}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setSelectedProject(null)
-                  setPanel('photography')
-                }}
-                className="hover:opacity-50 inline"
-              >
-                <span lang="ko">사진</span> Photography
-              </button>{' '}
-              ({' '}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setSelectedProject(null)
-                  setPanel('design')
-                }}
-                className="hover:opacity-50 inline"
-              >
-                <span lang="ko">그래픽 디자인</span> Graphic Design
-              </button>
-            </div>
+            </button>
           </div>
         </div>
       )}
