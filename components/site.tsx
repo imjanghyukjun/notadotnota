@@ -16,7 +16,7 @@ export function Site() {
 
   // 순차적 색상 변화 애니메이션 상태 (0: 이름, 1: 사진, 2: 그래픽디자인, 3: 전체 5초 휴식 중)
   const [activeItemIndex, setActiveItemIndex] = useState<number>(0)
-  const [blinkCount, setBlinkCount] = useState<number>(0)
+  const [blinkPhase, setBlinkPhase] = useState<number>(0) // 0: 기본, 1: 녹색, 2: 검정으로 돌아가는 중
   const [isBlinking, setIsBlinking] = useState<boolean>(true)
   const [isWaitingBetweenItems, setIsWaitingBetweenItems] = useState<boolean>(false)
 
@@ -31,28 +31,30 @@ export function Site() {
             setIsWaitingBetweenItems(false)
           }, 2000)
         } else {
-          timer = setTimeout(() => {
-            // 각 항목별로 정확히 3번 깜빡이도록 설정 (0, 1, 2 총 3회)
-            if (blinkCount < 2) {
-              setBlinkCount(prev => prev + 1)
-            } else {
-              setBlinkCount(0)
+          if (blinkPhase === 0) {
+            // 1단계: 녹색으로 빠르게 전환
+            setBlinkPhase(1)
+            timer = setTimeout(() => {
+              setBlinkPhase(2)
+            }, 600) // 녹색 유지 시간
+          } else if (blinkPhase === 2) {
+            // 2단계: 검정으로 천천히 돌아간 뒤 다음 항목 또는 대기로 전환
+            timer = setTimeout(() => {
+              setBlinkPhase(0)
               if (activeItemIndex < 2) {
-                // 다음 항목으로 넘어가기 전 2초간 대기 상태로 진입
                 setActiveItemIndex(prev => prev + 1)
                 setIsWaitingBetweenItems(true)
               } else {
-                // 모든 항목(이름, 사진, 그래픽디자인)이 끝났으면 5초 휴식 모드로 진입
                 setIsBlinking(false)
               }
-            }
-          }, 700)
+            }, 1400) // 녹 -> 검 전환 속도 (여유 있게 천천히)
+          }
         }
       } else {
         // 모든 세트 종료 후 5초 휴식 후 처음(이름)부터 다시 재시작
         timer = setTimeout(() => {
           setActiveItemIndex(0)
-          setBlinkCount(0)
+          setBlinkPhase(0)
           setIsWaitingBetweenItems(false)
           setIsBlinking(true)
         }, 5000)
@@ -60,7 +62,7 @@ export function Site() {
     }
 
     return () => clearTimeout(timer)
-  }, [activeItemIndex, blinkCount, isBlinking, isWaitingBetweenItems, panel, selectedProject])
+  }, [activeItemIndex, blinkPhase, isBlinking, isWaitingBetweenItems, panel, selectedProject])
 
   const closeAll = useCallback(() => {
     setPanel('none')
@@ -97,15 +99,14 @@ export function Site() {
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
-  // 녹색(rgb(0, 255, 0))과 기본 검정색이 번갈아 바뀌도록 스타일 및 클래스 부여
+  // 녹 ➔ 검 변환 속도를 늦추기 위해 phase 2일 때 transition 시간을 더 길게 부여
   const getBlinkStyle = (itemIdx: number) => {
     const isCurrentActive = isBlinking && !isWaitingBetweenItems && activeItemIndex === itemIdx
-    // 짝수 타이밍일 때 녹색, 홀수일 때 검은색(기본)
-    const isGreen = isCurrentActive && (blinkCount % 2 === 0)
+    const isGreen = isCurrentActive && blinkPhase > 0
 
     return {
       color: isGreen ? 'rgb(0, 255, 0)' : 'inherit',
-      transition: 'color 0.5s ease',
+      transition: blinkPhase === 2 ? 'color 1.4s ease' : 'color 0.4s ease',
     }
   }
 
