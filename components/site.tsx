@@ -7,7 +7,7 @@ import { IndexOverlay } from '@/components/index-overlay'
 import { AboutOverlay } from '@/components/about-overlay'
 import { HomeCarousel } from '@/components/home-carousel'
 
-type Panel = 'none' | 'index' | 'photography' | 'design' | 'about'
+type Panel = 'none' | 'photography' | 'design' | 'about'
 
 export function Site() {
   const [panel, setPanel] = useState<Panel>('none')
@@ -32,9 +32,7 @@ export function Site() {
   const overlayTitle =
     panel === 'photography'
       ? { ko: '사진', en: 'Photography' }
-      : panel === 'design'
-      ? { ko: '그래픽 디자인', en: 'Graphic Design' }
-      : { ko: '찾아보기', en: 'Index' }
+      : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
   return (
     <>
@@ -48,10 +46,6 @@ export function Site() {
         <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block font-normal">
           <button type="button" onClick={() => setPanel('about')} className="hover:opacity-50">
             <span lang="ko">장혁준</span> Jang Hyukjun
-          </button>{' '}
-          ({' '}
-          <button type="button" onClick={() => setPanel('index')} className="hover:opacity-50">
-            <span lang="ko">찾아보기</span> Index
           </button>{' '}
           ({' '}
           <button type="button" onClick={() => setPanel('photography')} className="hover:opacity-50">
@@ -73,7 +67,7 @@ export function Site() {
 
         {/* 모바일/좁은 화면 레이아웃 */}
         <div className="pointer-events-auto flex flex-col items-center gap-1.5 text-[12px] leading-none md:hidden">
-          {/* 1줄: 장혁준 Jang Hyukjun ( 찾아보기 Index ( 사진 Photography */}
+          {/* 1줄: 장혁준 Jang Hyukjun ( 사진 Photography */}
           <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
             <button
               type="button"
@@ -84,17 +78,6 @@ export function Site() {
               className="hover:opacity-50 inline"
             >
               <span lang="ko">장혁준</span> Jang Hyukjun
-            </button>{' '}
-            ({' '}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation()
-                setPanel('index')
-              }}
-              className="hover:opacity-50 inline font-normal"
-            >
-              <span lang="ko">찾아보기</span> Index
             </button>{' '}
             ({' '}
             <button
@@ -142,7 +125,7 @@ export function Site() {
       </footer>
 
       <IndexOverlay
-        open={panel === 'index' || panel === 'photography' || panel === 'design'}
+        open={panel === 'photography' || panel === 'design'}
         projects={filteredProjects}
         title={overlayTitle}
         onClose={closePanel}
