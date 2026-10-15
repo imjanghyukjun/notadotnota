@@ -41,7 +41,6 @@ const rawImageList: { filename?: string; series?: string[]; category: Category }
   { filename: 'd1.jpg', category: 'design' },
   { filename: '_5.jpg', category: 'photography' },
   { filename: 'd4.jpg', category: 'design' },
-  // 이 항목이 원래 d.13이었던 항목이며, 카테고리만 사진으로 변경했습니다.
   { filename: 'ccc.jpg', category: 'photography' },
   { series: ['d7_1.jpg', 'd7_2.jpg'], category: 'design' },
   { filename: 'vscd.jpg', category: 'photography' },
