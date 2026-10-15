@@ -60,7 +60,16 @@ export function Site() {
         {/* 기본 메인 홈 캐러셀 */}
         <HomeCarousel paused={panel !== 'none' || isDetailView} />
 
-        {/* 50:50 분할 디테일 오버레이 패널 */}
+        {/* 1. 배경에 항상 유지되는 사진/그래픽 디자인 인덱스 오버레이 */}
+        <IndexOverlay
+          open={panel === 'photography' || panel === 'design'}
+          projects={filteredProjects}
+          title={overlayTitle}
+          onClose={closeAll}
+          onSelect={selectProject}
+        />
+
+        {/* 2. 50:50 분할 디테일 오버레이 패널 (인덱스 창 위에 얹혀짐) */}
         {isDetailView && (
           <div className="fixed inset-0 z-50">
             {/* 상단 클릭 가능 고정 헤더 (mix-blend-difference 적용) */}
@@ -97,9 +106,9 @@ export function Site() {
               </button>
             </header>
 
-            {/* 50:50 격리 레이아웃 (좌우 패널 모두 97% 불투명도 적용 bg-white/97) */}
+            {/* 50:50 격리 레이아웃 */}
             <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-              {/* 좌측 50%: 97% 불투명 흰색 배경 */}
+              {/* 좌측 50%: 97% 불투명 흰색 배경 (뒤쪽의 인덱스 목록이 은은하게 비쳐 보임) */}
               <div 
                 className="hidden md:block w-full h-full bg-white/97 cursor-pointer"
                 onClick={closeDetail}
@@ -199,14 +208,7 @@ export function Site() {
         <p className="text-muted-foreground">All Rights Reserved {'©'} 2026</p>
       </footer>
 
-      {/* 인덱스 오버레이 */}
-      <IndexOverlay
-        open={(panel === 'photography' || panel === 'design') && !isDetailView}
-        projects={filteredProjects}
-        title={overlayTitle}
-        onClose={closeAll}
-        onSelect={selectProject}
-      />
+      {/* 어바웃 오버레이 */}
       <AboutOverlay open={panel === 'about'} onClose={closeAll} />
     </>
   )
