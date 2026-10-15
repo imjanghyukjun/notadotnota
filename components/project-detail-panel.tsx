@@ -23,7 +23,7 @@ export default function ProjectDetailPanel({
 }: ProjectDetailProps) {
   return (
     <div className="w-full min-h-screen bg-white/90 text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
-      {/* 1. 상단 Sticky Header: 흰색 띠 제거 및 mix-blend-difference(반전) 적용 */}
+      {/* 1. 상단 Sticky Header: mix-blend-difference(반전) 적용 고정 헤더 */}
       <div className="sticky top-0 z-20 bg-transparent px-4 py-3 flex justify-between items-center text-[15px] mix-blend-difference text-white pointer-events-none">
         <span className="font-normal pointer-events-auto">{title}</span>
         {onClose && (
@@ -51,8 +51,8 @@ export default function ProjectDetailPanel({
         ))}
       </div>
 
-      {/* 3. 하단 2컬럼 정보 영역 */}
-      <div className="p-4 pt-10 flex flex-col justify-between text-[15px] leading-relaxed gap-10 bg-white">
+      {/* 3. 하단 2컬럼 정보 영역 (Return to Projects 삭제 적용) */}
+      <div className="p-4 pt-10 pb-16 flex flex-col justify-between text-[15px] leading-relaxed gap-10 bg-white">
         <div className="grid grid-cols-2 gap-6">
           {/* 좌측 컬럼: Details */}
           <div className="space-y-3">
@@ -76,17 +76,6 @@ export default function ProjectDetailPanel({
           <div className="text-gray-800 leading-normal">
             <p className="whitespace-pre-line">{description}</p>
           </div>
-        </div>
-
-        {/* 4. 하단 풋터 링크 */}
-        <div className="flex justify-start items-center pt-4 border-t border-gray-100 text-[13px] text-gray-500">
-          <button 
-            type="button"
-            onClick={onClose}
-            className="hover:opacity-50 transition-colors cursor-pointer"
-          >
-            (Return to Projects)
-          </button>
         </div>
       </div>
     </div>
