@@ -14,18 +14,22 @@ export function Site() {
   const [panel, setPanel] = useState<Panel>('none')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  // 모든 오버레이 및 상세 뷰 닫기
+  // 모든 오버레이 및 상세 뷰 완전 닫기 (메인 홈으로 복귀)
   const closeAll = useCallback(() => {
     setPanel('none')
     setSelectedProject(null)
   }, [])
 
-  // 인덱스 오버레이에서 프로젝트 선택 시: 인덱스 창을 닫고 상세 패널만 표시
+  // 디테일 패널만 닫고 직전 인덱스 창(사진/그래픽 디자인)으로 돌아가기
+  const closeDetail = useCallback(() => {
+    setSelectedProject(null)
+  }, [])
+
+  // 인덱스 오버레이에서 프로젝트 선택 시
   const selectProject = useCallback((slug: string) => {
     const found = projects.find((p) => p.slug === slug)
     if (found) {
       setSelectedProject(found)
-      setPanel('none') // ⚠️ 인덱스 오버레이를 닫아 겹침 현상 완벽 방지
     }
   }, [])
 
@@ -45,7 +49,7 @@ export function Site() {
 
   // 상세 뷰 헤더 카테고리
   const detailCategoryLabel =
-    selectedProject?.category === 'photography'
+    selectedProject?.category === 'photography' || panel === 'photography'
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
@@ -64,9 +68,10 @@ export function Site() {
               <h2 className="font-normal pointer-events-auto">
                 <span lang="ko">장혁준</span> Jang Hyukjun ( <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en} ( {selectedProject.titleKo || selectedProject.title}
               </h2>
+              {/* Close 버튼 클릭 시 직전 인덱스 오버레이로 이동 */}
               <button 
                 type="button"
-                onClick={() => setSelectedProject(null)}
+                onClick={closeDetail}
                 className="hover:opacity-50 transition-opacity cursor-pointer ml-auto pointer-events-auto"
               >
                 (Close)
@@ -75,10 +80,10 @@ export function Site() {
 
             {/* 50:50 격리 레이아웃 */}
             <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-              {/* 좌측 50%: 완전한 불투명 흰색 배경 (클릭 시 디테일 닫힘) */}
+              {/* 좌측 50%: 완전한 불투명 흰색 배경 (클릭 시 직전 인덱스 창으로 돌아감) */}
               <div 
                 className="hidden md:block w-full h-full bg-white cursor-pointer"
-                onClick={() => setSelectedProject(null)}
+                onClick={closeDetail}
               />
 
               {/* 우측 50%: 상세 정보 패널 */}
@@ -90,7 +95,7 @@ export function Site() {
                   client="Client Name / Publisher"
                   description={selectedProject.descriptionKo || selectedProject.description || "2026년 프로젝트 상세 설명 및 더미 텍스트입니다. 달리며 응원을 모았다."}
                   images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
-                  onClose={() => setSelectedProject(null)}
+                  onClose={closeDetail}
                 />
               </div>
             </div>
@@ -175,9 +180,9 @@ export function Site() {
         <p className="text-muted-foreground">All Rights Reserved {'©'} 2026</p>
       </footer>
 
-      {/* 인덱스 오버레이 */}
+      {/* 인덱스 오버레이 (panel 상태가 유지되므로 closeDetail 시 자동으로 인덱스 그리드가 노출됨) */}
       <IndexOverlay
-        open={panel === 'photography' || panel === 'design'}
+        open={(panel === 'photography' || panel === 'design') && !isDetailView}
         projects={filteredProjects}
         title={overlayTitle}
         onClose={closeAll}
