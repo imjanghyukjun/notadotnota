@@ -73,8 +73,8 @@ export function Site() {
         {isDetailView && (
           <div className="fixed inset-0 z-50">
             {/* 상단 클릭 가능 고정 헤더 (mix-blend-difference 적용) */}
-            <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-              <h2 className="text-[15px] font-normal tracking-tight pointer-events-auto">
+            <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
+              <h2 className="text-[15px] font-normal tracking-tight pointer-events-auto pr-2">
                 <button 
                   type="button" 
                   onClick={closeAll}
@@ -100,7 +100,7 @@ export function Site() {
               <button 
                 type="button"
                 onClick={closeDetail}
-                className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white pointer-events-auto"
+                className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white pointer-events-auto shrink-0"
               >
                 (Close)
               </button>
