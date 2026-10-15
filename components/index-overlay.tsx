@@ -56,7 +56,7 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 overflow-y-auto bg-white/90 px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-40 overflow-y-auto bg-white/90 px-2 md:px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
@@ -76,7 +76,7 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
         </button>
       </header>
 
-      {/* 썸네일 그리드: 모바일 2칸(grid-cols-2), 좌우 여백 0(gap-x-0)으로 딱 붙게 설정 */}
+      {/* 썸네일 그리드: 모바일 2칸(grid-cols-2), 이미지 간 좌우 여백 0(gap-x-0)으로 두 줄 밀착 */}
       <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-8 items-end">
         {projects.map((project, i) => {
           const hasSeries = Boolean(project.series && project.series.length > 1)
