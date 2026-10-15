@@ -63,8 +63,8 @@ export function Site() {
         {/* 50:50 분할 디테일 오버레이 패널 */}
         {isDetailView && (
           <div className="fixed inset-0 z-50">
-            {/* 화면 전체(100%) 기준 상단 고정 헤더 */}
-            <header className="fixed inset-x-0 top-0 z-50 px-2 md:px-4 py-3 flex justify-between items-center text-[15px] font-normal tracking-tight mix-blend-difference text-white pointer-events-none">
+            {/* 화면 전체(100%) 기준 상단 고정 헤더: 좌우 여백 px-4로 일치 */}
+            <header className="fixed inset-x-0 top-0 z-50 px-4 py-3 flex justify-between items-center text-[15px] font-normal tracking-tight mix-blend-difference text-white pointer-events-none">
               <h2 className="font-normal pointer-events-auto">
                 <span lang="ko">장혁준</span> Jang Hyukjun ( <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en} ( {selectedProject.titleKo || selectedProject.title}
               </h2>
@@ -86,8 +86,8 @@ export function Site() {
                 onClick={closeDetail}
               />
 
-              {/* 우측 50%: 상세 정보 패널 */}
-              <div className="w-full h-full overflow-y-auto bg-white border-l border-gray-100 pt-12">
+              {/* 우측 50%: 상세 정보 패널 (pt-0 적용으로 이미지 상단 높이를 Close 선에 일치) */}
+              <div className="w-full h-full overflow-y-auto bg-white border-l border-gray-100 pt-0">
                 <ProjectDetailPanel
                   title={selectedProject.titleKo || selectedProject.title}
                   year={selectedProject.year || "2026"}
@@ -180,7 +180,7 @@ export function Site() {
         <p className="text-muted-foreground">All Rights Reserved {'©'} 2026</p>
       </footer>
 
-      {/* 인덱스 오버레이 (panel 상태가 유지되므로 closeDetail 시 자동으로 인덱스 그리드가 노출됨) */}
+      {/* 인덱스 오버레이 */}
       <IndexOverlay
         open={(panel === 'photography' || panel === 'design') && !isDetailView}
         projects={filteredProjects}
