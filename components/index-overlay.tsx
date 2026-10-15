@@ -45,7 +45,8 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent text-black leading-snug pointer-events-none">
+      {/* 상단 헤더: items-start 정렬로 2줄 개행 대응 */}
+      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-3 md:px-4 bg-transparent text-black leading-snug pointer-events-none">
         <h2 id="index-title" className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
           <button 
             type="button" 
@@ -67,9 +68,9 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 디테일 창과 동일한 상단 여백 pt-7 지정 */}
-      <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-7 pb-16">
-        <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-4 items-end">
+      {/* 스크롤 영역: 2줄 헤더 텍스트와 겹치지 않도록 모바일 상단 패딩을 충분히 확보 (pt-24 md:pt-20) */}
+      <div className="w-full h-full overflow-y-auto px-3 md:px-4 pt-24 md:pt-20 pb-16">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end">
           {projects.map((project, i) => {
             const displayImage = project.image || (project.series && project.series[0])
 

@@ -22,8 +22,8 @@ export default function ProjectDetailPanel({
 }: ProjectDetailProps) {
   return (
     <div className="w-full min-h-screen bg-white text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
-      {/* 1. 상단 여백을 기존의 반(pt-7)으로 줄이고 좌우 여백(px-2 md:px-4) 추가 */}
-      <div className="flex-1 flex flex-col gap-3 px-2 md:px-4 pt-7">
+      {/* 인덱스 창과 동일한 상단/좌우 여백 적용 */}
+      <div className="flex-1 flex flex-col gap-3 px-3 md:px-4 pt-24 md:pt-20">
         {images.map((imgSrc, idx) => (
           <div key={idx} className="w-full relative overflow-hidden">
             <img
@@ -36,10 +36,9 @@ export default function ProjectDetailPanel({
         ))}
       </div>
 
-      {/* 2. 하단 2컬럼 정보 영역 */}
+      {/* 하단 정보 영역 */}
       <div className="p-4 pt-10 pb-16 flex flex-col justify-between text-[15px] leading-relaxed gap-10 bg-white">
         <div className="grid grid-cols-2 gap-6">
-          {/* 좌측 컬럼: Details */}
           <div className="space-y-3">
             <div>
               <p className="font-medium text-black">{title}</p>
@@ -57,7 +56,6 @@ export default function ProjectDetailPanel({
             </div>
           </div>
 
-          {/* 우측 컬럼: Description */}
           <div className="text-gray-800 leading-normal">
             <p className="whitespace-pre-line">{description}</p>
           </div>
