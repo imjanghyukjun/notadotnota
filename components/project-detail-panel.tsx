@@ -22,8 +22,8 @@ export default function ProjectDetailPanel({
 }: ProjectDetailProps) {
   return (
     <div className="w-full min-h-screen bg-white text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
-      {/* 이미지 영역: 홈 화면 좌우 여백과 일치 (px-2 md:px-4) 및 내부 이미지 중앙정렬 보장 */}
-      <div className="flex-1 flex flex-col gap-3 px-2 md:px-4 pt-24 md:pt-20">
+      {/* 인덱스 창과 완벽하게 동일한 상단 여백(pt-28 md:pt-24) 및 좌우 여백(px-2 md:px-4) 적용 */}
+      <div className="flex-1 flex flex-col gap-3 px-2 md:px-4 pt-28 md:pt-24">
         {images.map((imgSrc, idx) => (
           <div key={idx} className="w-full relative overflow-hidden flex items-center justify-center">
             <img
@@ -36,7 +36,7 @@ export default function ProjectDetailPanel({
         ))}
       </div>
 
-      {/* 하단 정보 영역: 이미지와 양 끝 라인이 정확히 일치하도록 px-2 md:px-4 적용 */}
+      {/* 하단 정보 영역 */}
       <div className="px-2 md:px-4 pt-10 pb-16 flex flex-col justify-between text-[15px] leading-relaxed gap-10 bg-white">
         <div className="grid grid-cols-2 gap-6">
           <div className="space-y-3">

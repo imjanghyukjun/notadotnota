@@ -68,7 +68,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 컨텐츠 영역: 클릭 이벤트가 배경으로 퍼지지 않게 하되, 빈 여백 클릭 시 닫히도록 오버레이 전체에 핸들러 유지 */}
+      {/* 디테일 창과 완벽히 일치하는 상단 여백(pt-28 md:pt-24) 및 좌우 여백(px-2 md:px-4) 적용 */}
       <div className="w-full min-h-full px-2 md:px-4 pt-28 md:pt-24 pb-16 pointer-events-none">
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto">
           {projects.map((project, i) => {
