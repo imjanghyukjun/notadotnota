@@ -83,11 +83,11 @@ export function Site() {
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
-  // 순차 깜빡임 시 최소 투명도를 80% 수준(opacity-80)으로 부드럽게 유지하고 버튼 가인성 부여
+  // 눈에 잘 띄도록 투명도 변화 폭을 적절하게 조정 (opacity-40 ~ opacity-100)
   const getBlinkClass = (itemIdx: number) => {
     const isCurrentActive = isBlinking && activeItemIndex === itemIdx
     const blinkState = isCurrentActive 
-      ? (blinkCount % 2 === 0 ? 'opacity-80' : 'opacity-100') 
+      ? (blinkCount % 2 === 0 ? 'opacity-40' : 'opacity-100') 
       : 'opacity-100'
 
     return `transition-opacity duration-500 cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70 ${blinkState}`
