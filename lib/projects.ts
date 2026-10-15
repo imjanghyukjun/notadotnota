@@ -28,41 +28,40 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
   { maxWidth: 1180, aspectRatio: '16 / 10' },
 ]
 
-// 원래 정상 작동하던 파일명 및 경로 구조를 그대로 유지하면서 순서만 재배치
+// 새로 정리된 파일명과 시리즈(`d3`, `d7`, `d9`) 구조 반영
 const rawImageList: { filename?: string; series?: string[]; category: Category }[] = [
-  // 1번: 000.jpg (그래픽 디자인)
-  { filename: '000.jpg', category: 'design' },
-  // 2번: vadsc.jpg (홈페이지 배경 메인 이미지 - 사진)
+  // 01번: 디자인 메인 d0.jpg
+  { filename: 'd0.jpg', category: 'design' },
+  // 02번: 홈페이지 메인 배경 이미지 vadsc.jpg
   { filename: 'vadsc.jpg', category: 'photography' },
 
-  // --- 나머지 기존 이미지들 (원래 경로 및 분류 유지) ---
-  { filename: '005.jpg', category: 'design' },
+  // --- 3번 이후 사진 및 디자인(시리즈 포함) 교차 배치 ---
+  { filename: 'd1.jpg', category: 'design' },
   { filename: '3f.jpg', category: 'photography' },
-  { series: ['008_1.jpg', '008_2.jpg'], category: 'design' },
+  { filename: 'd2.jpg', category: 'design' },
   { filename: '666.jpg', category: 'photography' },
-  { filename: '001.jpg', category: 'design' },
+  { series: ['d3.jpg', 'd3_2.jpg'], category: 'design' },
   { filename: '1.jpg', category: 'photography' },
-  { series: ['004_1.jpg', '004_2.jpg'], category: 'design' },
+  { filename: 'd4.jpg', category: 'design' },
   { filename: 'vdvs.jpg', category: 'photography' },
-  { filename: '007.jpg', category: 'design' },
+  { filename: 'd5.jpg', category: 'design' },
   { filename: 'ccc.jpg', category: 'photography' },
-  { filename: '002.jpg', category: 'design' },
+  { filename: 'd6.jpg', category: 'design' },
   { filename: '_5.jpg', category: 'photography' },
-  { series: ['0010_1.jpg', '0010_2.jpg'], category: 'design' },
+  { series: ['d7_1.jpg', 'd7_2.jpg'], category: 'design' },
   { filename: 'gd.jpg', category: 'photography' },
-  { filename: '009.jpg', category: 'design' },
+  { filename: 'd8.jpg', category: 'design' },
   { filename: 'vscd.jpg', category: 'photography' },
-  { filename: '0011.jpg', category: 'design' },
+  { series: ['d9_1.jpg', 'd9_2.jpg'], category: 'design' },
   { filename: '3.jpg', category: 'photography' },
-  { filename: '006.jpg', category: 'design' },
+  { filename: 'd10.jpg', category: 'design' },
   { filename: 'cvdccc.jpg', category: 'photography' },
-  { filename: '0012.jpg', category: 'design' },
+  { filename: 'd11.jpg', category: 'design' },
   { filename: '2.jpg', category: 'photography' },
-  { filename: '0016.jpg', category: 'design' },
+  { filename: 'dds.jpg', category: 'design' },
   { filename: 'f.jpg', category: 'photography' },
   { filename: 'v.jpg', category: 'photography' },
   { filename: '6.jpg', category: 'photography' },
-  { filename: 'dds.jpg', category: 'photography' },
   { filename: 'vddd.jpg', category: 'photography' },
   { series: ['fdsv.jpg', 'vdsdcsa.jpg'], category: 'photography' },
 ]
@@ -70,8 +69,6 @@ const rawImageList: { filename?: string; series?: string[]; category: Category }
 const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.map((item, idx) => {
   const numStr = String(idx + 1).padStart(2, '0')
   const isSeries = Boolean(item.series && item.series.length > 0)
-  
-  // 이미지가 깨지지 않도록 올바른 퍼블릭 경로 매핑 복원
   const mainImage = isSeries ? `/projects/img/${item.series![0]}` : `/projects/img/${item.filename}`
   const seriesImages = isSeries ? item.series!.map((f) => `/projects/img/${f}`) : undefined
 
