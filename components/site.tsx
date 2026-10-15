@@ -94,7 +94,7 @@ export function Site() {
           </header>
         )}
 
-        {/* 2. 사진/그래픽 디자인 인덱스 오버레이 (About 과 동일한 부드러운 페이드 전환 적용) */}
+        {/* 2. 사진/그래픽 디자인 인덱스 오버레이 */}
         <IndexOverlay
           open={panel === 'photography' || panel === 'design'}
           projects={filteredProjects}
@@ -103,61 +103,68 @@ export function Site() {
           onSelect={selectProject}
         />
 
-        {/* 3. 50:50 분할 디테일 오버레이 패널 */}
-        {isDetailView && (
-          <div className="fixed inset-0 z-50">
-            <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-              <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
+        {/* 3. 50:50 분할 디테일 오버레이 패널 (슬라이드 완전 제거 및 순수 페이드 전환 적용) */}
+        <div
+          className={`fixed inset-0 z-50 bg-white/97 transition-opacity duration-300 ease-out ${
+            isDetailView ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+          aria-hidden={!isDetailView}
+        >
+          {isDetailView && (
+            <>
+              <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
+                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
+                  <button 
+                    type="button" 
+                    onClick={closeAll}
+                    className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
+                  >
+                    <span lang="ko">장혁준</span> Jang Hyukjun
+                  </button>
+                  {' ( '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const targetCategory = selectedProject?.category || (panel === 'photography' ? 'photography' : 'design')
+                      setSelectedProject(null)
+                      setPanel(targetCategory)
+                    }}
+                    className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
+                  >
+                    <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en}
+                  </button>
+                  {' ( '}
+                  <span>{selectedProject.titleKo || selectedProject.title}</span>
+                </h2>
                 <button 
-                  type="button" 
-                  onClick={closeAll}
-                  className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
-                >
-                  <span lang="ko">장혁준</span> Jang Hyukjun
-                </button>
-                {' ( '}
-                <button
                   type="button"
-                  onClick={() => {
-                    const targetCategory = selectedProject?.category || (panel === 'photography' ? 'photography' : 'design')
-                    setSelectedProject(null)
-                    setPanel(targetCategory)
-                  }}
-                  className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
+                  onClick={closeDetail}
+                  className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white pointer-events-auto shrink-0"
                 >
-                  <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en}
+                  (Close)
                 </button>
-                {' ( '}
-                <span>{selectedProject.titleKo || selectedProject.title}</span>
-              </h2>
-              <button 
-                type="button"
-                onClick={closeDetail}
-                className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white pointer-events-auto shrink-0"
-              >
-                (Close)
-              </button>
-            </header>
+              </header>
 
-            <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-              <div 
-                className="hidden md:block w-full h-full bg-white/97 cursor-pointer"
-                onClick={closeDetail}
-              />
-              <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50 pt-0">
-                <ProjectDetailPanel
-                  title={selectedProject.titleKo || selectedProject.title}
-                  year={selectedProject.year || "2026"}
-                  spec="120×155mm, 148p, 무선제본"
-                  client="Client Name / Publisher"
-                  description={selectedProject.descriptionKo || selectedProject.description || "2026년 프로젝트 상세 설명 및 더미 텍스트입니다. 달리며 응원을 모았다."}
-                  images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
-                  onClose={closeDetail}
+              <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
+                <div 
+                  className="hidden md:block w-full h-full bg-white/97 cursor-pointer"
+                  onClick={closeDetail}
                 />
+                <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50 pt-0">
+                  <ProjectDetailPanel
+                    title={selectedProject.titleKo || selectedProject.title}
+                    year={selectedProject.year || "2026"}
+                    spec="120×155mm, 148p, 무선제본"
+                    client="Client Name / Publisher"
+                    description={selectedProject.descriptionKo || selectedProject.description || "2026년 프로젝트 상세 설명 및 더미 텍스트입니다. 달리며 응원을 모았다."}
+                    images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
+                    onClose={closeDetail}
+                  />
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            </>
+          )}
+        </div>
       </main>
 
       {/* 4. 홈 화면 중앙 메인 메뉴 바 */}
