@@ -28,14 +28,10 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
   { maxWidth: 1180, aspectRatio: '16 / 10' },
 ]
 
-// 1번: 000.jpg, 2번: vadsc.jpg (배경 이미지), 3번 이후: 사진/디자인 교차 및 재배치
+// 이미지와 시리즈 경로가 정확히 매핑되도록 구조 통일
 const rawImageList: { filename?: string; series?: string[]; category: Category }[] = [
-  // 01번: 디자인 000.jpg
   { filename: '000.jpg', category: 'design' },
-  // 02번: 홈페이지 메인 배경 이미지 vadsc.jpg
   { filename: 'vadsc.jpg', category: 'photography' },
-
-  // --- 03번 이후: 자유롭게 섞은 배치 ---
   { filename: '005.jpg', category: 'design' },
   { filename: '3f.jpg', category: 'photography' },
   { series: ['008_1.jpg', '008_2.jpg'], category: 'design' },
@@ -69,9 +65,19 @@ const rawImageList: { filename?: string; series?: string[]; category: Category }
 
 const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.map((item, idx) => {
   const numStr = String(idx + 1).padStart(2, '0')
-  const isSeries = Boolean(item.series && item.series.length > 0)
-  const mainImage = isSeries ? `/projects/img/${item.series![0]}` : `/projects/img/${item.filename}`
-  const seriesImages = isSeries ? item.series!.map((f) => `/projects/img/${f}`) : undefined
+  
+  // 메인 이미지 경로 설정
+  let mainImage = ''
+  if (item.filename) {
+    mainImage = `/projects/img/${item.filename}`
+  } else if (item.series && item.series.length > 0) {
+    mainImage = `/projects/img/${item.series[0]}`
+  }
+
+  // 시리즈 이미지 배열 전체 경로 설정
+  const seriesImages = item.series
+    ? item.series.map((f) => `/projects/img/${f}`)
+    : undefined
 
   return {
     slug: `project-${numStr}`,
