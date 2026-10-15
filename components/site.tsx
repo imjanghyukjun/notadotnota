@@ -14,7 +14,7 @@ export function Site() {
   const [panel, setPanel] = useState<Panel>('none')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  // 순차적 깜빡임 애니메이션 상태 (0: 이름, 1: 사진, 2: 그래픽디자인, 3: 전체 5초 휴식 중)
+  // 순차적 색상 변화 애니메이션 상태 (0: 이름, 1: 사진, 2: 그래픽디자인, 3: 전체 5초 휴식 중)
   const [activeItemIndex, setActiveItemIndex] = useState<number>(0)
   const [blinkCount, setBlinkCount] = useState<number>(0)
   const [isBlinking, setIsBlinking] = useState<boolean>(true)
@@ -32,8 +32,8 @@ export function Site() {
           }, 2000)
         } else {
           timer = setTimeout(() => {
-            // 각 항목별로 정확히 4번 깜빡이도록 설정 (0, 1, 2, 3 총 4회)
-            if (blinkCount < 3) {
+            // 각 항목별로 정확히 3번 깜빡이도록 설정 (0, 1, 2 총 3회)
+            if (blinkCount < 2) {
               setBlinkCount(prev => prev + 1)
             } else {
               setBlinkCount(0)
@@ -97,14 +97,16 @@ export function Site() {
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
-  // 투명도 25% 수준(opacity-25)으로 뚜렷한 깜빡임 및 버튼 가인성 부여
-  const getBlinkClass = (itemIdx: number) => {
+  // 녹색(rgb(0, 255, 0))과 기본 검정색이 번갈아 바뀌도록 스타일 및 클래스 부여
+  const getBlinkStyle = (itemIdx: number) => {
     const isCurrentActive = isBlinking && !isWaitingBetweenItems && activeItemIndex === itemIdx
-    const blinkState = isCurrentActive 
-      ? (blinkCount % 2 === 0 ? 'opacity-25' : 'opacity-100') 
-      : 'opacity-100'
+    // 짝수 타이밍일 때 녹색, 홀수일 때 검은색(기본)
+    const isGreen = isCurrentActive && (blinkCount % 2 === 0)
 
-    return `transition-opacity duration-500 cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70 ${blinkState}`
+    return {
+      color: isGreen ? 'rgb(0, 255, 0)' : 'inherit',
+      transition: 'color 0.5s ease',
+    }
   }
 
   return (
@@ -233,7 +235,8 @@ export function Site() {
             <button 
               type="button" 
               onClick={() => { setSelectedProject(null); setPanel('about'); }} 
-              className={getBlinkClass(0)}
+              style={getBlinkStyle(0)}
+              className="cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70"
             >
               <span lang="ko">장혁준</span> Jang Hyukjun
             </button>{' '}
@@ -241,7 +244,8 @@ export function Site() {
             <button 
               type="button" 
               onClick={() => { setSelectedProject(null); setPanel('photography'); }} 
-              className={getBlinkClass(1)}
+              style={getBlinkStyle(1)}
+              className="cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70"
             >
               <span lang="ko">사진</span> Photography
             </button>{' '}
@@ -249,7 +253,8 @@ export function Site() {
             <button 
               type="button" 
               onClick={() => { setSelectedProject(null); setPanel('design'); }} 
-              className={getBlinkClass(2)}
+              style={getBlinkStyle(2)}
+              className="cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70"
             >
               <span lang="ko">그래픽 디자인</span> Graphic Design
             </button>{' '}
@@ -273,7 +278,8 @@ export function Site() {
                   setSelectedProject(null)
                   setPanel('about')
                 }}
-                className={getBlinkClass(0)}
+                style={getBlinkStyle(0)}
+                className="inline cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current"
               >
                 <span lang="ko">장혁준</span> Jang Hyukjun
               </button>{' '}
@@ -285,7 +291,8 @@ export function Site() {
                   setSelectedProject(null)
                   setPanel('photography')
                 }}
-                className={getBlinkClass(1)}
+                style={getBlinkStyle(1)}
+                className="inline cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current"
               >
                 <span lang="ko">사진</span> Photography
               </button>{' '}
@@ -297,7 +304,8 @@ export function Site() {
                   setSelectedProject(null)
                   setPanel('design')
                 }}
-                className={getBlinkClass(2)}
+                style={getBlinkStyle(2)}
+                className="inline cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current"
               >
                 <span lang="ko">그래픽 디자인</span> Graphic Design
               </button>
