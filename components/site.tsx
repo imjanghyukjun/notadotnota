@@ -25,6 +25,7 @@ export function Site() {
     if (panel === 'none' && !selectedProject) {
       if (isBlinking) {
         timer = setTimeout(() => {
+          // 각 항목별로 정확히 3번 깜빡이도록 수정 (0, 1, 2 총 3회)
           if (blinkCount < 2) {
             setBlinkCount(prev => prev + 1)
           } else {
@@ -37,6 +38,7 @@ export function Site() {
           }
         }, 800)
       } else {
+        // 5초 휴식 후 다시 처음(이름)부터 순차 깜빡임 재시작
         timer = setTimeout(() => {
           setActiveItemIndex(0)
           setBlinkCount(0)
@@ -83,11 +85,11 @@ export function Site() {
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
-  // 눈에 잘 띄도록 투명도 변화 폭을 적절하게 조정 (opacity-40 ~ opacity-100)
+  // 투명도를 25% 수준(opacity-25)까지 낮추어 확실히 눈에 띄게 조정
   const getBlinkClass = (itemIdx: number) => {
     const isCurrentActive = isBlinking && activeItemIndex === itemIdx
     const blinkState = isCurrentActive 
-      ? (blinkCount % 2 === 0 ? 'opacity-40' : 'opacity-100') 
+      ? (blinkCount % 2 === 0 ? 'opacity-25' : 'opacity-100') 
       : 'opacity-100'
 
     return `transition-opacity duration-500 cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70 ${blinkState}`
