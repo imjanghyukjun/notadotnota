@@ -10,17 +10,25 @@ type AboutOverlayProps = {
 }
 
 export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
+  const overlayRef = useRef<HTMLDivElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   useOverlay(open, onClose, closeRef)
 
   return (
     <div
+      ref={overlayRef}
+      onClick={(e) => {
+        // 배경(바깥 여백) 클릭 시 닫기
+        if (e.target === overlayRef.current) {
+          onClose()
+        }
+      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="about-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 overflow-y-auto bg-white/75 px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-40 overflow-y-auto bg-white/75 px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out cursor-pointer ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
@@ -28,12 +36,16 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
         ref={closeRef}
         type="button"
         onClick={onClose}
-        className="absolute right-4 top-3 hover:opacity-50"
+        className="absolute right-4 top-3 hover:opacity-50 cursor-pointer"
       >
         (Close)
       </button>
 
-      <div className="mt-3 flex flex-col gap-8 pr-16 md:grid md:grid-cols-4 md:gap-5">
+      {/* 내부 콘텐츠 클릭 시 바깥 닫기 이벤트가 작동하지 않도록 stopPropagation 추가 */}
+      <div 
+        onClick={(e) => e.stopPropagation()}
+        className="mt-3 flex flex-col gap-8 pr-16 md:grid md:grid-cols-4 md:gap-5 cursor-default"
+      >
         <div>
           <h2 id="about-title">
             <span lang="ko">장혁준</span> Jang Hyukjun
