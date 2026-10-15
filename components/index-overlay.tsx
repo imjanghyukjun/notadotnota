@@ -42,7 +42,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 overflow-y-auto bg-white/90 px-2 md:px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-40 overflow-y-auto bg-white/95 px-2 md:px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
