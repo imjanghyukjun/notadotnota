@@ -28,40 +28,39 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
   { maxWidth: 1180, aspectRatio: '16 / 10' },
 ]
 
-// 새로 정리된 파일명과 시리즈(`d3`, `d7`, `d9`) 구조 반영
+// 1번: d0.jpg, 2번: vadsc.jpg, 이후는 규칙 없이 자연스럽고 무작위로 섞은 배치
 const rawImageList: { filename?: string; series?: string[]; category: Category }[] = [
   // 01번: 디자인 메인 d0.jpg
   { filename: 'd0.jpg', category: 'design' },
   // 02번: 홈페이지 메인 배경 이미지 vadsc.jpg
   { filename: 'vadsc.jpg', category: 'photography' },
 
-  // --- 3번 이후 사진 및 디자인(시리즈 포함) 교차 배치 ---
-  { filename: 'd1.jpg', category: 'design' },
+  // --- 3번 이후 무작위/자연스러운 배치 ---
   { filename: '3f.jpg', category: 'photography' },
   { filename: 'd2.jpg', category: 'design' },
-  { filename: '666.jpg', category: 'photography' },
-  { series: ['d3.jpg', 'd3_2.jpg'], category: 'design' },
   { filename: '1.jpg', category: 'photography' },
-  { filename: 'd4.jpg', category: 'design' },
-  { filename: 'vdvs.jpg', category: 'photography' },
+  { series: ['d3.jpg', 'd3_2.jpg'], category: 'design' },
+  { filename: '666.jpg', category: 'photography' },
   { filename: 'd5.jpg', category: 'design' },
-  { filename: 'ccc.jpg', category: 'photography' },
-  { filename: 'd6.jpg', category: 'design' },
+  { filename: 'vdvs.jpg', category: 'photography' },
+  { filename: 'd1.jpg', category: 'design' },
   { filename: '_5.jpg', category: 'photography' },
+  { filename: 'd4.jpg', category: 'design' },
+  { filename: 'ccc.jpg', category: 'photography' },
   { series: ['d7_1.jpg', 'd7_2.jpg'], category: 'design' },
-  { filename: 'gd.jpg', category: 'photography' },
-  { filename: 'd8.jpg', category: 'design' },
   { filename: 'vscd.jpg', category: 'photography' },
-  { series: ['d9_1.jpg', 'd9_2.jpg'], category: 'design' },
+  { filename: 'd6.jpg', category: 'design' },
   { filename: '3.jpg', category: 'photography' },
-  { filename: 'd10.jpg', category: 'design' },
+  { filename: 'd8.jpg', category: 'design' },
   { filename: 'cvdccc.jpg', category: 'photography' },
-  { filename: 'd11.jpg', category: 'design' },
+  { series: ['d9_1.jpg', 'd9_2.jpg'], category: 'design' },
   { filename: '2.jpg', category: 'photography' },
-  { filename: 'dds.jpg', category: 'design' },
+  { filename: 'd10.jpg', category: 'design' },
   { filename: 'f.jpg', category: 'photography' },
-  { filename: 'v.jpg', category: 'photography' },
+  { filename: 'd11.jpg', category: 'design' },
   { filename: '6.jpg', category: 'photography' },
+  { filename: 'dds.jpg', category: 'design' },
+  { filename: 'v.jpg', category: 'photography' },
   { filename: 'vddd.jpg', category: 'photography' },
   { series: ['fdsv.jpg', 'vdsdcsa.jpg'], category: 'photography' },
 ]
