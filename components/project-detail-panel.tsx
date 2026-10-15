@@ -22,8 +22,8 @@ export default function ProjectDetailPanel({
   onClose,
 }: ProjectDetailProps) {
   return (
-    <div className="w-full min-h-screen bg-white text-black flex flex-col justify-between select-none text-[15px] leading-snug">
-      {/* 1. 상단 Sticky Header: 메인 메뉴와 동일한 text-[15px] 폰트 크기 */}
+    <div className="w-full min-h-screen bg-white/90 text-black flex flex-col justify-between select-none text-[15px] leading-snug">
+      {/* 1. 상단 Sticky Header */}
       <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm px-4 py-3 flex justify-between items-center text-[15px]">
         <span className="font-normal">{title}</span>
         {onClose && (
@@ -40,7 +40,7 @@ export default function ProjectDetailPanel({
       {/* 2. 메인 수직 스크롤 이미지 세트 */}
       <div className="flex-1 flex flex-col gap-3 p-0">
         {images.map((imgSrc, idx) => (
-          <div key={idx} className="w-full relative bg-gray-50 overflow-hidden">
+          <div key={idx} className="w-full relative overflow-hidden">
             <img
               src={imgSrc}
               alt={`${title} - image ${idx + 1}`}
@@ -51,7 +51,7 @@ export default function ProjectDetailPanel({
         ))}
       </div>
 
-      {/* 3. 하단 2컬럼 정보 영역: 메인 폰트 규격(15px) 적용 */}
+      {/* 3. 하단 2컬럼 정보 영역 */}
       <div className="p-4 pt-10 flex flex-col justify-between text-[15px] leading-relaxed gap-10">
         <div className="grid grid-cols-2 gap-6">
           {/* 좌측 컬럼: Details */}
