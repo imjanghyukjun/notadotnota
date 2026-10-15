@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { projects, Project } from '@/lib/projects'
 import { EMAIL, INSTAGRAM_HANDLE, INSTAGRAM_URL } from '@/lib/contact'
 import { IndexOverlay } from '@/components/index-overlay'
@@ -13,6 +13,40 @@ type Panel = 'none' | 'photography' | 'design' | 'about'
 export function Site() {
   const [panel, setPanel] = useState<Panel>('none')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+
+  // 순차적 깜빡임 애니메이션 상태 (0: 이름, 1: 사진, 2: 그래픽디자인, 3: 5초 휴식 중)
+  const [activeItemIndex, setActiveItemIndex] = useState<number>(0)
+  const [blinkCount, setBlinkCount] = useState<number>(0)
+  const [isBlinking, setIsBlinking] = useState<boolean>(true)
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout
+
+    if (panel === 'none' && !selectedProject) {
+      if (isBlinking) {
+        timer = setTimeout(() => {
+          if (blinkCount < 2) {
+            setBlinkCount(prev => prev + 1)
+          } else {
+            setBlinkCount(0)
+            if (activeItemIndex < 2) {
+              setActiveItemIndex(prev => prev + 1)
+            } else {
+              setIsBlinking(false)
+            }
+          }
+        }, 800)
+      } else {
+        timer = setTimeout(() => {
+          setActiveItemIndex(0)
+          setBlinkCount(0)
+          setIsBlinking(true)
+        }, 5000)
+      }
+    }
+
+    return () => clearTimeout(timer)
+  }, [activeItemIndex, blinkCount, isBlinking, panel, selectedProject])
 
   const closeAll = useCallback(() => {
     setPanel('none')
@@ -48,6 +82,16 @@ export function Site() {
     selectedProject?.category === 'photography' || panel === 'photography'
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
+
+  // 순차 깜빡임 시 최소 투명도를 80% 수준(opacity-80)으로 부드럽게 유지하고 버튼 가인성 부여
+  const getBlinkClass = (itemIdx: number) => {
+    const isCurrentActive = isBlinking && activeItemIndex === itemIdx
+    const blinkState = isCurrentActive 
+      ? (blinkCount % 2 === 0 ? 'opacity-80' : 'opacity-100') 
+      : 'opacity-100'
+
+    return `transition-opacity duration-500 cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70 ${blinkState}`
+  }
 
   return (
     <>
@@ -103,7 +147,7 @@ export function Site() {
           onSelect={selectProject}
         />
 
-        {/* 3. 50:50 분할 디테일 오버레이 패널 (슬라이드 완전 제거 및 순수 페이드 전환 적용) */}
+        {/* 3. 50:50 분할 디테일 오버레이 패널 */}
         <div
           className={`fixed inset-0 z-50 bg-white/97 transition-opacity duration-300 ease-out ${
             isDetailView ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
@@ -172,23 +216,35 @@ export function Site() {
         <div className="pointer-events-none fixed inset-x-0 top-1/2 z-30 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
           {/* 데스크톱(PC) 레이아웃 */}
           <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block font-normal">
-            <button type="button" onClick={() => { setSelectedProject(null); setPanel('about'); }} className="hover:opacity-50">
+            <button 
+              type="button" 
+              onClick={() => { setSelectedProject(null); setPanel('about'); }} 
+              className={getBlinkClass(0)}
+            >
               <span lang="ko">장혁준</span> Jang Hyukjun
             </button>{' '}
             ({' '}
-            <button type="button" onClick={() => { setSelectedProject(null); setPanel('photography'); }} className="hover:opacity-50">
+            <button 
+              type="button" 
+              onClick={() => { setSelectedProject(null); setPanel('photography'); }} 
+              className={getBlinkClass(1)}
+            >
               <span lang="ko">사진</span> Photography
             </button>{' '}
             ({' '}
-            <button type="button" onClick={() => { setSelectedProject(null); setPanel('design'); }} className="hover:opacity-50">
+            <button 
+              type="button" 
+              onClick={() => { setSelectedProject(null); setPanel('design'); }} 
+              className={getBlinkClass(2)}
+            >
               <span lang="ko">그래픽 디자인</span> Graphic Design
             </button>{' '}
             ({' '}
-            <a href={`mailto:${EMAIL}`} className="hover:opacity-50">
+            <a href={`mailto:${EMAIL}`} className="hover:opacity-50 transition-opacity underline underline-offset-4 decoration-transparent hover:decoration-current">
               {EMAIL}
             </a>{' '}
             ({' '}
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity underline underline-offset-4 decoration-transparent hover:decoration-current">
               instagram@{INSTAGRAM_HANDLE}
             </a>
           </div>
@@ -203,7 +259,7 @@ export function Site() {
                   setSelectedProject(null)
                   setPanel('about')
                 }}
-                className="hover:opacity-50 inline"
+                className={getBlinkClass(0)}
               >
                 <span lang="ko">장혁준</span> Jang Hyukjun
               </button>{' '}
@@ -215,7 +271,7 @@ export function Site() {
                   setSelectedProject(null)
                   setPanel('photography')
                 }}
-                className="hover:opacity-50 inline"
+                className={getBlinkClass(1)}
               >
                 <span lang="ko">사진</span> Photography
               </button>{' '}
@@ -227,7 +283,7 @@ export function Site() {
                   setSelectedProject(null)
                   setPanel('design')
                 }}
-                className="hover:opacity-50 inline"
+                className={getBlinkClass(2)}
               >
                 <span lang="ko">그래픽 디자인</span> Graphic Design
               </button>
