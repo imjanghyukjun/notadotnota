@@ -46,13 +46,13 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* 1. items-start 속성으로 (Close) 상단 위치와 좌측 텍스트 첫 줄 윗선 라인 완벽 동기화 */}
-      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent text-black pointer-events-none">
-        <h2 id="index-title" className="text-[15px] font-normal tracking-tight pointer-events-auto pr-2">
+      {/* 1. 홈 화면 스타일과 완벽하게 동일한 폰트/자간/상단 정렬 헤더 */}
+      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent text-black leading-snug pointer-events-none">
+        <h2 id="index-title" className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
           <button 
             type="button" 
             onClick={onClose}
-            className="hover:opacity-50 transition-opacity cursor-pointer inline text-black"
+            className="hover:opacity-50 transition-opacity cursor-pointer inline text-black font-normal"
           >
             <span lang="ko">장혁준</span> Jang Hyukjun
           </button>
@@ -60,17 +60,17 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
           <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
         </h2>
 
-        {/* 우측 (Close) 버튼 상단 고정 */}
+        {/* 우측 (Close) 버튼 */}
         <button
           type="button"
           onClick={onClose}
-          className="hover:opacity-50 ml-auto cursor-pointer text-black pointer-events-auto shrink-0"
+          className="hover:opacity-50 ml-auto cursor-pointer text-black pointer-events-auto shrink-0 font-normal"
         >
           (Close)
         </button>
       </header>
 
-      {/* 2. 스크롤 영역 (2줄 개행 가능성을 고려해 상단 패딩 pt-14 지정) */}
+      {/* 2. 스크롤 영역 */}
       <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-14 pb-16">
         <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-4 items-end">
           {projects.map((project, i) => {
@@ -101,7 +101,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
                 </div>
 
                 {/* 하단 번호 */}
-                <div className="mt-1 text-xs text-left text-black">
+                <div className="mt-1 text-xs text-left text-black font-normal">
                   <span>{String(i + 1).padStart(2, '0')}</span>
                 </div>
               </div>
