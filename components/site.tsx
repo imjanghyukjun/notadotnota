@@ -14,15 +14,18 @@ export function Site() {
   const [panel, setPanel] = useState<Panel>('none')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  const closePanel = useCallback(() => {
+  // 모든 오버레이 및 상세 뷰 닫기
+  const closeAll = useCallback(() => {
     setPanel('none')
     setSelectedProject(null)
   }, [])
 
+  // 인덱스 오버레이에서 프로젝트 선택 시: 인덱스 창을 닫고 상세 패널만 표시
   const selectProject = useCallback((slug: string) => {
     const found = projects.find((p) => p.slug === slug)
     if (found) {
       setSelectedProject(found)
+      setPanel('none') // ⚠️ 인덱스 오버레이를 닫아 겹침 현상 완벽 방지
     }
   }, [])
 
@@ -40,9 +43,9 @@ export function Site() {
 
   const isDetailView = selectedProject !== null
 
-  // 상세 뷰 헤더에 들어갈 카테고리 명칭 설정
+  // 상세 뷰 헤더 카테고리
   const detailCategoryLabel =
-    selectedProject?.category === 'photography' || panel === 'photography'
+    selectedProject?.category === 'photography'
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
@@ -53,10 +56,10 @@ export function Site() {
         {/* 기본 메인 홈 캐러셀 */}
         <HomeCarousel paused={panel !== 'none' || isDetailView} />
 
-        {/* 50:50 분할 디테일 오버레이 패널 (디테일 뷰 활성화 시) */}
+        {/* 50:50 분할 디테일 오버레이 패널 */}
         {isDetailView && (
-          <>
-            {/* 화면 전체(100%) 기준 최상단 고정 헤더: 좌측 맨 끝 타이틀 / 우측 맨 끝 (Close) */}
+          <div className="fixed inset-0 z-50">
+            {/* 화면 전체(100%) 기준 상단 고정 헤더 */}
             <header className="fixed inset-x-0 top-0 z-50 px-2 md:px-4 py-3 flex justify-between items-center text-[15px] font-normal tracking-tight mix-blend-difference text-white pointer-events-none">
               <h2 className="font-normal pointer-events-auto">
                 <span lang="ko">장혁준</span> Jang Hyukjun ( <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en} ( {selectedProject.titleKo || selectedProject.title}
@@ -70,15 +73,15 @@ export function Site() {
               </button>
             </header>
 
-            {/* 50:50 화면 분할 레이어 */}
-            <div className="fixed inset-0 z-40 grid grid-cols-1 md:grid-cols-2 bg-white">
-              {/* 좌측 50%: 완전한 흰색 배경 (뒤쪽 이미지/캐러셀 원천 차단) */}
+            {/* 50:50 격리 레이아웃 */}
+            <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
+              {/* 좌측 50%: 완전한 불투명 흰색 배경 (클릭 시 디테일 닫힘) */}
               <div 
                 className="hidden md:block w-full h-full bg-white cursor-pointer"
                 onClick={() => setSelectedProject(null)}
               />
 
-              {/* 우측 50%: 상세 정보 스크롤 패널 */}
+              {/* 우측 50%: 상세 정보 패널 */}
               <div className="w-full h-full overflow-y-auto bg-white border-l border-gray-100 pt-12">
                 <ProjectDetailPanel
                   title={selectedProject.titleKo || selectedProject.title}
@@ -91,11 +94,11 @@ export function Site() {
                 />
               </div>
             </div>
-          </>
+          </div>
         )}
       </main>
 
-      {/* 중앙 메인 메뉴 바: 디테일뷰(!isDetailView)가 아닐 때만 표시 */}
+      {/* 중앙 메인 메뉴 바: 디테일뷰가 아닐 때만 표시 */}
       {!isDetailView && (
         <div className="pointer-events-none fixed inset-x-0 top-1/2 z-30 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
           {/* 데스크톱(PC) 레이아웃 */}
@@ -121,7 +124,7 @@ export function Site() {
             </a>
           </div>
 
-          {/* 모바일/좁은 화면 레이아웃 */}
+          {/* 모바일 레이아웃 */}
           <div className="pointer-events-auto flex items-center justify-center text-[12px] leading-none md:hidden">
             <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
               <button
@@ -177,10 +180,10 @@ export function Site() {
         open={panel === 'photography' || panel === 'design'}
         projects={filteredProjects}
         title={overlayTitle}
-        onClose={closePanel}
+        onClose={closeAll}
         onSelect={selectProject}
       />
-      <AboutOverlay open={panel === 'about'} onClose={closePanel} />
+      <AboutOverlay open={panel === 'about'} onClose={closeAll} />
     </>
   )
 }
