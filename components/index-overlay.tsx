@@ -13,6 +13,7 @@ type Project = {
   image?: string
   series?: string[]
   alt?: string
+  category?: 'design' | 'photography'
 }
 
 type IndexOverlayProps = {
@@ -81,6 +82,7 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
           const hasSeries = Boolean(project.series && project.series.length > 1)
           const currentSeriesIndex = seriesIndices[project.slug] || 0
           const displayImage = hasSeries ? project.series![currentSeriesIndex] : project.image
+          const isDesign = project.category === 'design'
 
           return (
             <div
@@ -91,7 +93,7 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
               }`}
             >
               {/* 이미지 영역 */}
-              <div className="relative w-full overflow-hidden">
+              <div className="relative w-full overflow-hidden flex items-center justify-center">
                 {displayImage && (
                   <Image
                     src={displayImage}
@@ -99,7 +101,9 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
                     width={800}
                     height={1000}
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                    className="h-auto w-full object-contain grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0"
+                    className={`h-auto w-full object-contain grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0 ${
+                      isDesign ? '-rotate-90' : ''
+                    }`}
                   />
                 )}
               </div>
