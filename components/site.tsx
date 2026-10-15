@@ -22,7 +22,6 @@ export function Site() {
   const selectProject = useCallback((slug: string) => {
     const found = projects.find((p) => p.slug === slug)
     if (found) {
-      // 인덱스 오버레이 창은 유지하되 디테일 프로젝트만 선택
       setSelectedProject(found)
     }
   }, [])
@@ -48,17 +47,17 @@ export function Site() {
         {/* 기본 메인 홈 캐러셀 */}
         <HomeCarousel paused={panel !== 'none' || isDetailView} />
 
-        {/* 50:50 분할 디테일 오버레이 패널 (투명도 90% 적용) */}
+        {/* 50:50 분할 디테일 오버레이 패널 (디테일 뷰 활성화 시) */}
         {isDetailView && (
-          <div className="fixed inset-0 z-50 pointer-events-none grid grid-cols-1 md:grid-cols-2">
-            {/* 좌측 50%: 완전 투명 영역 (뒤쪽 인덱스/그리드가 보임) */}
+          <div className="fixed inset-0 z-50 grid grid-cols-1 md:grid-cols-2 bg-white">
+            {/* 좌측 50%: 완전한 흰색 배경 (뒤쪽 이미지/캐러셀 원천 차단) */}
             <div 
-              className="hidden md:block w-full h-full pointer-events-auto cursor-pointer"
+              className="hidden md:block w-full h-full bg-white cursor-pointer"
               onClick={() => setSelectedProject(null)}
             />
 
-            {/* 우측 50%: 흰색 90% 투명도 배경의 상세 정보 패널 */}
-            <div className="w-full h-full overflow-y-auto bg-white/90 backdrop-blur-sm pointer-events-auto">
+            {/* 우측 50%: 상세 정보 스크롤 패널 */}
+            <div className="w-full h-full overflow-y-auto bg-white border-l border-gray-100">
               <ProjectDetailPanel
                 title={selectedProject.titleKo || selectedProject.title}
                 year={selectedProject.year || "2026"}
