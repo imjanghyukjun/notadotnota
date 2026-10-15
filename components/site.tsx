@@ -146,7 +146,7 @@ export function Site() {
                     <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en}
                   </button>
                   {' ( '}
-                  <span>{formattedTokenOrNum(formattedProjectNumber)}</span>
+                  <span>{formattedProjectNumber}</span>
                 </h2>
                 <button 
                   type="button"
@@ -165,10 +165,7 @@ export function Site() {
                 <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50 pt-0">
                   <ProjectDetailPanel
                     title={selectedProject.titleKo || selectedProject.title}
-                    year={selectedProject.year || "2026"}
-                    spec=""
-                    client=""
-                    description=""
+                    projectNumber={formattedProjectNumber}
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
                     onClose={closeDetail}
                   />
@@ -270,8 +267,4 @@ export function Site() {
       <AboutOverlay open={panel === 'about'} onClose={closeAll} />
     </>
   )
-}
-
-function formattedTokenOrNum(val: string) {
-  return val
 }
