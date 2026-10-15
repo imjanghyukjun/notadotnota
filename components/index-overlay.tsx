@@ -67,7 +67,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 디테일 패널과 동일한 상단 여백(pt-28 md:pt-24) 및 좌우 여백 적용 */}
+      {/* 디테일 페이지와 이미지 시작 상단 라인을 정확히 동기화한 패딩 적용 */}
       <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-28 md:pt-24 pb-16">
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end">
           {projects.map((project, i) => {
