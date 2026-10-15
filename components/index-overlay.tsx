@@ -46,9 +46,9 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* 1. 화면에 완전히 고정된(fixed) 상단 헤더: 바운스 스크롤 시에도 미동도 하지 않음 */}
-      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between py-3 px-2 md:px-4 bg-transparent text-black pointer-events-none">
-        <h2 id="index-title" className="text-[15px] font-normal tracking-tight pointer-events-auto">
+      {/* 1. items-start 속성으로 (Close) 상단 위치와 좌측 텍스트 첫 줄 윗선 라인 완벽 동기화 */}
+      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent text-black pointer-events-none">
+        <h2 id="index-title" className="text-[15px] font-normal tracking-tight pointer-events-auto pr-2">
           <button 
             type="button" 
             onClick={onClose}
@@ -60,17 +60,18 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
           <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
         </h2>
 
+        {/* 우측 (Close) 버튼 상단 고정 */}
         <button
           type="button"
           onClick={onClose}
-          className="hover:opacity-50 ml-auto cursor-pointer text-black pointer-events-auto"
+          className="hover:opacity-50 ml-auto cursor-pointer text-black pointer-events-auto shrink-0"
         >
           (Close)
         </button>
       </header>
 
-      {/* 2. 실제 스크롤이 일어나는 내부 썸네일 그리드 영역 (상단 헤더 높이만큼 pt-12 여백 지정) */}
-      <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-12 pb-16">
+      {/* 2. 스크롤 영역 (2줄 개행 가능성을 고려해 상단 패딩 pt-14 지정) */}
+      <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-14 pb-16">
         <div className="grid grid-cols-2 gap-x-0 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-0 md:gap-y-16 pt-4 items-end">
           {projects.map((project, i) => {
             const displayImage = project.image || (project.series && project.series[0])
