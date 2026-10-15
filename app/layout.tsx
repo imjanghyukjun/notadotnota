@@ -18,11 +18,14 @@ const notoSansKr = Noto_Sans_KR({
 
 export const metadata: Metadata = {
   title: 'janghyukjun',
-  description:
-    'Graphic Design, Photography.',
+  description: 'Graphic Design, Photography.',
   icons: {
     icon: [
-      { url: '/icon.svg', type: 'image/svg+xml', sizes: '64x64' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    shortcut: ['/icon.png'],
+    apple: [
+      { url: '/icon.png' },
     ],
   },
 }
