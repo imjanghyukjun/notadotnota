@@ -24,7 +24,7 @@ type IndexOverlayProps = {
   title?: { ko: string; en: string }
 }
 
-export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayProps) {
+export function IndexOverlay({ open, projects, onClose, onSelect, title }: IndexOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   useOverlay(open, onClose)
 
@@ -98,7 +98,12 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
               key={project.slug}
               onMouseEnter={() => handleMouseEnter(project)}
               onMouseLeave={() => handleMouseLeave(project)}
-              className="group flex flex-col justify-end text-left w-full cursor-default"
+              onClick={() => {
+                if (onSelect) {
+                  onSelect(project.slug)
+                }
+              }}
+              className="group flex flex-col justify-end text-left w-full cursor-pointer"
             >
               {/* 이미지 영역: 디자인 카테고리는 흑백 해제(컬러 원본), 사진 카테고리는 기존 호버 흑백 유지 */}
               <div className="relative w-full overflow-hidden flex items-center justify-center">
