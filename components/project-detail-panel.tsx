@@ -13,11 +13,11 @@ export interface ProjectDetailProps {
 }
 
 export default function ProjectDetailPanel({
-  title = "간바레 Ganbare ガンバレ !",
-  year = "2026",
-  spec = "120×155mm, 148p, 무선제본",
-  client = "Client Name / Publisher",
-  description = "2026년 교토 마라톤. 달리며 응원을 모았다. 간바레-콜렉션이다. 군산북페어, 서울퍼블리셔스테이블에서 판매한다.",
+  title = "",
+  year = "",
+  spec = "",
+  client = "",
+  description = "",
   images = [],
 }: ProjectDetailProps) {
   return (
@@ -41,7 +41,7 @@ export default function ProjectDetailPanel({
         <div className="grid grid-cols-2 gap-6">
           <div className="space-y-3">
             <div>
-              <p className="font-medium text-black">{title}</p>
+              {title && <p className="font-medium text-black">{title}</p>}
             </div>
             
             <div className="text-gray-600 space-y-0.5">
@@ -49,15 +49,10 @@ export default function ProjectDetailPanel({
               {spec && <p>{spec}</p>}
               {client && <p>{client}</p>}
             </div>
-
-            <div className="pt-2 text-gray-500 text-[13px]">
-              <p>Printed by Digid Web Sit Inc.</p>
-              <p>Typeset in Diatype</p>
-            </div>
           </div>
 
           <div className="text-gray-800 leading-normal">
-            <p className="whitespace-pre-line">{description}</p>
+            {description && <p className="whitespace-pre-line">{description}</p>}
           </div>
         </div>
       </div>
