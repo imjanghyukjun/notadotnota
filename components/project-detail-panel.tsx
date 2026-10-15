@@ -22,15 +22,15 @@ export default function ProjectDetailPanel({
   onClose,
 }: ProjectDetailProps) {
   return (
-    <div className="w-full min-h-screen bg-white/90 text-black flex flex-col justify-between select-none text-[15px] leading-snug">
-      {/* 1. 상단 Sticky Header */}
-      <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm px-4 py-3 flex justify-between items-center text-[15px]">
-        <span className="font-normal">{title}</span>
+    <div className="w-full min-h-screen bg-white/90 text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
+      {/* 1. 상단 Sticky Header: 흰색 띠 제거 및 mix-blend-difference(반전) 적용 */}
+      <div className="sticky top-0 z-20 bg-transparent px-4 py-3 flex justify-between items-center text-[15px] mix-blend-difference text-white pointer-events-none">
+        <span className="font-normal pointer-events-auto">{title}</span>
         {onClose && (
           <button 
             type="button"
             onClick={onClose}
-            className="hover:opacity-50 transition-opacity cursor-pointer ml-auto"
+            className="hover:opacity-50 transition-opacity cursor-pointer ml-auto pointer-events-auto"
           >
             (Close)
           </button>
@@ -38,7 +38,7 @@ export default function ProjectDetailPanel({
       </div>
 
       {/* 2. 메인 수직 스크롤 이미지 세트 */}
-      <div className="flex-1 flex flex-col gap-3 p-0">
+      <div className="flex-1 flex flex-col gap-3 p-0 -mt-11">
         {images.map((imgSrc, idx) => (
           <div key={idx} className="w-full relative overflow-hidden">
             <img
@@ -52,7 +52,7 @@ export default function ProjectDetailPanel({
       </div>
 
       {/* 3. 하단 2컬럼 정보 영역 */}
-      <div className="p-4 pt-10 flex flex-col justify-between text-[15px] leading-relaxed gap-10">
+      <div className="p-4 pt-10 flex flex-col justify-between text-[15px] leading-relaxed gap-10 bg-white">
         <div className="grid grid-cols-2 gap-6">
           {/* 좌측 컬럼: Details */}
           <div className="space-y-3">
@@ -78,7 +78,7 @@ export default function ProjectDetailPanel({
           </div>
         </div>
 
-        {/* 4. 하단 풋터 링크 (날짜 제거 완료) */}
+        {/* 4. 하단 풋터 링크 */}
         <div className="flex justify-start items-center pt-4 border-t border-gray-100 text-[13px] text-gray-500">
           <button 
             type="button"
