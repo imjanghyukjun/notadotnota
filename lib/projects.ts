@@ -28,28 +28,43 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
   { maxWidth: 1180, aspectRatio: '16 / 10' },
 ]
 
-// vadsc.jpg를 메인(01번)으로 설정
+// 기존 이미지들: 'photography', 스크린샷 속 파일들: 'design'
 const rawImageList: { filename?: string; series?: string[]; category: Category }[] = [
-  { filename: 'vadsc.jpg', category: 'photography' }, // 01 (메인)
-  { filename: '666.jpg', category: 'design' },        // 02
-  { filename: '3f.jpg', category: 'photography' },    // 03
-  { filename: 'vdvs.jpg', category: 'design' },       // 04
-  { filename: '1.jpg', category: 'photography' },     // 05
-  { filename: 'ccc.jpg', category: 'design' },        // 06
-  { filename: '4.jpg', category: 'photography' },     // 07
-  { filename: '_5.jpg', category: 'photography' },    // 08
-  { filename: 'gd.jpg', category: 'design' },         // 09
-  { filename: 'vscd.jpg', category: 'photography' },   // 10
-  { filename: '3.jpg', category: 'photography' },     // 11
-  { filename: 'cvdccc.jpg', category: 'design' },     // 12
-  { filename: '2.jpg', category: 'photography' },     // 13
-  { filename: 'f.jpg', category: 'design' },          // 14
-  { filename: 'v.jpg', category: 'photography' },     // 15
-  { filename: '6.jpg', category: 'photography' },     // 16
-  { filename: 'dds.jpg', category: 'design' },        // 17
-  { filename: 'vddd.jpg', category: 'photography' },  // 18
-  // 19번: 시리즈 작업 (첫 사진: 기존 20번 fdsv.jpg, 두번째: 기존 19번 vdsdcsa.jpg)
-  { series: ['fdsv.jpg', 'vdsdcsa.jpg'], category: 'design' }, // 19
+  // --- 기존에 있던 이미지들 (사진 photography) ---
+  { filename: 'vadsc.jpg', category: 'photography' },
+  { filename: '666.jpg', category: 'photography' },
+  { filename: '3f.jpg', category: 'photography' },
+  { filename: 'vdvs.jpg', category: 'photography' },
+  { filename: '1.jpg', category: 'photography' },
+  { filename: 'ccc.jpg', category: 'photography' },
+  { filename: '4.jpg', category: 'photography' },
+  { filename: '_5.jpg', category: 'photography' },
+  { filename: 'gd.jpg', category: 'photography' },
+  { filename: 'vscd.jpg', category: 'photography' },
+  { filename: '3.jpg', category: 'photography' },
+  { filename: 'cvdccc.jpg', category: 'photography' },
+  { filename: '2.jpg', category: 'photography' },
+  { filename: 'f.jpg', category: 'photography' },
+  { filename: 'v.jpg', category: 'photography' },
+  { filename: '6.jpg', category: 'photography' },
+  { filename: 'dds.jpg', category: 'photography' },
+  { filename: 'vddd.jpg', category: 'photography' },
+  { series: ['fdsv.jpg', 'vdsdcsa.jpg'], category: 'photography' },
+
+  // --- 스크린샷 속 파일들 (그래픽 디자인 design) ---
+  { filename: '000.jpg', category: 'design' },
+  { filename: '001.jpg', category: 'design' },
+  { filename: '002.jpg', category: 'design' },
+  { series: ['004_1.jpg', '004_2.jpg'], category: 'design' },
+  { filename: '005.jpg', category: 'design' },
+  { filename: '006.jpg', category: 'design' },
+  { filename: '007.jpg', category: 'design' },
+  { series: ['008_1.jpg', '008_2.jpg'], category: 'design' },
+  { filename: '009.jpg', category: 'design' },
+  { series: ['0010_1.jpg', '0010_2.jpg'], category: 'design' },
+  { filename: '0011.jpg', category: 'design' },
+  { filename: '0012.jpg', category: 'design' },
+  { filename: '0016.jpg', category: 'design' },
 ]
 
 const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.map((item, idx) => {
@@ -78,5 +93,4 @@ export const projects: Project[] = projectData.map((project, i) => ({
   ...LAYOUTS[i % LAYOUTS.length],
 }))
 
-/** Eight-home-slide loop for the narrow-width carousel. */
 export const homeSlides: Project[] = [...projects, ...projects].slice(0, 8)
