@@ -23,25 +23,18 @@ export function Site() {
 
     if (panel === 'none' && !selectedProject) {
       if (step === 0 || step === 1 || step === 2) {
-        // 1. 스르륵 녹색으로 전환
         setIsGreen(true)
-        
-        // 녹색 유지 및 스르륵 검정으로 돌아오기 (총 1.6초 소요: 스르륵 녹 0.8초 + 스르륵 검 0.8초)
         timer = setTimeout(() => {
           setIsGreen(false)
-          
           timer = setTimeout(() => {
             if (step < 2) {
-              // 2. 다음 항목으로 넘어가기 전 0.5초 휴식
               setStep(prev => prev + 1)
             } else {
-              // 3. 그래픽까지 끝나면 4초 동안 전체 휴식 후 처음(이름)으로 루프
               setStep(3)
             }
-          }, 800) // 검정으로 완전히 돌아오는 시간 대기
-        }, 800) // 녹색 유지 시간
+          }, 800)
+        }, 800)
       } else if (step === 3) {
-        // 사이클 종료 후 4초 대기
         timer = setTimeout(() => {
           setStep(0)
         }, 4000)
@@ -86,7 +79,6 @@ export function Site() {
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
-  // 스르륵 페이드 전환을 위해 transition을 0.8초로 넉넉하게 부여
   const getBlinkStyle = (itemIdx: number) => {
     const active = (panel === 'none' && !selectedProject && step === itemIdx && isGreen)
     return {
@@ -100,45 +92,6 @@ export function Site() {
       <main className="h-svh w-full overflow-hidden md:h-screen relative">
         <h1 className="sr-only">장혁준 Jang Hyukjun</h1>
         <HomeCarousel paused={panel !== 'none' || isDetailView} />
-
-        {/* 1. 홈 화면 좌상단 고정 헤더 (PC 전용) */}
-        {!isDetailView && panel === 'none' && (
-          <header className="fixed inset-x-0 top-0 z-30 hidden md:flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-            <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
-              <button
-                type="button"
-                onClick={() => setPanel('about')}
-                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
-              >
-                <span lang="ko">장혁준</span> Jang Hyukjun
-              </button>
-              {' ( '}
-              <button
-                type="button"
-                onClick={() => setPanel('photography')}
-                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
-              >
-                <span lang="ko">사진</span> Photography
-              </button>
-              {' ( '}
-              <button
-                type="button"
-                onClick={() => setPanel('design')}
-                className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
-              >
-                <span lang="ko">그래픽 디자인</span> Graphic Design
-              </button>
-              {' ( '}
-              <a href={`mailto:${EMAIL}`} className="hover:opacity-50 transition-opacity text-white font-normal">
-                {EMAIL}
-              </a>
-              {' ( '}
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity text-white font-normal">
-                instagram@{INSTAGRAM_HANDLE}
-              </a>
-            </h2>
-          </header>
-        )}
 
         {/* 2. 사진/그래픽 디자인 인덱스 오버레이 */}
         <IndexOverlay
