@@ -28,7 +28,7 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
       aria-labelledby="about-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 overflow-y-auto bg-white/75 px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out cursor-pointer ${
+      className={`fixed inset-0 z-40 overflow-y-auto bg-white/75 px-2 md:px-4 pb-16 text-[15px] leading-snug transition-opacity duration-500 ease-out cursor-pointer ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
     >
@@ -36,7 +36,7 @@ export function AboutOverlay({ open, onClose }: AboutOverlayProps) {
         ref={closeRef}
         type="button"
         onClick={onClose}
-        className="absolute right-4 top-3 hover:opacity-50 cursor-pointer"
+        className="absolute right-2 md:right-4 top-3 hover:opacity-50 cursor-pointer"
       >
         (Close)
       </button>
