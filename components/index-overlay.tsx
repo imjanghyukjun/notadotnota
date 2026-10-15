@@ -31,14 +31,23 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
   // 각 프로젝트별 시리즈 이미지 슬라이드 인덱스 상태 관리
   const [seriesIndices, setSeriesIndices] = useState<Record<string, number>>({})
 
-  const handleImageClick = (project: Project) => {
-    // 시리즈 이미지가 등록되어 있는 경우에만 클릭 시 다음 사진으로 교체
+  // 마우스 오버 시 다음 시리즈 이미지로 전환 (호버)
+  const handleMouseEnter = (project: Project) => {
     if (project.series && project.series.length > 1) {
-      setSeriesIndices((prev) => {
-        const currentIndex = prev[project.slug] || 0
-        const nextIndex = (currentIndex + 1) % project.series!.length
-        return { ...prev, [project.slug]: nextIndex }
-      })
+      setSeriesIndices((prev) => ({
+        ...prev,
+        [project.slug]: 1, // 마우스를 올리면 2번째(다음) 이미지 보여주기
+      }))
+    }
+  }
+
+  // 마우스 떠날 시 원래 첫 번째 이미지로 복원
+  const handleMouseLeave = (project: Project) => {
+    if (project.series && project.series.length > 1) {
+      setSeriesIndices((prev) => ({
+        ...prev,
+        [project.slug]: 0, // 첫 번째 원본 이미지로 복원
+      }))
     }
   }
 
@@ -87,10 +96,9 @@ export function IndexOverlay({ open, projects, onClose, title }: IndexOverlayPro
           return (
             <div
               key={project.slug}
-              onClick={() => handleImageClick(project)}
-              className={`group flex flex-col justify-end text-left w-full ${
-                hasSeries ? 'cursor-pointer' : 'cursor-default'
-              }`}
+              onMouseEnter={() => handleMouseEnter(project)}
+              onMouseLeave={() => handleMouseLeave(project)}
+              className="group flex flex-col justify-end text-left w-full cursor-default"
             >
               {/* 이미지 영역: 디자인 카테고리는 흑백 해제(컬러 원본), 사진 카테고리는 기존 호버 흑백 유지 */}
               <div className="relative w-full overflow-hidden flex items-center justify-center">
