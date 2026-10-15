@@ -55,7 +55,7 @@ export function Site() {
         <h1 className="sr-only">장혁준 Jang Hyukjun</h1>
         <HomeCarousel paused={panel !== 'none' || isDetailView} />
 
-        {/* 1. 홈 화면 좌상단 고정 헤더 (PC 전용: hidden md:flex) */}
+        {/* 1. 홈 화면 좌상단 고정 헤더 (PC 전용) */}
         {!isDetailView && panel === 'none' && (
           <header className="fixed inset-x-0 top-0 z-30 hidden md:flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
             <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
@@ -94,7 +94,7 @@ export function Site() {
           </header>
         )}
 
-        {/* 2. 사진/그래픽 디자인 인덱스 오버레이 */}
+        {/* 2. 사진/그래픽 디자인 인덱스 오버레이 (About 과 동일한 부드러운 페이드 전환 적용) */}
         <IndexOverlay
           open={panel === 'photography' || panel === 'design'}
           projects={filteredProjects}
