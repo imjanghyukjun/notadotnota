@@ -16,8 +16,8 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
 
   return (
     <>
-      {/* 1. 모바일용: 좌우 여백을 거의 없애고(px-0.5) 이미지가 화면에 꽉 차도록 고정 (md:hidden) */}
-      <div className="relative flex h-svh w-full items-center justify-center px-1 md:hidden">
+      {/* 1. 모바일용: 좌우 여백 2배로 확대 (px-2) */}
+      <div className="relative flex h-svh w-full items-center justify-center px-2 md:hidden">
         {mainProject && (
           <figure className="relative h-full w-full">
             <Image
@@ -32,7 +32,7 @@ export function HomeCarousel({ paused = false }: HomeCarouselProps) {
         )}
       </div>
 
-      {/* 2. PC(데스크톱)용: 화면 세로 절대 중앙 + 하단선 All Rights Reserved 바닥선에 정확히 밀착 */}
+      {/* 2. PC(데스크톱)용: 기존 원래 여백 (px-3) 유지 */}
       <div className="pointer-events-none relative hidden h-screen w-full overflow-hidden md:block" aria-hidden>
         <div
           className={`w-full h-full ${paused ? '[animation-play-state:paused]' : ''} animate-vertical-scroll`}
