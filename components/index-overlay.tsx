@@ -67,8 +67,8 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 홈 화면 배경 이미지 좌우 끝 간격(px-2 md:px-4)과 완벽히 일치시킴 */}
-      <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-24 md:pt-20 pb-16">
+      {/* 디테일 패널과 동일한 상단 여백(pt-28 md:pt-24) 및 좌우 여백 적용 */}
+      <div className="w-full h-full overflow-y-auto px-2 md:px-4 pt-28 md:pt-24 pb-16">
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end">
           {projects.map((project, i) => {
             const displayImage = project.image || (project.series && project.series[0])
