@@ -29,8 +29,7 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
 ]
 
 const rawImageList: { filename?: string; series?: string[]; category: Category }[] = [
-  // --- 스크린샷에서 추가/변경하신 Graphic Design 폴더 구조 반영 ---
-  { filename: 'Graphic Design/---.jpg', category: 'design' },
+  // --- d.0.jpg를 첫 번째로 두어 홈 화면 배경 대표 이미지로 고정 (---.jpg 삭제) ---
   { filename: 'Graphic Design/d.0.jpg', category: 'design' },
   { series: ['Graphic Design/d.1.jpg', 'Graphic Design/d.1a.jpg'], category: 'design' },
   { series: ['Graphic Design/d.2.jpg', 'Graphic Design/d.2a.jpg'], category: 'design' },
