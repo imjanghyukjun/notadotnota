@@ -63,14 +63,14 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
           </span>
         </h2>
 
-        {/* 모바일 버전 좌상단에는 어떤 텍스트도 노출되지 않도록 비워둠 */}
+        {/* 모바일 버전 좌상단에는 텍스트를 노출하지 않음 */}
         <div className="md:hidden"></div>
 
-        {/* 우상단 Close 버튼 (텍스트 그림자와 반전 효과를 함께 주어 흰 배경/검은 배경 어디서든 가시성 확보) */}
+        {/* 우상단 Close 버튼 (그림자 없이 깔끔하게 믹스 블렌드 반전 적용) */}
         <button
           type="button"
           onClick={onClose}
-          className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white mix-blend-difference [text-shadow:_0_0_2px_rgba(0,0,0,0.8)] pointer-events-auto shrink-0"
+          className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white mix-blend-difference pointer-events-auto shrink-0"
         >
           (Close)
         </button>
