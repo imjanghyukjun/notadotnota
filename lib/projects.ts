@@ -134,28 +134,41 @@ const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.ma
   const match = fileNameOnly.match(/d\.(\d+)/)
 
   let numStr = ''
+  let currentPhotoIndex = 0
+
   if (item.category === 'design' && match) {
     numStr = String(match[1]).padStart(2, '0')
   } else {
     const currentCount = item.category === 'design' ? designCount++ : photoCount++
     numStr = String(currentCount).padStart(2, '0')
+    if (item.category === 'photography') {
+      currentPhotoIndex = currentCount + 1
+    }
   }
 
   const mainImage = `/projects/img/${firstPath}`
   const seriesImages = isSeries ? item.series!.map((f) => `/projects/img/${f}`) : undefined
 
-  const fullDescription = [
-    item.mediaKo,
-    item.descriptionKo
-  ].filter(Boolean).join('\n\n')
+  // 사진 카테고리는 p.1, p.2 형태의 라벨로 제목 생성
+  const title = item.category === 'photography' 
+    ? `p.${currentPhotoIndex}` 
+    : (item.titleKo || '')
+
+  const year = item.category === 'photography'
+    ? '2026'
+    : (item.year || '')
+
+  const fullDescription = item.category === 'photography'
+    ? ''
+    : [item.mediaKo, item.descriptionKo].filter(Boolean).join('\n\n')
 
   return {
     slug: `project-${idx}`,
-    title: item.titleKo || '',
-    titleKo: item.titleKo || '',
+    title: title,
+    titleKo: title,
     number: numStr,
     category: item.category,
-    year: item.year || '',
+    year: year,
     description: fullDescription,
     descriptionKo: fullDescription,
     image: mainImage,
