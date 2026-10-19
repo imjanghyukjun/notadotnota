@@ -48,7 +48,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
     >
       {/* 상단 헤더 */}
       <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent leading-snug pointer-events-none">
-        {/* PC 전용 좌상단 타이틀 */}
+        {/* PC 전용 좌상단 타이틀 (원래대로 블랙 컬러 고정) */}
         <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2 text-black">
           <button 
             type="button" 
@@ -66,7 +66,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         {/* 모바일 버전 좌상단에는 텍스트를 노출하지 않음 */}
         <div className="md:hidden"></div>
 
-        {/* 우상단 Close 버튼: 박스나 섀도우 없이 50% 투명 회색 텍스트 컬러만 적용 */}
+        {/* 우상단 Close 버튼: PC버전(md:)은 원래대로 선명한 블랙, 모바일은 기존 설정 유지 */}
         <button
           type="button"
           onClick={onClose}
