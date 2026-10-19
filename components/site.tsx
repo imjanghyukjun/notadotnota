@@ -169,9 +169,9 @@ export function Site() {
 
               {/* 50:50 레이아웃 */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-                {/* [좌측 50%] 내부 2열 분할 -> 우측 열의 좌상단에 텍스트 박스 안착 */}
+                {/* [좌측 50%] cursor-default로 기본 마우스 커서 적용 */}
                 <div 
-                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-3 pb-10 text-black leading-snug font-normal cursor-pointer"
+                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-3 pb-10 text-black leading-snug font-normal cursor-default"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
