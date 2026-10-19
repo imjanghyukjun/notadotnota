@@ -180,6 +180,8 @@ export function Site() {
                 <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50 pt-0">
                   <ProjectDetailPanel
                     title={selectedProject.titleKo || selectedProject.title}
+                    year={selectedProject.year}
+                    description={selectedProject.descriptionKo || selectedProject.description}
                     projectNumber={formattedProjectNumber}
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
                     onClose={closeDetail}
@@ -191,10 +193,10 @@ export function Site() {
         </div>
       </main>
 
-      {/* 4. 중앙 메인 메뉴 바 (디테일 뷰가 아닐 때 항상 표시, 오버레이 위인 z-50으로 설정) */}
+      {/* 4. 중앙 메인 메뉴 바 */}
       {!isDetailView && (
         <div className="pointer-events-none fixed inset-x-0 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
-          {/* 데스크톱(PC) 레이아웃 (홈 화면일 때만 노출) */}
+          {/* 데스크톱(PC) 레이아웃 */}
           {panel === 'none' && (
             <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block font-normal">
               <button 
@@ -234,7 +236,7 @@ export function Site() {
             </div>
           )}
 
-          {/* 모바일 레이아웃 (모든 상태에서 유지 및 해당 텍스트만 g255 강조) */}
+          {/* 모바일 레이아웃 */}
           <div className="pointer-events-auto flex items-center justify-center text-[12px] leading-none md:hidden">
             <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none text-black">
               <button
