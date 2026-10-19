@@ -133,7 +133,7 @@ export function Site() {
         >
           {isDetailView && (
             <>
-              {/* PC 전용 최상단 헤더 (기존 유지) */}
+              {/* PC 전용 최상단 헤더 ((Close) 버튼 포함 믹스 블렌드 적용) */}
               <header className="hidden md:flex fixed inset-x-0 top-0 z-50 items-start justify-between py-3 px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
                 <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
                   <button 
@@ -167,7 +167,7 @@ export function Site() {
                 </button>
               </header>
 
-              {/* [모바일 전용] 최상단 헤더 (장혁준 이름 제거, 카테고리 및 번호 중심) */}
+              {/* [모바일 전용] 최상단 헤더 ((Close) 버튼 포함 믹스 블렌드 적용) */}
               <header className="md:hidden fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-1 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
                 <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-1 max-w-[calc(100%-70px)] break-all [hyphens:auto] [word-break:break-word]">
                   <button
