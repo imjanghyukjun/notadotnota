@@ -169,17 +169,17 @@ export function Site() {
 
               {/* 50:50 레이아웃 */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-                {/* [좌측 50%] 흰색 배경 영역 & 레퍼런스 위치 텍스트 설명 */}
+                {/* [좌측 50%] 흰색 영역 + 중앙 선으로 밀어붙인 텍스트 설명 */}
                 <div 
-                  className="w-full h-full overflow-y-auto bg-white px-2 md:px-4 pt-12 md:pt-14 pb-10 text-black leading-relaxed font-normal cursor-pointer"
+                  className="w-full h-full overflow-y-auto bg-white px-2 md:px-4 pt-12 md:pt-14 pb-10 text-black leading-relaxed font-normal cursor-pointer flex flex-col items-end text-left"
                   onClick={(e) => {
-                    // 텍스트 선택이 아닌 여백 클릭 시 닫기
                     if (e.target === e.currentTarget) closeDetail()
                   }}
                 >
-                  <div className="whitespace-pre-wrap select-text">
+                  <div className="whitespace-pre-wrap select-text max-w-xs w-full">
                     <p className="font-bold text-[15px] mb-1">{selectedProject.titleKo || selectedProject.title}</p>
-                    <p className="text-[15px] mb-4">{selectedProject.year}</p>
+                    <p className="text-[15px] mb-2">{selectedProject.year}</p>
+                    <p className="text-[15px] mb-2">(매체)</p>
                     <p className="text-[15px]">{selectedProject.descriptionKo || selectedProject.description}</p>
                   </div>
                 </div>
@@ -187,7 +187,6 @@ export function Site() {
                 {/* [우측 50%] 상단 여백 없이 최상단부터 밀착되는 이미지/영상 패널 */}
                 <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50">
                   <ProjectDetailPanel
-                    projectNumber={formattedProjectNumber}
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
                     onClose={closeDetail}
                   />

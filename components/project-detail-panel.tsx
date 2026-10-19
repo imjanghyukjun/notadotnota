@@ -5,16 +5,14 @@ import React from 'react'
 export interface ProjectDetailProps {
   images?: string[]
   onClose?: () => void
-  projectNumber?: string
 }
 
 export default function ProjectDetailPanel({
   images = [],
-  projectNumber = "",
 }: ProjectDetailProps) {
   return (
     <div className="w-full min-h-screen bg-white text-black flex flex-col justify-between select-none text-[15px] leading-snug relative">
-      {/* 상단 패딩 pt-0으로 화면 최상단 밀착 */}
+      {/* 상단 패딩 pt-0으로 (Close) 헤더 라인과 일치 */}
       <div className="flex-1 flex flex-col gap-3 px-2 md:px-4 pt-0 md:pt-0 pb-10">
         {images.map((src, idx) => {
           const isVideo = src.toLowerCase().endsWith('.mp4')
@@ -44,14 +42,6 @@ export default function ProjectDetailPanel({
             </div>
           )
         })}
-      </div>
-
-      {/* 하단 바 */}
-      <div className="px-2 md:px-4 pb-16 flex items-center justify-between text-[15px] leading-relaxed bg-white">
-        <div></div>
-        <div>
-          {projectNumber && <p className="font-normal text-black">{projectNumber}</p>}
-        </div>
       </div>
     </div>
   )
