@@ -169,9 +169,9 @@ export function Site() {
 
               {/* 50:50 레이아웃 */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-                {/* [좌측 50%] 모바일에서는 pt-16으로 상단 고정 헤더 아래 한 줄 여백 확보 */}
+                {/* [좌측 50%] 폭이 좁아질 때 상단 헤더 텍스트와 본문 제목이 겹치지 않도록 pt-16 오프셋 확보 */}
                 <div 
-                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-16 md:pt-3 pb-10 text-black leading-snug font-normal cursor-default"
+                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-16 md:pt-14 pb-10 text-black leading-snug font-normal cursor-default"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
@@ -179,7 +179,7 @@ export function Site() {
                   {/* 데스크톱 왼쪽 구역 (비워둠) */}
                   <div className="hidden md:block"></div>
 
-                  {/* 오른쪽 구역의 좌상단 배치 + 제목과 연도는 줄바꿈 간격 없이 바로 연결 */}
+                  {/* 오른쪽 구역의 좌상단 배치 + 제목과 연도 밀착 */}
                   <div className="px-2 md:px-4 flex flex-col items-start text-left">
                     <div className="whitespace-pre-wrap select-text w-full space-y-4 break-all [hyphens:auto] [word-break:break-word]">
                       <div>
