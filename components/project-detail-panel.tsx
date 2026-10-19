@@ -11,9 +11,9 @@ export default function ProjectDetailPanel({
   images = [],
 }: ProjectDetailProps) {
   return (
-    <div className="w-full min-h-screen bg-white text-black select-none text-[15px] leading-snug relative">
-      {/* pt-3 패딩으로 이미지 맨 위 상단선이 좌측 텍스트 및 (Close) 버튼 상단선과 완벽 수평 정렬 */}
-      <div className="w-full flex flex-col gap-3 px-2 md:px-4 pt-3 pb-16">
+    <div className="w-full bg-white text-black select-none text-[15px] leading-snug relative">
+      {/* 홈 화면 메인 이미지의 좌우 여백 규격과 동일하게 패딩 조정 */}
+      <div className="w-full flex flex-col gap-3 px-4 md:px-12 pb-16">
         {images.map((src, idx) => {
           const isVideo = src.toLowerCase().endsWith('.mp4')
 
