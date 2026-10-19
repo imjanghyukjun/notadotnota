@@ -29,10 +29,16 @@ const LAYOUTS: Pick<Project, 'maxWidth' | 'aspectRatio'>[] = [
 ]
 
 const rawImageList: { filename?: string; series?: string[]; category: Category }[] = [
-  // --- d.0.jpg를 첫 번째로 두어 홈 화면 배경 대표 이미지로 고정 (---.jpg 삭제) ---
-  { filename: 'Graphic Design/d.0.jpg', category: 'design' },
+  // --- d.0 프로젝트: d.0.jpg와 새로 추가된 d.0a.jpg 묶음 ---
+  { series: ['Graphic Design/d.0.jpg', 'Graphic Design/d.0a.jpg'], category: 'design' },
+
+  // --- d.1 프로젝트 ---
   { series: ['Graphic Design/d.1.jpg', 'Graphic Design/d.1a.jpg'], category: 'design' },
-  { series: ['Graphic Design/d.2.jpg', 'Graphic Design/d.2a.jpg'], category: 'design' },
+
+  // --- d.2 프로젝트: d.2.jpg, d.2a.jpg 및 새로 추가된 d.2b.mp4 영상 묶음 ---
+  { series: ['Graphic Design/d.2.jpg', 'Graphic Design/d.2a.jpg', 'Graphic Design/d.2b.mp4'], category: 'design' },
+
+  // --- d.3~d.12 프로젝트 ---
   { series: ['Graphic Design/d.3.jpg', 'Graphic Design/d.3a.jpg'], category: 'design' },
   { filename: 'Graphic Design/d.4.jpg', category: 'design' },
   { filename: 'Graphic Design/d.5.jpg', category: 'design' },
@@ -44,7 +50,7 @@ const rawImageList: { filename?: string; series?: string[]; category: Category }
   { filename: 'Graphic Design/d.11.jpg', category: 'design' },
   { filename: 'Graphic Design/d.12.jpg', category: 'design' },
 
-  // --- 기존 사진(Photography) 항목들 유지 ---
+  // --- 사진(Photography) 카테고리 ---
   { filename: 'vadsc.jpg', category: 'photography' },
   { filename: '3f.jpg', category: 'photography' },
   { filename: '1.jpg', category: 'photography' },
