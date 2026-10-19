@@ -167,7 +167,19 @@ export function Site() {
                 </button>
               </header>
 
-              {/* 50:50 레이아웃 (PC와 모바일 분리 적용) */}
+              {/* [모바일 전용] 스크롤 시에도 최상단에 고정되는 제목 및 연도 영역 */}
+              <div className="md:hidden fixed top-11 inset-x-0 z-40 px-2 pointer-events-none mix-blend-difference text-white leading-snug font-normal">
+                <div className="whitespace-pre-wrap w-full space-y-0 break-all [hyphens:auto] [word-break:break-word]">
+                  {selectedProject.titleKo || selectedProject.title ? (
+                    <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
+                  ) : null}
+                  {selectedProject.year ? (
+                    <p className="text-[15px]">{selectedProject.year}</p>
+                  ) : null}
+                </div>
+              </div>
+
+              {/* 50:50 레이아웃 */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
                 
                 {/* [PC 전용 좌측 50% 영역] */}
@@ -193,31 +205,18 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [모바일 전용 통합 스크롤 영역] 
-                  - 상단 고정 헤더 아래 충분한 여백(pt-24) 확보 후 두 줄 더 벌림
-                  - 제목과 연도 사이 간격 없이 바로 연결
-                  - 텍스트, 설명, 이미지가 함께 스크롤되며 2026 연도 바로 아래부터 이미지가 가득 참
-                */}
+                {/* [모바일 전용 스크롤 영역] px-2를 적용하여 상단 헤더/클로즈 버튼과 좌우 여백을 완벽히 일치시킴 */}
                 <div 
-                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-24 pb-20 px-2 cursor-default flex flex-col"
+                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-28 pb-20 px-2 cursor-default flex flex-col"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
                 >
-                  <div className="whitespace-pre-wrap select-text w-full space-y-4 text-black leading-snug font-normal text-left mb-6">
-                    <div>
-                      {selectedProject.titleKo || selectedProject.title ? (
-                        <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
-                      ) : null}
-                      {selectedProject.year ? (
-                        <p className="text-[15px]">{selectedProject.year}</p>
-                      ) : null}
-                    </div>
-
-                    {selectedProject.descriptionKo || selectedProject.description ? (
+                  {selectedProject.descriptionKo || selectedProject.description ? (
+                    <div className="whitespace-pre-wrap select-text w-full text-black leading-snug font-normal text-left mb-6">
                       <p className="text-[15px]">{selectedProject.descriptionKo || selectedProject.description}</p>
-                    ) : null}
-                  </div>
+                    </div>
+                  ) : null}
 
                   {/* 모바일 이미지 패널 */}
                   <div className="w-full">
