@@ -45,7 +45,6 @@ const rawImageList: RawItem[] = [
     category: 'design',
     titleKo: '명함',
     year: '2026',
-    mediaKo: '',
     descriptionKo: ''
   },
   { 
@@ -145,7 +144,7 @@ const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.ma
   const mainImage = `/projects/img/${firstPath}`
   const seriesImages = isSeries ? item.series!.map((f) => `/projects/img/${f}`) : undefined
 
-  // (매체)를 완전히 빼고, 존재하는 항목들만 한 줄씩 깔끔하게 연결
+  // mediaKo와 descriptionKo를 순수하게 연결 (템플릿 문자열 원천 차단)
   const fullDescription = [
     item.mediaKo,
     item.descriptionKo
@@ -153,11 +152,11 @@ const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.ma
 
   return {
     slug: `project-${idx}`,
-    title: item.titleKo || '(제목)',
-    titleKo: item.titleKo || '(제목)',
+    title: item.titleKo || '',
+    titleKo: item.titleKo || '',
     number: numStr,
     category: item.category,
-    year: item.year || '(연도)',
+    year: item.year || '',
     description: fullDescription,
     descriptionKo: fullDescription,
     image: mainImage,

@@ -169,18 +169,29 @@ export function Site() {
 
               {/* 50:50 레이아웃 */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-                {/* [좌측 50%] pt-3 패딩으로 좌상단 헤더 텍스트 첫 줄과 수평 라인을 완벽히 일치시킴 */}
+                {/* [좌측 50%] 내부 2열 분할 -> 우측 열의 좌상단에 텍스트 박스 안착 */}
                 <div 
-                  className="w-full h-full overflow-y-auto bg-white px-2 md:px-4 pt-3 pb-10 text-black leading-snug font-normal cursor-pointer flex flex-col items-end text-left"
+                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-3 pb-10 text-black leading-snug font-normal cursor-pointer"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
                 >
-                  <div className="whitespace-pre-wrap select-text max-w-xs w-full">
-                    <p className="font-bold text-[15px] mb-1">{selectedProject.titleKo || selectedProject.title}</p>
-                    <p className="text-[15px] mb-2">{selectedProject.year}</p>
-                    <p className="text-[15px] mb-2">(매체)</p>
-                    <p className="text-[15px]">{selectedProject.descriptionKo || selectedProject.description}</p>
+                  {/* 왼쪽 구역 (비워둠) */}
+                  <div className="hidden md:block"></div>
+
+                  {/* 오른쪽 구역의 좌상단 배치 */}
+                  <div className="px-2 md:px-4 flex flex-col items-start text-left">
+                    <div className="whitespace-pre-wrap select-text w-full space-y-4">
+                      {selectedProject.titleKo || selectedProject.title ? (
+                        <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
+                      ) : null}
+                      {selectedProject.year ? (
+                        <p className="text-[15px]">{selectedProject.year}</p>
+                      ) : null}
+                      {selectedProject.descriptionKo || selectedProject.description ? (
+                        <p className="text-[15px]">{selectedProject.descriptionKo || selectedProject.description}</p>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
 
