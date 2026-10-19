@@ -46,9 +46,10 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* 상단 헤더 (믹스 블렌드 반전 효과 적용) */}
-      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-        <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
+      {/* 상단 헤더 */}
+      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent leading-snug pointer-events-none">
+        {/* PC 전용 좌상단 타이틀 */}
+        <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2 mix-blend-difference text-white">
           <button 
             type="button" 
             onClick={onClose}
@@ -62,17 +63,14 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
           </span>
         </h2>
 
-        {/* 모바일 상단 카테고리 표시 */}
-        <h2 className="md:hidden text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
-          <span className="inline text-white font-normal">
-            <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
-          </span>
-        </h2>
+        {/* 모바일 버전 좌상단에는 어떤 텍스트도 노출되지 않도록 비워둠 */}
+        <div className="md:hidden"></div>
 
+        {/* 우상단 Close 버튼 (텍스트 그림자와 반전 효과를 함께 주어 흰 배경/검은 배경 어디서든 가시성 확보) */}
         <button
           type="button"
           onClick={onClose}
-          className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white mix-blend-difference pointer-events-auto shrink-0"
+          className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white mix-blend-difference [text-shadow:_0_0_2px_rgba(0,0,0,0.8)] pointer-events-auto shrink-0"
         >
           (Close)
         </button>
