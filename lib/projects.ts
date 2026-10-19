@@ -32,68 +32,41 @@ type RawItem = {
   filename?: string
   series?: string[]
   category: Category
-  titleKo?: string
-  year?: string
-  descriptionKo?: string
 }
 
 const rawImageList: RawItem[] = [
-  // --- d.01 (d.0) ---
-  { 
-    series: ['Graphic Design/d.0.jpg', 'Graphic Design/d.0a.jpg'], 
-    category: 'design',
-    titleKo: '(제목)',
-    year: '(연도)',
-    descriptionKo: '(설명)'
-  },
+  // --- 그래픽 디자인 (d.0 ~ d.12) ---
+  { series: ['Graphic Design/d.0.jpg', 'Graphic Design/d.0a.jpg'], category: 'design' },
+  { series: ['Graphic Design/d.1.jpg', 'Graphic Design/d.1a.jpg'], category: 'design' },
+  { series: ['Graphic Design/d.2.jpg', 'Graphic Design/d.2a.jpg', 'Graphic Design/d.2b.mp4'], category: 'design' },
+  { series: ['Graphic Design/d.3.jpg', 'Graphic Design/d.3a.jpg'], category: 'design' },
+  { filename: 'Graphic Design/d.4.jpg', category: 'design' },
+  { filename: 'Graphic Design/d.5.jpg', category: 'design' },
+  { filename: 'Graphic Design/d.6.jpg', category: 'design' },
+  { filename: 'Graphic Design/d.7.jpg', category: 'design' },
+  { filename: 'Graphic Design/d.8.jpg', category: 'design' },
+  { series: ['Graphic Design/d.9.jpg', 'Graphic Design/d.9a.jpg'], category: 'design' },
+  { filename: 'Graphic Design/d.10.jpg', category: 'design' },
+  { filename: 'Graphic Design/d.11.jpg', category: 'design' },
+  { filename: 'Graphic Design/d.12.jpg', category: 'design' },
 
-  // --- d.02 (d.1) ---
-  { 
-    series: ['Graphic Design/d.1.jpg', 'Graphic Design/d.1a.jpg'], 
-    category: 'design',
-    titleKo: '(제목)',
-    year: '(연도)',
-    descriptionKo: '(설명)'
-  },
-
-  // --- d.03 (d.2) : 작성해주신 상세 설명 적용 ---
-  { 
-    series: ['Graphic Design/d.2.jpg', 'Graphic Design/d.2a.jpg', 'Graphic Design/d.2b.mp4'], 
-    category: 'design',
-    titleKo: '간바테 ~ (여기 제목) (섭제목)',
-    year: '2026 (작업 연도)',
-    descriptionKo: '(매체) 책, 디지털 프린팅, 무선제본, 120×155mm, 148p.\n\n(작업설명) 2026년 군산 북페어, 달리며 응원을 모았다. 간바리ㅡ휴릭년이다.'
-  },
-
-  // --- d.04 ~ d.13 ---
-  { series: ['Graphic Design/d.3.jpg', 'Graphic Design/d.3a.jpg'], category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'Graphic Design/d.4.jpg', category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'Graphic Design/d.5.jpg', category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'Graphic Design/d.6.jpg', category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'Graphic Design/d.7.jpg', category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'Graphic Design/d.8.jpg', category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { series: ['Graphic Design/d.9.jpg', 'Graphic Design/d.9a.jpg'], category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'Graphic Design/d.10.jpg', category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'Graphic Design/d.11.jpg', category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'Graphic Design/d.12.jpg', category: 'design', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-
-  // --- 사진(Photography) 카테고리 ---
-  { filename: 'vadsc.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: '3f.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: '1.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: '666.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'vdvs.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: '_5.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'ccc.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'vscd.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: '3.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'cvdccc.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: '2.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'f.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: '6.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'v.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { filename: 'vddd.jpg', category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
-  { series: ['fdsv.jpg', 'vdsdcsa.jpg'], category: 'photography', titleKo: '(제목)', year: '(연도)', descriptionKo: '(설명)' },
+  // --- 사진 (Photography) ---
+  { filename: 'vadsc.jpg', category: 'photography' },
+  { filename: '3f.jpg', category: 'photography' },
+  { filename: '1.jpg', category: 'photography' },
+  { filename: '666.jpg', category: 'photography' },
+  { filename: 'vdvs.jpg', category: 'photography' },
+  { filename: '_5.jpg', category: 'photography' },
+  { filename: 'ccc.jpg', category: 'photography' },
+  { filename: 'vscd.jpg', category: 'photography' },
+  { filename: '3.jpg', category: 'photography' },
+  { filename: 'cvdccc.jpg', category: 'photography' },
+  { filename: '2.jpg', category: 'photography' },
+  { filename: 'f.jpg', category: 'photography' },
+  { filename: '6.jpg', category: 'photography' },
+  { filename: 'v.jpg', category: 'photography' },
+  { filename: 'vddd.jpg', category: 'photography' },
+  { series: ['fdsv.jpg', 'vdsdcsa.jpg'], category: 'photography' },
 ]
 
 const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.map((item, idx) => {
@@ -104,13 +77,13 @@ const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.ma
 
   return {
     slug: `project-${numStr}`,
-    title: item.titleKo || numStr,
-    titleKo: item.titleKo || numStr,
+    title: '(제목)',
+    titleKo: '(제목)',
     number: numStr,
     category: item.category,
-    year: item.year || '2026',
-    description: item.descriptionKo || '(설명)',
-    descriptionKo: item.descriptionKo || '(설명)',
+    year: '(연도)',
+    description: '(설명)',
+    descriptionKo: '(설명)',
     image: mainImage,
     series: seriesImages,
     alt: `Project ${numStr}`,

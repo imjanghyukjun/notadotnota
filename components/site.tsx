@@ -79,7 +79,6 @@ export function Site() {
       ? { ko: '사진', en: 'Photography' }
       : { ko: '그래픽 디자인', en: 'Graphic Design' }
 
-  // 현재 필터링된 카테고리 내에서 선택된 프로젝트의 정확한 1부터 시작하는 순번 계산
   const currentCategoryProjects = selectedProject
     ? projects.filter(p => p.category === selectedProject.category)
     : []
@@ -92,7 +91,6 @@ export function Site() {
     ? `${projectPrefix}.${String(selectedProjectIndex + 1).padStart(2, '0')}` 
     : ''
 
-  // PC 및 홈 화면 점멸 스타일에 사용되는 함수
   const getBlinkStyle = (itemIdx: number) => {
     const active = (panel === 'none' && !selectedProject && step === itemIdx && isGreen)
     return {
@@ -101,17 +99,13 @@ export function Site() {
     }
   }
 
-  // 모바일 전용: 활성화된 상태에 따른 g255(초록색) 강조 스타일 계산
   const getMobileItemStyle = (itemKey: 'about' | 'photography' | 'design', itemIdx: number) => {
-    // 1. 특정 패널이 열려있는 경우 해당 항목에 g255 강조
     if (panel === itemKey) {
       return { color: 'rgb(0, 255, 0)', transition: 'color 0.3s ease' }
     }
-    // 2. 홈 화면(panel === 'none')인 경우 기존 깜빡임 모션 유지
     if (panel === 'none' && !selectedProject && step === itemIdx && isGreen) {
       return { color: 'rgb(0, 255, 0)', transition: 'color 0.8s ease-in-out' }
     }
-    // 3. 그 외 기본 상태는 블랙/기본색 유지
     return { color: 'inherit', transition: 'color 0.3s ease' }
   }
 
@@ -121,7 +115,7 @@ export function Site() {
         <h1 className="sr-only">장혁준 Jang Hyukjun</h1>
         <HomeCarousel paused={panel !== 'none' || isDetailView} />
 
-        {/* 2. 사진/그래픽 디자인 인덱스 오버레이 */}
+        {/* 2. 인덱스 오버레이 */}
         <IndexOverlay
           open={panel === 'photography' || panel === 'design'}
           projects={filteredProjects}
@@ -139,6 +133,7 @@ export function Site() {
         >
           {isDetailView && (
             <>
+              {/* 최상단 헤더 */}
               <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
                 <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
                   <button 
@@ -172,16 +167,26 @@ export function Site() {
                 </button>
               </header>
 
+              {/* 50:50 레이아웃 */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
+                {/* [좌측 50%] 흰색 배경 영역 & 레퍼런스 위치 텍스트 설명 */}
                 <div 
-                  className="hidden md:block w-full h-full bg-white/97 cursor-pointer"
-                  onClick={closeDetail}
-                />
-                <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50 pt-0">
+                  className="w-full h-full overflow-y-auto bg-white px-2 md:px-4 pt-12 md:pt-14 pb-10 text-black leading-relaxed font-normal cursor-pointer"
+                  onClick={(e) => {
+                    // 텍스트 선택이 아닌 여백 클릭 시 닫기
+                    if (e.target === e.currentTarget) closeDetail()
+                  }}
+                >
+                  <div className="whitespace-pre-wrap select-text">
+                    <p className="font-bold text-[15px] mb-1">{selectedProject.titleKo || selectedProject.title}</p>
+                    <p className="text-[15px] mb-4">{selectedProject.year}</p>
+                    <p className="text-[15px]">{selectedProject.descriptionKo || selectedProject.description}</p>
+                  </div>
+                </div>
+
+                {/* [우측 50%] 상단 여백 없이 최상단부터 밀착되는 이미지/영상 패널 */}
+                <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50">
                   <ProjectDetailPanel
-                    title={selectedProject.titleKo || selectedProject.title}
-                    year={selectedProject.year}
-                    description={selectedProject.descriptionKo || selectedProject.description}
                     projectNumber={formattedProjectNumber}
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
                     onClose={closeDetail}
@@ -193,10 +198,9 @@ export function Site() {
         </div>
       </main>
 
-      {/* 4. 중앙 메인 메뉴 바 */}
+      {/* 4. 메인 메뉴 바 */}
       {!isDetailView && (
         <div className="pointer-events-none fixed inset-x-0 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
-          {/* 데스크톱(PC) 레이아웃 */}
           {panel === 'none' && (
             <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block font-normal">
               <button 
@@ -236,7 +240,6 @@ export function Site() {
             </div>
           )}
 
-          {/* 모바일 레이아웃 */}
           <div className="pointer-events-auto flex items-center justify-center text-[12px] leading-none md:hidden">
             <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none text-black">
               <button
@@ -282,7 +285,6 @@ export function Site() {
         </div>
       )}
 
-      {/* 어바웃 오버레이 */}
       <AboutOverlay open={panel === 'about'} onClose={closeAll} />
     </>
   )
