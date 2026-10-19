@@ -92,12 +92,27 @@ export function Site() {
     ? `${projectPrefix}.${String(selectedProjectIndex + 1).padStart(2, '0')}` 
     : ''
 
+  // PC 및 홈 화면 점멸 스타일에 사용되는 함수
   const getBlinkStyle = (itemIdx: number) => {
     const active = (panel === 'none' && !selectedProject && step === itemIdx && isGreen)
     return {
       color: active ? 'rgb(0, 255, 0)' : 'inherit',
       transition: 'color 0.8s ease-in-out',
     }
+  }
+
+  // 모바일 전용: 활성화된 상태에 따른 g255(초록색) 강조 스타일 계산
+  const getMobileItemStyle = (itemKey: 'about' | 'photography' | 'design', itemIdx: number) => {
+    // 1. 특정 패널이 열려있는 경우 해당 항목에 g255 강조
+    if (panel === itemKey) {
+      return { color: 'rgb(0, 255, 0)', transition: 'color 0.3s ease' }
+    }
+    // 2. 홈 화면(panel === 'none')인 경우 기존 깜빡임 모션 유지
+    if (panel === 'none' && !selectedProject && step === itemIdx && isGreen) {
+      return { color: 'rgb(0, 255, 0)', transition: 'color 0.8s ease-in-out' }
+    }
+    // 3. 그 외 기본 상태는 블랙/기본색 유지
+    return { color: 'inherit', transition: 'color 0.3s ease' }
   }
 
   return (
@@ -176,58 +191,60 @@ export function Site() {
         </div>
       </main>
 
-      {/* 4. 홈 화면 중앙 메인 메뉴 바 */}
-      {!isDetailView && panel === 'none' && (
-        <div className="pointer-events-none fixed inset-x-0 top-1/2 z-30 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
-          {/* 데스크톱(PC) 레이아웃 */}
-          <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block font-normal">
-            <button 
-              type="button" 
-              onClick={() => { setSelectedProject(null); setPanel('about'); }} 
-              style={getBlinkStyle(0)}
-              className="cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70"
-            >
-              <span lang="ko">장혁준</span> Jang Hyukjun
-            </button>{' '}
-            ({' '}
-            <button 
-              type="button" 
-              onClick={() => { setSelectedProject(null); setPanel('photography'); }} 
-              style={getBlinkStyle(1)}
-              className="cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70"
-            >
-              <span lang="ko">사진</span> Photography
-            </button>{' '}
-            ({' '}
-            <button 
-              type="button" 
-              onClick={() => { setSelectedProject(null); setPanel('design'); }} 
-              style={getBlinkStyle(2)}
-              className="cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70"
-            >
-              <span lang="ko">그래픽 디자인</span> Graphic Design
-            </button>{' '}
-            ({' '}
-            <a href={`mailto:${EMAIL}`} className="hover:opacity-50 transition-opacity underline underline-offset-4 decoration-transparent hover:decoration-current">
-              {EMAIL}
-            </a>{' '}
-            ({' '}
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity underline underline-offset-4 decoration-transparent hover:decoration-current">
-              instagram@{INSTAGRAM_HANDLE}
-            </a>
-          </div>
+      {/* 4. 중앙 메인 메뉴 바 (디테일 뷰가 아닐 때 항상 표시, 오버레이 위인 z-50으로 설정) */}
+      {!isDetailView && (
+        <div className="pointer-events-none fixed inset-x-0 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center px-4 text-center text-[15px] leading-snug">
+          {/* 데스크톱(PC) 레이아웃 (홈 화면일 때만 노출) */}
+          {panel === 'none' && (
+            <div className="pointer-events-auto hidden bg-background px-0.5 text-balance md:block font-normal">
+              <button 
+                type="button" 
+                onClick={() => { setSelectedProject(null); setPanel('about'); }} 
+                style={getBlinkStyle(0)}
+                className="cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70"
+              >
+                <span lang="ko">장혁준</span> Jang Hyukjun
+              </button>{' '}
+              ({' '}
+              <button 
+                type="button" 
+                onClick={() => { setSelectedProject(null); setPanel('photography'); }} 
+                style={getBlinkStyle(1)}
+                className="cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70"
+              >
+                <span lang="ko">사진</span> Photography
+              </button>{' '}
+              ({' '}
+              <button 
+                type="button" 
+                onClick={() => { setSelectedProject(null); setPanel('design'); }} 
+                style={getBlinkStyle(2)}
+                className="cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current hover:opacity-70"
+              >
+                <span lang="ko">그래픽 디자인</span> Graphic Design
+              </button>{' '}
+              ({' '}
+              <a href={`mailto:${EMAIL}`} className="hover:opacity-50 transition-opacity underline underline-offset-4 decoration-transparent hover:decoration-current">
+                {EMAIL}
+              </a>{' '}
+              ({' '}
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:opacity-50 transition-opacity underline underline-offset-4 decoration-transparent hover:decoration-current">
+                instagram@{INSTAGRAM_HANDLE}
+              </a>
+            </div>
+          )}
 
-          {/* 모바일 레이아웃 */}
+          {/* 모바일 레이아웃 (모든 상태에서 유지 및 해당 텍스트만 g255 강조) */}
           <div className="pointer-events-auto flex items-center justify-center text-[12px] leading-none md:hidden">
-            <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none">
+            <div className="inline-block bg-background px-0.5 py-0.5 whitespace-nowrap leading-none text-black">
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation()
                   setSelectedProject(null)
-                  setPanel('about')
+                  setPanel(prev => prev === 'about' ? 'none' : 'about')
                 }}
-                style={getBlinkStyle(0)}
+                style={getMobileItemStyle('about', 0)}
                 className="inline cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current"
               >
                 <span lang="ko">장혁준</span> Jang Hyukjun
@@ -238,9 +255,9 @@ export function Site() {
                 onClick={(e) => {
                   e.stopPropagation()
                   setSelectedProject(null)
-                  setPanel('photography')
+                  setPanel(prev => prev === 'photography' ? 'none' : 'photography')
                 }}
-                style={getBlinkStyle(1)}
+                style={getMobileItemStyle('photography', 1)}
                 className="inline cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current"
               >
                 <span lang="ko">사진</span> Photography
@@ -251,9 +268,9 @@ export function Site() {
                 onClick={(e) => {
                   e.stopPropagation()
                   setSelectedProject(null)
-                  setPanel('design')
+                  setPanel(prev => prev === 'design' ? 'none' : 'design')
                 }}
-                style={getBlinkStyle(2)}
+                style={getMobileItemStyle('design', 2)}
                 className="inline cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current"
               >
                 <span lang="ko">그래픽 디자인</span> Graphic Design
