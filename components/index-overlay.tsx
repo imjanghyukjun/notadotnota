@@ -24,7 +24,7 @@ type IndexOverlayProps = {
   title?: { ko: string; en: string }
 }
 
-export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlayProps) {
+export function IndexOverlay({ open, projects, onClose, onSelect, title }: IndexOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   useOverlay(open, onClose)
 
@@ -45,8 +45,20 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* 상단 (Close) 버튼 */}
-      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-end py-3 px-2 md:px-4 bg-transparent text-black leading-snug pointer-events-none">
+      {/* 상단 헤더: 모바일에서는 좌상단 텍스트 hidden, PC(md 이상)에서는 정상 표시 */}
+      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent text-black leading-snug pointer-events-none">
+        <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
+          <button 
+            type="button" 
+            onClick={onClose}
+            className="hover:opacity-50 transition-opacity cursor-pointer inline text-black font-normal"
+          >
+            <span lang="ko">장혁준</span> Jang Hyukjun
+          </button>
+          {' ( '}
+          <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
+        </h2>
+
         <button
           type="button"
           onClick={onClose}
@@ -56,8 +68,8 @@ export function IndexOverlay({ open, projects, onClose, onSelect }: IndexOverlay
         </button>
       </header>
 
-      {/* 모바일 상단 여백을 (Close) 버튼 라인 위치까지 바짝 끌어올림 (pt-3 md:pt-16) */}
-      <div className="w-full min-h-full px-2 md:px-4 pt-3 md:pt-16 pb-16 pointer-events-none">
+      {/* 이미지 그리드 영역: 모바일 pt-3, PC pt-16 md:pt-28 */}
+      <div className="w-full min-h-full px-2 md:px-4 pt-3 md:pt-28 pb-16 pointer-events-none">
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto">
           {projects.map((project, i) => {
             const displayImage = project.image || (project.series && project.series[0])
