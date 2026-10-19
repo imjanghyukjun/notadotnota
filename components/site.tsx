@@ -133,9 +133,9 @@ export function Site() {
         >
           {isDetailView && (
             <>
-              {/* 최상단 헤더 */}
-              <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-1 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-1 max-w-[calc(100%-70px)] break-all [hyphens:auto] [word-break:break-word]">
+              {/* PC 전용 최상단 헤더 (기존 유지) */}
+              <header className="hidden md:flex fixed inset-x-0 top-0 z-50 items-start justify-between py-3 px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
+                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
                   <button 
                     type="button" 
                     onClick={closeAll}
@@ -144,6 +144,32 @@ export function Site() {
                     <span lang="ko">장혁준</span> Jang Hyukjun
                   </button>
                   {' ( '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const targetCategory = selectedProject?.category || (panel === 'photography' ? 'photography' : 'design')
+                      setSelectedProject(null)
+                      setPanel(targetCategory)
+                    }}
+                    className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
+                  >
+                    <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en}
+                  </button>
+                  {' ( '}
+                  <span>{formattedProjectNumber}</span>
+                </h2>
+                <button 
+                  type="button"
+                  onClick={closeDetail}
+                  className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white pointer-events-auto shrink-0"
+                >
+                  (Close)
+                </button>
+              </header>
+
+              {/* [모바일 전용] 최상단 헤더 (장혁준 이름 제거, 카테고리 및 번호 중심) */}
+              <header className="md:hidden fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-1 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
+                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-1 max-w-[calc(100%-70px)] break-all [hyphens:auto] [word-break:break-word]">
                   <button
                     type="button"
                     onClick={() => {
@@ -205,7 +231,7 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [모바일 전용 스크롤 영역] 좌우 여백 px-1로 타이트하게 밀착, 상단 여백 정밀 계산 적용 */}
+                {/* [모바일 전용 스크롤 영역] */}
                 <div 
                   className="md:hidden w-full h-full overflow-y-auto bg-white pt-[calc(0.75rem+1.35rem*3.8)] pb-20 px-1 cursor-default flex flex-col"
                   onClick={(e) => {
