@@ -46,19 +46,19 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* 상단 헤더: 디테일 패널과 동일하게 mix-blend-difference 적용 */}
-      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
+      {/* 상단 헤더 */}
+      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent leading-snug pointer-events-none">
         {/* PC 전용 좌상단 타이틀 */}
-        <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2 text-white">
+        <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2 text-black">
           <button 
             type="button" 
             onClick={onClose}
-            className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
+            className="hover:opacity-50 transition-opacity cursor-pointer inline text-black font-normal"
           >
             <span lang="ko">장혁준</span> Jang Hyukjun
           </button>
           {' ( '}
-          <span className="inline text-white font-normal">
+          <span className="inline text-black font-normal">
             <span lang="ko">{title?.ko || '찾아보기'}</span> {title?.en || 'Index'}
           </span>
         </h2>
@@ -66,11 +66,11 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         {/* 모바일 버전 좌상단에는 텍스트를 노출하지 않음 */}
         <div className="md:hidden"></div>
 
-        {/* 우상단 Close 버튼: 디테일 패널과 완벽히 동일한 mix-blend-difference 적용 */}
+        {/* 우상단 Close 버튼: 박스나 섀도우 없이 50% 투명 회색 텍스트 컬러만 적용 */}
         <button
           type="button"
           onClick={onClose}
-          className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white mix-blend-difference pointer-events-auto shrink-0"
+          className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-neutral-500 md:text-black pointer-events-auto shrink-0"
         >
           (Close)
         </button>
