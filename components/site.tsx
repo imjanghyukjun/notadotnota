@@ -195,8 +195,8 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [우측 50%] 스크롤 시 (Close) 버튼 상단선 위로 올라가지 못하도록 pt-3 한계 세팅 */}
-                <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50 pt-3">
+                {/* [우측 50%] 중복 pt-3 제거로 디테일 패널 상단선 완벽 정렬 */}
+                <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50">
                   <ProjectDetailPanel
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
                     onClose={closeDetail}
