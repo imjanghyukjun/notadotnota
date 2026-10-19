@@ -169,9 +169,9 @@ export function Site() {
 
               {/* 50:50 레이아웃 */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-                {/* [좌측 50%] 흰색 영역 + 중앙 선으로 밀어붙인 텍스트 설명 */}
+                {/* [좌측 50%] pt-3 패딩으로 좌상단 헤더 텍스트 첫 줄과 수평 라인을 완벽히 일치시킴 */}
                 <div 
-                  className="w-full h-full overflow-y-auto bg-white px-2 md:px-4 pt-12 md:pt-14 pb-10 text-black leading-relaxed font-normal cursor-pointer flex flex-col items-end text-left"
+                  className="w-full h-full overflow-y-auto bg-white px-2 md:px-4 pt-3 pb-10 text-black leading-snug font-normal cursor-pointer flex flex-col items-end text-left"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
@@ -184,7 +184,7 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [우측 50%] 상단 여백 없이 최상단부터 밀착되는 이미지/영상 패널 */}
+                {/* [우측 50%] 상단 완벽 밀착 이미지/영상 패널 */}
                 <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50">
                   <ProjectDetailPanel
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
