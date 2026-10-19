@@ -42,15 +42,15 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      // 모바일에서는 bg-white/80 (80% 투명도), PC(md 이상)에서는 bg-white/95 적용
-      className={`fixed inset-0 z-40 bg-white/80 md:bg-white/95 text-[15px] leading-snug transition-opacity duration-300 ease-out overflow-y-auto ${
+      // 디테일 패널과 동일하게 bg-white/97 기반으로 통일하여 믹스 블렌드 반전이 안정적으로 작동하도록 설정
+      className={`fixed inset-0 z-40 bg-white/97 text-[15px] leading-snug transition-opacity duration-300 ease-out overflow-y-auto ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* 상단 헤더 */}
-      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent leading-snug pointer-events-none">
+      {/* 상단 헤더: 디테일 패널과 동일한 믹스 블렌드 반전 적용 */}
+      <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
         {/* PC 전용 좌상단 타이틀 */}
-        <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2 mix-blend-difference text-white">
+        <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2 text-white">
           <button 
             type="button" 
             onClick={onClose}
@@ -67,7 +67,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         {/* 모바일 버전 좌상단에는 텍스트를 노출하지 않음 */}
         <div className="md:hidden"></div>
 
-        {/* 우상단 Close 버튼 */}
+        {/* 우상단 Close 버튼: 디테일 패널과 동일한 믹스 블렌드 반전 적용 */}
         <button
           type="button"
           onClick={onClose}
