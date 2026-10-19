@@ -9,6 +9,7 @@ type Project = {
   titleKo: string
   title: string
   year: string
+  number?: string
   aspectRatio?: string | number
   image?: string
   series?: string[]
@@ -45,7 +46,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* 상단 헤더: 모바일에서는 좌상단 텍스트 hidden, PC(md 이상)에서는 정상 표시 */}
+      {/* 상단 헤더 */}
       <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent text-black leading-snug pointer-events-none">
         <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
           <button 
@@ -71,10 +72,11 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       {/* 이미지 그리드 영역 */}
       <div className="w-full min-h-full px-2 md:px-4 pt-3 md:pt-28 pb-16 pointer-events-none">
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto">
-          {projects.map((project, i) => {
+          {projects.map((project) => {
             const displayImage = project.image || (project.series && project.series[0])
             const prefix = project.category === 'photography' ? 'p' : 'd'
-            const formattedIndex = `${prefix}.${String(i + 1).padStart(2, '0')}`
+            // 파일명 기반 고유 number (예: '00', '01' 등) 사용
+            const formattedIndex = project.number ? `${prefix}.${project.number}` : ''
 
             return (
               <div

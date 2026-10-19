@@ -87,8 +87,8 @@ export function Site() {
     : -1
   
   const projectPrefix = selectedProject?.category === 'photography' ? 'p' : 'd'
-  const formattedProjectNumber = selectedProjectIndex !== -1 
-    ? `${projectPrefix}.${String(selectedProjectIndex + 1).padStart(2, '0')}` 
+  const formattedProjectNumber = selectedProject?.number 
+    ? `${projectPrefix}.${selectedProject.number}` 
     : ''
 
   const getBlinkStyle = (itemIdx: number) => {
