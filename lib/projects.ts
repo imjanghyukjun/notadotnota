@@ -39,7 +39,7 @@ type RawItem = {
 }
 
 const rawImageList: RawItem[] = [
-  // --- 그래픽 디자인 (d.0 ~ d.6 실제 정보 적용) ---
+  // --- 그래픽 디자인 (d.0 ~ d.6) ---
   { 
     series: ['Graphic Design/d.0.jpg', 'Graphic Design/d.0a.jpg'], 
     category: 'design',
@@ -97,7 +97,7 @@ const rawImageList: RawItem[] = [
     descriptionKo: '문단과 포스터는 대체로 어려움 없이 읽히기 위해 설계된다는 점에서, 또 저마다 다른 내용과 모양을 갖는다는 점에서 상당 부분 서로 닮아 있다. 문단 하나는 그 자체로 한 장의 포스터가 될 수 있다.\n\n《책으로부터》는 《책의 자리》의 연계 프로그램으로, 책의 형태를 고민해 온 26인의 그래픽 디자이너가 ‘책을 이루는 것은 무엇인가’라는 질문에 답하는 포스터 전시다. 디자이너들은 표지, 여백, 본문 등 책을 이루는 요소를 각자의 경험으로 바라보고 저마다의 시각 언어로 다시 해석한다. 책을 만드는 이들의 시선을 따라, 우리는 익숙했던 책의 모습을 다시 들여다본다.'
   },
 
-  // --- 그래픽 디자인 (d.7 ~ d.12 템플릿 유지) ---
+  // --- 그래픽 디자인 (d.7 ~ d.12) ---
   { filename: 'Graphic Design/d.7.jpg', category: 'design' },
   { filename: 'Graphic Design/d.8.jpg', category: 'design' },
   { series: ['Graphic Design/d.9.jpg', 'Graphic Design/d.9a.jpg'], category: 'design' },
@@ -145,10 +145,10 @@ const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.ma
   const mainImage = `/projects/img/${firstPath}`
   const seriesImages = isSeries ? item.series!.map((f) => `/projects/img/${f}`) : undefined
 
-  // 매체 항목이 입력된 경우와 비어있는 경우(d.0)에 맞게 텍스트 병합
+  // (매체)를 완전히 빼고, 존재하는 항목들만 한 줄씩 깔끔하게 연결
   const fullDescription = [
-    item.mediaKo !== undefined ? item.mediaKo : '(매체)',
-    item.descriptionKo !== undefined ? item.descriptionKo : '(설명)'
+    item.mediaKo,
+    item.descriptionKo
   ].filter(Boolean).join('\n\n')
 
   return {
