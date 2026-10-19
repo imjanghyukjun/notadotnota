@@ -167,8 +167,8 @@ export function Site() {
                 </button>
               </header>
 
-              {/* [모바일 전용] 스크롤 시에도 최상단에 고정되는 제목 및 연도 영역 */}
-              <div className="md:hidden fixed top-11 inset-x-0 z-40 px-2 pointer-events-none mix-blend-difference text-white leading-snug font-normal">
+              {/* [모바일 전용] 상단 헤더 바로 아래 행간 기준 정확히 한 줄 띄운 위치에 고정되는 제목 및 연도 영역 */}
+              <div className="md:hidden fixed top-[calc(0.75rem+1.35rem*2)] inset-x-0 z-40 px-2 pointer-events-none mix-blend-difference text-white leading-snug font-normal">
                 <div className="whitespace-pre-wrap w-full space-y-0 break-all [hyphens:auto] [word-break:break-word]">
                   {selectedProject.titleKo || selectedProject.title ? (
                     <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
@@ -205,9 +205,9 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [모바일 전용 스크롤 영역] px-2를 적용하여 상단 헤더/클로즈 버튼과 좌우 여백을 완벽히 일치시킴 */}
+                {/* [모바일 전용 스크롤 영역] 고정된 제목 영역 아래부터 내용이 시작되도록 정확한 pt 오프셋 및 일치하는 px-2 좌우 여백 적용 */}
                 <div 
-                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-28 pb-20 px-2 cursor-default flex flex-col"
+                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-[calc(0.75rem+1.35rem*4.2)] pb-20 px-2 cursor-default flex flex-col"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
@@ -303,7 +303,7 @@ export function Site() {
                 onClick={(e) => {
                   e.stopPropagation()
                   setSelectedProject(null)
-                  setPanel(prev => prev === 'photography' ? 'none' : 'photography')
+                  setPanel(prev => prev === 'photography' ? 'photography' : 'photography')
                 }}
                 style={getMobileItemStyle('photography', 1)}
                 className="inline cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current"
