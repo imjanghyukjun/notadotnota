@@ -161,40 +161,25 @@ export function Site() {
                 <button 
                   type="button"
                   onClick={closeDetail}
-                  className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white pointer-events-auto shrink-0"
+                  className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white mix-blend-difference pointer-events-auto shrink-0"
                 >
                   (Close)
                 </button>
               </header>
 
-              {/* [모바일 전용] 최상단 헤더 (px-2로 상단 헤더 / 클로즈버튼 좌우 여백 일치) */}
-              <header className="md:hidden fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2 max-w-[calc(100%-80px)] break-all [hyphens:auto] [word-break:break-word]">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const targetCategory = selectedProject?.category || (panel === 'photography' ? 'photography' : 'design')
-                      setSelectedProject(null)
-                      setPanel(targetCategory)
-                    }}
-                    className="hover:opacity-50 transition-opacity cursor-pointer inline text-white font-normal"
-                  >
-                    <span lang="ko">{detailCategoryLabel.ko}</span> {detailCategoryLabel.en}
-                  </button>
-                  {' ( '}
-                  <span>{formattedProjectNumber}</span>
-                </h2>
+              {/* [모바일 전용] 최상단 헤더 (우측 (Close) 버튼만 남김) */}
+              <header className="md:hidden fixed inset-x-0 top-0 z-50 flex items-start justify-end py-3 px-2 bg-transparent pointer-events-none">
                 <button 
                   type="button"
                   onClick={closeDetail}
-                  className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white pointer-events-auto shrink-0"
+                  className="hover:opacity-50 ml-auto cursor-pointer text-[15px] font-normal leading-snug text-white mix-blend-difference pointer-events-auto shrink-0"
                 >
                   (Close)
                 </button>
               </header>
 
-              {/* [모바일 전용] 상단 고정 제목 및 연도 영역 (px-2 적용) */}
-              <div className="md:hidden fixed top-[calc(0.75rem+1.35rem*1.8)] inset-x-0 z-40 px-2 pointer-events-none mix-blend-difference text-white leading-snug font-normal">
+              {/* [모바일 전용] 좌상단 위치에 오직 프로젝트 제목과 연도만 고정 노출 (믹스 블렌드 적용) */}
+              <div className="md:hidden fixed top-3 left-2 z-40 pr-20 pointer-events-none mix-blend-difference text-white leading-snug font-normal">
                 <div className="whitespace-pre-wrap w-full space-y-0 break-all [hyphens:auto] [word-break:break-word]">
                   {selectedProject.titleKo || selectedProject.title ? (
                     <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
@@ -231,9 +216,9 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [모바일 전용 스크롤 영역] px-2로 헤더와 완벽히 동일한 좌우 여백 적용 */}
+                {/* [모바일 전용 스크롤 영역] 고정된 상단 제목 영역 아래로 내용이 시작되도록 적절한 pt 및 px-2 여백 적용 */}
                 <div 
-                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-[calc(0.75rem+1.35rem*3.8)] pb-20 px-2 cursor-default flex flex-col"
+                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-20 pb-20 px-2 cursor-default flex flex-col"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
