@@ -167,30 +167,25 @@ export function Site() {
                 </button>
               </header>
 
-              {/* 50:50 레이아웃 */}
+              {/* 50:50 레이아웃 (PC와 모바일 분리 적용) */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-                {/* [좌측 50%] 폭이 좁아질 때 상단 헤더 텍스트와 본문 제목이 겹치지 않도록 pt-16 오프셋 확보 */}
+                
+                {/* [PC 전용 좌측 50% 영역] */}
                 <div 
-                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-16 md:pt-14 pb-10 text-black leading-snug font-normal cursor-default"
+                  className="hidden md:grid w-full h-full overflow-y-auto bg-white grid-cols-2 pt-3 pb-10 text-black leading-snug font-normal cursor-default"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
                 >
-                  {/* 데스크톱 왼쪽 구역 (비워둠) */}
-                  <div className="hidden md:block"></div>
-
-                  {/* 오른쪽 구역의 좌상단 배치 + 제목과 연도 밀착 */}
-                  <div className="px-2 md:px-4 flex flex-col items-start text-left">
-                    <div className="whitespace-pre-wrap select-text w-full space-y-4 break-all [hyphens:auto] [word-break:break-word]">
-                      <div>
-                        {selectedProject.titleKo || selectedProject.title ? (
-                          <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
-                        ) : null}
-                        {selectedProject.year ? (
-                          <p className="text-[15px]">{selectedProject.year}</p>
-                        ) : null}
-                      </div>
-
+                  <div></div>
+                  <div className="px-4 flex flex-col items-start text-left">
+                    <div className="whitespace-pre-wrap select-text w-full space-y-4">
+                      {selectedProject.titleKo || selectedProject.title ? (
+                        <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
+                      ) : null}
+                      {selectedProject.year ? (
+                        <p className="text-[15px]">{selectedProject.year}</p>
+                      ) : null}
                       {selectedProject.descriptionKo || selectedProject.description ? (
                         <p className="text-[15px]">{selectedProject.descriptionKo || selectedProject.description}</p>
                       ) : null}
@@ -198,13 +193,49 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [우측 50%] 이미지 패널 */}
-                <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50">
+                {/* [모바일 전용 통합 스크롤 영역] 
+                  - 상단 고정 헤더 아래 충분한 여백(pt-24) 확보 후 두 줄 더 벌림
+                  - 제목과 연도 사이 간격 없이 바로 연결
+                  - 텍스트, 설명, 이미지가 함께 스크롤되며 2026 연도 바로 아래부터 이미지가 가득 참
+                */}
+                <div 
+                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-24 pb-20 px-2 cursor-default flex flex-col"
+                  onClick={(e) => {
+                    if (e.target === e.currentTarget) closeDetail()
+                  }}
+                >
+                  <div className="whitespace-pre-wrap select-text w-full space-y-4 text-black leading-snug font-normal text-left mb-6">
+                    <div>
+                      {selectedProject.titleKo || selectedProject.title ? (
+                        <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
+                      ) : null}
+                      {selectedProject.year ? (
+                        <p className="text-[15px]">{selectedProject.year}</p>
+                      ) : null}
+                    </div>
+
+                    {selectedProject.descriptionKo || selectedProject.description ? (
+                      <p className="text-[15px]">{selectedProject.descriptionKo || selectedProject.description}</p>
+                    ) : null}
+                  </div>
+
+                  {/* 모바일 이미지 패널 */}
+                  <div className="w-full">
+                    <ProjectDetailPanel
+                      images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
+                      onClose={closeDetail}
+                    />
+                  </div>
+                </div>
+
+                {/* [PC 전용 우측 50% 영역] */}
+                <div className="hidden md:block w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50">
                   <ProjectDetailPanel
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
                     onClose={closeDetail}
                   />
                 </div>
+
               </div>
             </>
           )}
