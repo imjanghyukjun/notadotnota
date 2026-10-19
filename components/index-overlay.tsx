@@ -29,6 +29,9 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
   const overlayRef = useRef<HTMLDivElement>(null)
   useOverlay(open, onClose)
 
+  // 현재 열린 인덱스가 '사진'인지 확인 (title.en이 'Photography'인지 체크)
+  const isPhotography = title?.en === 'Photography'
+
   return (
     <div
       ref={overlayRef}
@@ -76,9 +79,9 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 이미지 타일 그리드 영역 (모바일은 하단 텍스트 제거 및 갭 최소화로 촘촘하게 배치) */}
+      {/* 이미지 그리드 영역: 사진 페이지만 모바일에서 gap-0 및 하단 텍스트 제거 적용 */}
       <div className="w-full min-h-full px-2 md:px-4 pt-14 md:pt-28 pb-16 pointer-events-none">
-        <div className="grid grid-cols-2 gap-x-2 gap-y-2 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto">
+        <div className={`grid grid-cols-2 ${isPhotography ? 'gap-0' : 'gap-x-2 gap-y-12'} md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto`}>
           {projects.map((project) => {
             const displayImage = project.image || (project.series && project.series[0])
             const prefix = project.category === 'photography' ? 'p' : 'd'
@@ -107,8 +110,8 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
                   )}
                 </div>
 
-                {/* PC 버전에서만 하단 번호 텍스트를 유지하고 모바일에서는 숨김 처리 */}
-                <div className="hidden md:block mt-1 text-xs text-left text-black font-normal">
+                {/* 그래픽 디자인 페이지이거나 PC버전일 때만 하단 번호 텍스트 표시 (모바일 사진 페이지만 숨김) */}
+                <div className={`${isPhotography ? 'hidden md:block' : 'block'} mt-1 text-xs text-left text-black font-normal`}>
                   <span>{formattedIndex}</span>
                 </div>
               </div>
