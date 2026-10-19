@@ -48,7 +48,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
     >
       {/* 상단 헤더 */}
       <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent leading-snug pointer-events-none">
-        {/* PC 전용 좌상단 타이틀 (원래대로 블랙 컬러 고정) */}
+        {/* PC 전용 좌상단 타이틀 */}
         <h2 id="index-title" className="hidden md:block text-[15px] font-normal tracking-normal pointer-events-auto pr-2 text-black">
           <button 
             type="button" 
@@ -66,7 +66,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         {/* 모바일 버전 좌상단에는 텍스트를 노출하지 않음 */}
         <div className="md:hidden"></div>
 
-        {/* 우상단 Close 버튼: PC버전(md:)은 원래대로 선명한 블랙, 모바일은 기존 설정 유지 */}
+        {/* 우상단 Close 버튼 */}
         <button
           type="button"
           onClick={onClose}
@@ -76,9 +76,9 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 이미지 박스형 그리드 영역 */}
+      {/* 이미지 타일 그리드 영역 (모바일은 하단 텍스트 제거 및 갭 최소화로 촘촘하게 배치) */}
       <div className="w-full min-h-full px-2 md:px-4 pt-14 md:pt-28 pb-16 pointer-events-none">
-        <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto">
+        <div className="grid grid-cols-2 gap-x-2 gap-y-2 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto">
           {projects.map((project) => {
             const displayImage = project.image || (project.series && project.series[0])
             const prefix = project.category === 'photography' ? 'p' : 'd'
@@ -107,7 +107,8 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
                   )}
                 </div>
 
-                <div className="mt-1 text-xs text-left text-black font-normal">
+                {/* PC 버전에서만 하단 번호 텍스트를 유지하고 모바일에서는 숨김 처리 */}
+                <div className="hidden md:block mt-1 text-xs text-left text-black font-normal">
                   <span>{formattedIndex}</span>
                 </div>
               </div>
