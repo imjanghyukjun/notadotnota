@@ -12,8 +12,8 @@ export default function ProjectDetailPanel({
 }: ProjectDetailProps) {
   return (
     <div className="w-full bg-white text-black select-none text-[15px] leading-snug relative">
-      {/* 홈 화면 메인 이미지의 좌우 여백 규격과 동일하게 패딩 조정 */}
-      <div className="w-full flex flex-col gap-3 px-4 md:px-12 pb-16">
+      {/* 불필요한 패딩을 제거하여 상단 헤더/클로즈 버튼의 px-2 라인과 완벽 일치 */}
+      <div className="w-full flex flex-col gap-3 px-0 pb-16">
         {images.map((src, idx) => {
           const isVideo = src.toLowerCase().endsWith('.mp4')
 

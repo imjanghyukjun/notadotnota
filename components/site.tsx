@@ -133,7 +133,7 @@ export function Site() {
         >
           {isDetailView && (
             <>
-              {/* PC 전용 최상단 헤더 ((Close) 버튼 포함 믹스 블렌드 적용) */}
+              {/* PC 전용 최상단 헤더 */}
               <header className="hidden md:flex fixed inset-x-0 top-0 z-50 items-start justify-between py-3 px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
                 <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
                   <button 
@@ -167,9 +167,9 @@ export function Site() {
                 </button>
               </header>
 
-              {/* [모바일 전용] 최상단 헤더 ((Close) 버튼 포함 믹스 블렌드 적용) */}
-              <header className="md:hidden fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-1 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-1 max-w-[calc(100%-70px)] break-all [hyphens:auto] [word-break:break-word]">
+              {/* [모바일 전용] 최상단 헤더 (px-2로 상단 헤더 / 클로즈버튼 좌우 여백 일치) */}
+              <header className="md:hidden fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
+                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2 max-w-[calc(100%-80px)] break-all [hyphens:auto] [word-break:break-word]">
                   <button
                     type="button"
                     onClick={() => {
@@ -193,8 +193,8 @@ export function Site() {
                 </button>
               </header>
 
-              {/* [모바일 전용] 상단 헤더 행간 기준 정확히 한 줄 비운 위치에 고정되는 제목 및 연도 영역 */}
-              <div className="md:hidden fixed top-[calc(0.75rem+1.35rem*1.8)] inset-x-0 z-40 px-1 pointer-events-none mix-blend-difference text-white leading-snug font-normal">
+              {/* [모바일 전용] 상단 고정 제목 및 연도 영역 (px-2 적용) */}
+              <div className="md:hidden fixed top-[calc(0.75rem+1.35rem*1.8)] inset-x-0 z-40 px-2 pointer-events-none mix-blend-difference text-white leading-snug font-normal">
                 <div className="whitespace-pre-wrap w-full space-y-0 break-all [hyphens:auto] [word-break:break-word]">
                   {selectedProject.titleKo || selectedProject.title ? (
                     <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
@@ -231,9 +231,9 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [모바일 전용 스크롤 영역] */}
+                {/* [모바일 전용 스크롤 영역] px-2로 헤더와 완벽히 동일한 좌우 여백 적용 */}
                 <div 
-                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-[calc(0.75rem+1.35rem*3.8)] pb-20 px-1 cursor-default flex flex-col"
+                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-[calc(0.75rem+1.35rem*3.8)] pb-20 px-2 cursor-default flex flex-col"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
