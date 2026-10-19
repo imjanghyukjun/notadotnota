@@ -149,7 +149,7 @@ const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.ma
   const mainImage = `/projects/img/${firstPath}`
   const seriesImages = isSeries ? item.series!.map((f) => `/projects/img/${f}`) : undefined
 
-  // 사진 카테고리는 p.1, p.2 형태의 라벨로 제목 생성
+  // 사진 카테고리는 번호와 동일한 p.1, p.2 형태를 좌상단 및 본문 제목으로 완전히 동기화
   const title = item.category === 'photography' 
     ? `p.${currentPhotoIndex}` 
     : (item.titleKo || '')
