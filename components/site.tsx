@@ -133,7 +133,7 @@ export function Site() {
         >
           {isDetailView && (
             <>
-              {/* 최상단 헤더: 폭 좁아질 때 단어/영문 하이픈 줄바꿈 적용 */}
+              {/* 최상단 헤더 */}
               <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
                 <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2 max-w-[calc(100%-80px)] break-all [hyphens:auto] [word-break:break-word]">
                   <button 
@@ -169,9 +169,9 @@ export function Site() {
 
               {/* 50:50 레이아웃 */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-                {/* [좌측 50%] 모바일/좁은 화면에서는 pt-12 (상단 고정 헤더 아래 한 줄 띄움), 데스크톱에서는 pt-3 완벽 baseline 맞춤 */}
+                {/* [좌측 50%] 모바일에서는 pt-16으로 상단 고정 헤더 아래 한 줄 여백 확보 */}
                 <div 
-                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-12 md:pt-3 pb-10 text-black leading-snug font-normal cursor-default"
+                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-16 md:pt-3 pb-10 text-black leading-snug font-normal cursor-default"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
@@ -179,15 +179,18 @@ export function Site() {
                   {/* 데스크톱 왼쪽 구역 (비워둠) */}
                   <div className="hidden md:block"></div>
 
-                  {/* 오른쪽 구역의 좌상단 배치 + 폭 좁을 때 하이픈/줄바꿈 설정 */}
+                  {/* 오른쪽 구역의 좌상단 배치 + 제목과 연도는 줄바꿈 간격 없이 바로 연결 */}
                   <div className="px-2 md:px-4 flex flex-col items-start text-left">
                     <div className="whitespace-pre-wrap select-text w-full space-y-4 break-all [hyphens:auto] [word-break:break-word]">
-                      {selectedProject.titleKo || selectedProject.title ? (
-                        <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
-                      ) : null}
-                      {selectedProject.year ? (
-                        <p className="text-[15px]">{selectedProject.year}</p>
-                      ) : null}
+                      <div>
+                        {selectedProject.titleKo || selectedProject.title ? (
+                          <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
+                        ) : null}
+                        {selectedProject.year ? (
+                          <p className="text-[15px]">{selectedProject.year}</p>
+                        ) : null}
+                      </div>
+
                       {selectedProject.descriptionKo || selectedProject.description ? (
                         <p className="text-[15px]">{selectedProject.descriptionKo || selectedProject.description}</p>
                       ) : null}
@@ -195,7 +198,7 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [우측 50%] 모바일에서는 pt-3, 데스크톱에서는 동일 수평 맞춤 */}
+                {/* [우측 50%] 이미지 패널 */}
                 <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50">
                   <ProjectDetailPanel
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
