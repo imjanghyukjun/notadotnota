@@ -134,8 +134,8 @@ export function Site() {
           {isDetailView && (
             <>
               {/* 최상단 헤더 */}
-              <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2 max-w-[calc(100%-80px)] break-all [hyphens:auto] [word-break:break-word]">
+              <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-1 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
+                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-1 max-w-[calc(100%-70px)] break-all [hyphens:auto] [word-break:break-word]">
                   <button 
                     type="button" 
                     onClick={closeAll}
@@ -167,8 +167,8 @@ export function Site() {
                 </button>
               </header>
 
-              {/* [모바일 전용] 상단 헤더 바로 아래 행간 기준 정확히 한 줄 띄운 위치에 고정되는 제목 및 연도 영역 */}
-              <div className="md:hidden fixed top-[calc(0.75rem+1.35rem*2)] inset-x-0 z-40 px-2 pointer-events-none mix-blend-difference text-white leading-snug font-normal">
+              {/* [모바일 전용] 상단 헤더 행간 기준 정확히 한 줄 비운 위치에 고정되는 제목 및 연도 영역 */}
+              <div className="md:hidden fixed top-[calc(0.75rem+1.35rem*1.8)] inset-x-0 z-40 px-1 pointer-events-none mix-blend-difference text-white leading-snug font-normal">
                 <div className="whitespace-pre-wrap w-full space-y-0 break-all [hyphens:auto] [word-break:break-word]">
                   {selectedProject.titleKo || selectedProject.title ? (
                     <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
@@ -205,9 +205,9 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [모바일 전용 스크롤 영역] 고정된 제목 영역 아래부터 내용이 시작되도록 정확한 pt 오프셋 및 일치하는 px-2 좌우 여백 적용 */}
+                {/* [모바일 전용 스크롤 영역] 좌우 여백 px-1로 타이트하게 밀착, 상단 여백 정밀 계산 적용 */}
                 <div 
-                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-[calc(0.75rem+1.35rem*4.2)] pb-20 px-2 cursor-default flex flex-col"
+                  className="md:hidden w-full h-full overflow-y-auto bg-white pt-[calc(0.75rem+1.35rem*3.8)] pb-20 px-1 cursor-default flex flex-col"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
@@ -303,7 +303,7 @@ export function Site() {
                 onClick={(e) => {
                   e.stopPropagation()
                   setSelectedProject(null)
-                  setPanel(prev => prev === 'photography' ? 'photography' : 'photography')
+                  setPanel(prev => prev === 'photography' ? 'none' : 'photography')
                 }}
                 style={getMobileItemStyle('photography', 1)}
                 className="inline cursor-pointer underline underline-offset-4 decoration-1 decoration-transparent hover:decoration-current"
