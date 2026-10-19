@@ -41,7 +41,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 bg-white/97 text-[15px] leading-snug transition-opacity duration-300 ease-out overflow-y-auto ${
+      className={`fixed inset-0 z-40 bg-white/95 text-[15px] leading-snug transition-opacity duration-300 ease-out overflow-y-auto ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
@@ -68,7 +68,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         </button>
       </header>
 
-      {/* 이미지 그리드 영역: 모바일 pt-3, PC pt-16 md:pt-28 */}
+      {/* 이미지 그리드 영역 */}
       <div className="w-full min-h-full px-2 md:px-4 pt-3 md:pt-28 pb-16 pointer-events-none">
         <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-7 md:gap-x-4 md:gap-y-16 items-end pointer-events-auto">
           {projects.map((project, i) => {
