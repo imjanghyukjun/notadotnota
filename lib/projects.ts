@@ -32,17 +32,72 @@ type RawItem = {
   filename?: string
   series?: string[]
   category: Category
+  titleKo?: string
+  year?: string
+  mediaKo?: string
+  descriptionKo?: string
 }
 
 const rawImageList: RawItem[] = [
-  // --- 그래픽 디자인 (d.0 ~ d.12) ---
-  { series: ['Graphic Design/d.0.jpg', 'Graphic Design/d.0a.jpg'], category: 'design' },
-  { series: ['Graphic Design/d.1.jpg', 'Graphic Design/d.1a.jpg'], category: 'design' },
-  { series: ['Graphic Design/d.2.jpg', 'Graphic Design/d.2a.jpg', 'Graphic Design/d.2b.mp4'], category: 'design' },
-  { series: ['Graphic Design/d.3.jpg', 'Graphic Design/d.3a.jpg'], category: 'design' },
-  { filename: 'Graphic Design/d.4.jpg', category: 'design' },
-  { filename: 'Graphic Design/d.5.jpg', category: 'design' },
-  { filename: 'Graphic Design/d.6.jpg', category: 'design' },
+  // --- 그래픽 디자인 (d.0 ~ d.6 실제 정보 적용) ---
+  { 
+    series: ['Graphic Design/d.0.jpg', 'Graphic Design/d.0a.jpg'], 
+    category: 'design',
+    titleKo: '명함',
+    year: '2026',
+    mediaKo: '',
+    descriptionKo: ''
+  },
+  { 
+    series: ['Graphic Design/d.1.jpg', 'Graphic Design/d.1a.jpg'], 
+    category: 'design',
+    titleKo: '간바레 Ganbare ガンバレ！',
+    year: '2026',
+    mediaKo: '책, 디지털 프린팅, 무선제본, 120×155mm, 148p.',
+    descriptionKo: '2026년 교토 마라톤을 달리며 응원을 모았다. 간바레-콜렉션이다.'
+  },
+  { 
+    series: ['Graphic Design/d.2.jpg', 'Graphic Design/d.2a.jpg', 'Graphic Design/d.2b.mp4'], 
+    category: 'design',
+    titleKo: '몸을 건너는 몸 Crossing Bodies',
+    year: '2026',
+    mediaKo: '책, 디지털 프린팅, 무선제본, 135x210mm, 292p.',
+    descriptionKo: '콜렉티브 매듭 Collective Maedeup의 전시 《몸을 건너는 몸 Crossing Bodies》과 연계하여 출판되었다.'
+  },
+  { 
+    series: ['Graphic Design/d.3.jpg', 'Graphic Design/d.3a.jpg'], 
+    category: 'design',
+    titleKo: '몸을 건너는 몸 Crossing Bodies',
+    year: '2026',
+    mediaKo: '리플렛, 디지털 프린팅, 3단 접지, 140x297mm.',
+    descriptionKo: '전시 《몸을 건너는 몸 Crossing Bodies》의 리플렛이다.'
+  },
+  { 
+    filename: 'Graphic Design/d.4.jpg', 
+    category: 'design',
+    titleKo: '몸을 건너는 몸 Crossing Bodies',
+    year: '2026',
+    mediaKo: '포스터, 디지털 프린팅, 420x594mm.',
+    descriptionKo: '전시 《몸을 건너는 몸 Crossing Bodies》의 포스터이다.'
+  },
+  { 
+    filename: 'Graphic Design/d.5.jpg', 
+    category: 'design',
+    titleKo: '리핏 데님 Refit Denim',
+    year: '2026',
+    mediaKo: '포스터, fluo print(UV10), 420x594mm.',
+    descriptionKo: '파쇄된 원단 조각이 투입되어 실로 짜이기 전까지의 재생 공정 도면. [1]: 원단 조각(‘리핏 데님’에는 데님 폐기물 40%가 포함된다)을 투입한다. [2]~[9]: 낙면(솜 부스러기, 리핏의 재료로서 질감을 형성한다)이 발생한다. [리핏 데님]: 섬유 가공 부산물로 만들어진 재생지, 비목재지다.\n\n《페이퍼 바이 페이퍼 2026》는 두성종이와 바인엑스트라칼라, 그리고 16명의 참여 디자이너가 함께하는 전시입니다. 참여 디자이너는 두성종이 인더페이퍼의 종이를 탐색하고 선정한 뒤, 참여자 간 공유의 과정을 통해 새 종이를 부여받아 관련 정서와 정보를 차용해 하나의 포스터를 완성하게 됩니다.'
+  },
+  { 
+    filename: 'Graphic Design/d.6.jpg', 
+    category: 'design',
+    titleKo: '문단',
+    year: '2026',
+    mediaKo: '포스터',
+    descriptionKo: '문단과 포스터는 대체로 어려움 없이 읽히기 위해 설계된다는 점에서, 또 저마다 다른 내용과 모양을 갖는다는 점에서 상당 부분 서로 닮아 있다. 문단 하나는 그 자체로 한 장의 포스터가 될 수 있다.\n\n《책으로부터》는 《책의 자리》의 연계 프로그램으로, 책의 형태를 고민해 온 26인의 그래픽 디자이너가 ‘책을 이루는 것은 무엇인가’라는 질문에 답하는 포스터 전시다. 디자이너들은 표지, 여백, 본문 등 책을 이루는 요소를 각자의 경험으로 바라보고 저마다의 시각 언어로 다시 해석한다. 책을 만드는 이들의 시선을 따라, 우리는 익숙했던 책의 모습을 다시 들여다본다.'
+  },
+
+  // --- 그래픽 디자인 (d.7 ~ d.12 템플릿 유지) ---
   { filename: 'Graphic Design/d.7.jpg', category: 'design' },
   { filename: 'Graphic Design/d.8.jpg', category: 'design' },
   { series: ['Graphic Design/d.9.jpg', 'Graphic Design/d.9a.jpg'], category: 'design' },
@@ -69,7 +124,6 @@ const rawImageList: RawItem[] = [
   { series: ['fdsv.jpg', 'vdsdcsa.jpg'], category: 'photography' },
 ]
 
-// 카테고리별 인덱스 카운터
 let designCount = 0
 let photoCount = 0
 
@@ -77,18 +131,13 @@ const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.ma
   const isSeries = Boolean(item.series && item.series.length > 0)
   const firstPath = isSeries ? item.series![0] : item.filename!
 
-  // 파일 경로에서 파일명 추출 (예: 'Graphic Design/d.0.jpg' -> 'd.0.jpg')
   const fileNameOnly = firstPath.split('/').pop() || ''
-  
-  // 파일명에서 숫자 부분 추출 (예: 'd.0.jpg' -> '0', 'd.10.jpg' -> '10')
   const match = fileNameOnly.match(/d\.(\d+)/)
 
   let numStr = ''
   if (item.category === 'design' && match) {
-    // 파일명에 d.0, d.1 등이 있으면 해당 숫자를 두 자리 포맷(00, 01, 02)으로 사용
     numStr = String(match[1]).padStart(2, '0')
   } else {
-    // 그 외 파일명은 카테고리 순서대로 00, 01, 02 순번 부여
     const currentCount = item.category === 'design' ? designCount++ : photoCount++
     numStr = String(currentCount).padStart(2, '0')
   }
@@ -96,15 +145,21 @@ const projectData: Omit<Project, 'maxWidth' | 'aspectRatio'>[] = rawImageList.ma
   const mainImage = `/projects/img/${firstPath}`
   const seriesImages = isSeries ? item.series!.map((f) => `/projects/img/${f}`) : undefined
 
+  // 매체 항목이 입력된 경우와 비어있는 경우(d.0)에 맞게 텍스트 병합
+  const fullDescription = [
+    item.mediaKo !== undefined ? item.mediaKo : '(매체)',
+    item.descriptionKo !== undefined ? item.descriptionKo : '(설명)'
+  ].filter(Boolean).join('\n\n')
+
   return {
     slug: `project-${idx}`,
-    title: '(제목)',
-    titleKo: '(제목)',
+    title: item.titleKo || '(제목)',
+    titleKo: item.titleKo || '(제목)',
     number: numStr,
     category: item.category,
-    year: '(연도)',
-    description: '(설명)',
-    descriptionKo: '(설명)',
+    year: item.year || '(연도)',
+    description: fullDescription,
+    descriptionKo: fullDescription,
     image: mainImage,
     series: seriesImages,
     alt: `Project ${numStr}`,
