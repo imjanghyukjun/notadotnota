@@ -42,7 +42,8 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
       aria-labelledby="index-title"
       inert={!open}
       aria-hidden={!open}
-      className={`fixed inset-0 z-40 bg-white/95 text-[15px] leading-snug transition-opacity duration-300 ease-out overflow-y-auto ${
+      // 모바일에서는 bg-white/80 (80% 투명도), PC(md 이상)에서는 bg-white/95 적용
+      className={`fixed inset-0 z-40 bg-white/80 md:bg-white/95 text-[15px] leading-snug transition-opacity duration-300 ease-out overflow-y-auto ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
@@ -66,7 +67,7 @@ export function IndexOverlay({ open, projects, onClose, onSelect, title }: Index
         {/* 모바일 버전 좌상단에는 텍스트를 노출하지 않음 */}
         <div className="md:hidden"></div>
 
-        {/* 우상단 Close 버튼 (그림자 없이 깔끔하게 믹스 블렌드 반전 적용) */}
+        {/* 우상단 Close 버튼 */}
         <button
           type="button"
           onClick={onClose}
