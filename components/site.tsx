@@ -195,8 +195,8 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [우측 50%] 상단 완벽 밀착 이미지/영상 패널 */}
-                <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50">
+                {/* [우측 50%] 스크롤 시 (Close) 버튼 상단선 위로 올라가지 못하도록 pt-3 한계 세팅 */}
+                <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50 pt-3">
                   <ProjectDetailPanel
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
                     onClose={closeDetail}
