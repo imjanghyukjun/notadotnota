@@ -133,9 +133,9 @@ export function Site() {
         >
           {isDetailView && (
             <>
-              {/* 최상단 헤더 */}
+              {/* 최상단 헤더: 폭 좁아질 때 단어/영문 하이픈 줄바꿈 적용 */}
               <header className="fixed inset-x-0 top-0 z-50 flex items-start justify-between py-3 px-2 md:px-4 bg-transparent mix-blend-difference text-white leading-snug pointer-events-none">
-                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2">
+                <h2 className="text-[15px] font-normal tracking-normal pointer-events-auto pr-2 max-w-[calc(100%-80px)] break-all [hyphens:auto] [word-break:break-word]">
                   <button 
                     type="button" 
                     onClick={closeAll}
@@ -169,19 +169,19 @@ export function Site() {
 
               {/* 50:50 레이아웃 */}
               <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-                {/* [좌측 50%] cursor-default로 기본 마우스 커서 적용 */}
+                {/* [좌측 50%] 모바일/좁은 화면에서는 pt-12 (상단 고정 헤더 아래 한 줄 띄움), 데스크톱에서는 pt-3 완벽 baseline 맞춤 */}
                 <div 
-                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-3 pb-10 text-black leading-snug font-normal cursor-default"
+                  className="w-full h-full overflow-y-auto bg-white grid grid-cols-1 md:grid-cols-2 pt-12 md:pt-3 pb-10 text-black leading-snug font-normal cursor-default"
                   onClick={(e) => {
                     if (e.target === e.currentTarget) closeDetail()
                   }}
                 >
-                  {/* 왼쪽 구역 (비워둠) */}
+                  {/* 데스크톱 왼쪽 구역 (비워둠) */}
                   <div className="hidden md:block"></div>
 
-                  {/* 오른쪽 구역의 좌상단 배치 */}
+                  {/* 오른쪽 구역의 좌상단 배치 + 폭 좁을 때 하이픈/줄바꿈 설정 */}
                   <div className="px-2 md:px-4 flex flex-col items-start text-left">
-                    <div className="whitespace-pre-wrap select-text w-full space-y-4">
+                    <div className="whitespace-pre-wrap select-text w-full space-y-4 break-all [hyphens:auto] [word-break:break-word]">
                       {selectedProject.titleKo || selectedProject.title ? (
                         <p className="font-bold text-[15px]">{selectedProject.titleKo || selectedProject.title}</p>
                       ) : null}
@@ -195,7 +195,7 @@ export function Site() {
                   </div>
                 </div>
 
-                {/* [우측 50%] 중복 pt-3 제거로 디테일 패널 상단선 완벽 정렬 */}
+                {/* [우측 50%] 모바일에서는 pt-3, 데스크톱에서는 동일 수평 맞춤 */}
                 <div className="w-full h-full overflow-y-auto bg-white/97 border-l border-gray-100/50">
                   <ProjectDetailPanel
                     images={selectedProject.series && selectedProject.series.length > 0 ? selectedProject.series : [selectedProject.image]}
